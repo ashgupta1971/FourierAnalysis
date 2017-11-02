@@ -1,0 +1,438 @@
+\begin{section}{Absolute Integrability}
+
+The concept of absolute integrability will be dealt with
+in this section. It will be used in the next section to
+prove Fubini's Theorem.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Absolute Integrability
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{defn}
+	Suppose $a \in \real$, $f:[a,+\infty) \to \cmplx$ and $f$
+	is Riemann Integrable on $[a,\lambda]$ for all $a < \lambda
+	\in \real$. We say $f$ is \emph{absolutely integrable} on
+	$[a,+\infty)$ provided there exists $M > 0$ such that
+
+	\begin{displaymath}
+	\myinta{a}{\lambda}{\modulus{f(t)}}{t} \leq M \text{ for all }
+	a \leq \lambda \in \real
+	\end{displaymath}
+	
+	Or equivalently,
+	\begin{displaymath}
+	\lim_{\lambda \rightarrow +\infty}
+	\myinta{a}{\lambda}{\modulus{f(t)}}{t} \text{ exists.}
+	\end{displaymath}
+	
+	If $b \in \real$, absolute integrability on $(-\infty, b]$ is
+	defined analagously.
+\end{defn}
+
+If $f$ is absolutely integrable on $[a,+\infty)$ and
+$a \leq \lambda < \mu$ then
+\begin{IEEEeqnarray*}{l}
+	\modulus{\myinta{a}{\mu}{f(t)}{t} - 
+	\myinta{a}{\lambda}{f(t)}{t}} \\
+	\leq \myinta{\lambda}{\mu}{\modulus{f(t)}}{t} \\
+	= \myinta{a}{\mu}{\modulus{f(t)}}{t} - 
+	\myinta{a}{\lambda}{\modulus{f(t)}}{t}
+\end{IEEEeqnarray*}
+$\rightarrow 0$ as $\lambda$, $\mu \rightarrow +\infty$. By the
+Cauchy criteriion,
+\begin{displaymath}
+	\lim_{\lambda \rightarrow +\infty}
+	\myinta{a}{\lambda}{f(t)}{t}
+\end{displaymath}
+exists. Denote it by $\myinta{a}{+\infty}{f(t)}{t}$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Example of fn which is not A.I.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{ex}\label{ex:SinTOverT}
+	Define $f:[0,+\infty) \to \real$ by
+	\begin{displaymath}
+	f(t) = 
+		\begin{cases}
+		\displaystyle{\frac{\sin t}{t}} & \text{if } t > 0 \\
+		1 & \text{if } t = 0
+		\end{cases}
+	\end{displaymath}
+	Show that $\lim_{\lambda \rightarrow +\infty}
+	\myinta{0}{\lambda}{f(t)}{t}$ exists but
+	$f$ is not absolutely integrable on $[0,+\infty)$.
+\end{ex}
+
+\begin{soln}
+	It will be shown in Theorem \ref{thrm:Dini1}, using techniques from
+	complex analysis, that
+	\begin{displaymath}
+	\lim_{\lambda \rightarrow +\infty}
+	\myinta{0}{\lambda}{f(t)}{t} = \pi/2
+	\end{displaymath}
+	
+	However, we can show that
+	\begin{displaymath}
+	\lim_{\lambda \rightarrow +\infty}
+	\myinta{0}{\lambda}{\modulus{f(t)}}{t} = +\infty
+	\end{displaymath}
+	
+	Define $g:[\pi,+\infty)$ by
+	\begin{displaymath}
+		g(t) =
+		\begin{cases}
+		\displaystyle{\frac{1}{\pi/2(k\pi + \pi/2)}}(t - k\pi) & k\pi \leq t \leq k\pi + \pi/2 \\
+		\displaystyle{\frac{1}{\pi/2(k\pi + \pi/2)}}((k+1)\pi - t) & k\pi + \pi/2 \leq t \leq (k+1)\pi
+		\end{cases}
+	\end{displaymath}
+	for $k \in \natrl$. It is easy to see that $\modulus{f(t)} \geq g(t)$ 
+	for all $\pi \leq t \in \real$.
+	
+	Then for $n \in \natrl$
+	\begin{IEEEeqnarray*}{rCl}
+		\myinta{0}{(n+1)\pi}{\modulus{f(t)}}{t}
+		& \geq & \myinta{\pi}{(n+1)\pi}{\modulus{f(t)}}{t} \\
+		& = & \sum_{k=1}^n \myinta{k\pi}{(k+1)\pi}{\modulus{\frac{\sin t}{t}}}{t} \\
+		& \geq & \sum_{k=1}^n \myinta{k\pi}{(k+1)\pi}{g(t)}{t} \\
+		& = & \sum_{k=1}^n {\frac{1}{2} \left(\frac{\pi}{k\pi + \pi/2}\right)} \\
+		& = & \sum_{k=1}^n \frac{1}{2k + 1}
+	\end{IEEEeqnarray*}
+	which goes to $+\infty$ as $n \rightarrow \infty$.
+\end{soln}	
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Defn of absolute integrability on R
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
+
+\begin{defn}
+	Suppose $f:\real \to \cmplx$ and $f$ is Riemann Integrable
+	on $[a,b] \subset \real$. We say $f$ is \emph{absolutely
+	integrable on $\real$} provided it is absolutely integrable
+	on $(-\infty, 0]$ and $[0, +\infty)$. In this case we define
+		\begin{displaymath}
+		\int_\real f = \myintb{f(x)}{x}
+		= \myinta{-\infty}{0}{f(x)}{x} + \myinta{0}{+\infty}{f(x)}{x}
+		\end{displaymath}
+	and conclude that
+		\begin{displaymath}
+		\modulus{\myintb{f(x)}{x}} \leq
+		\myintb{\modulus{f(x)}}{x}
+		\end{displaymath}
+	as well as
+		\begin{displaymath}
+		\myintb{f(x)}{x}
+		= \myinta{-\infty}{a}{f(x)}{x} +
+		\myinta{a}{b}{f(x)}{x} +
+		\myinta{b}{+\infty}{f(x)}{x}
+		\end{displaymath}
+	for all $a < b$, $a, b \in \real$.
+\end{defn}
+
+Denote the set of all absolutely integrable functions on $\real$
+by $\absint$. Clearly $\absint$ is a complex vector space equipped
+with the linear functional
+	\begin{displaymath}
+	f \mapsto \int_\real f
+	\end{displaymath}
+Moreover, if $f \in \absint$ and $f > 0$, then
+$\myintb{f(x)}{x} > 0$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Characterization of a.i.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{prop}
+	Suppose $f:\real \to \cmplx$ is Riemann Integrable
+	on $[a,b]$ for all $[a,b] \subset \real$. Then the
+	following are equivalent
+	
+		\begin{enumerate}[i)]
+			\item
+			$f \in \absint$
+			
+			\item
+			There exists $M > 0$ such that
+				\begin{displaymath}
+					\myinta{a}{b}{\modulus{f(x)}}{x}
+						\leq M
+				\end{displaymath}
+			whenever $a < b$.
+			
+			\item
+			For all $\epsilon > 0$ there exists $A > 0$
+			such that
+				\begin{displaymath}
+					\myinta{a}{b}{\modulus{f(x)}}{x}
+						< \epsilon
+				\end{displaymath}
+			whenever $[a,b] \cap [-A,A] = \varnothing$.
+		\end{enumerate}
+\end{prop}
+
+\begin{proof}
+	\begin{enumerate}[]
+	\item
+	i) $\Rightarrow$ ii)
+	If $0 \leq a < b$ then, since $f$ is absolutely
+	integrable on $[0,+\infty)$, we have
+		\begin{displaymath}
+			\myinta{a}{b}{\modulus{f(x)}}{x}
+				\leq \myinta{0}{b}{\modulus{f(x)}}{x}
+				\leq M_1
+		\end{displaymath}
+	for some $M_1 > 0$.
+	
+	Similarly, since $f$ is absolutely integrable on
+	$(-\infty,0]$, there exists $M_2 > 0$ such that
+		\begin{displaymath}
+			\myinta{a}{b}{\modulus{f(x)}}{x}
+				\leq M_2
+		\end{displaymath}
+	whenever $a < b \leq 0$.
+
+	Let $M = M_1 + M_2$. Then ii) is satisfied with
+	this choice of $M$ whenever $0 \leq a < b$ or
+	$a < b \leq 0$. If $a < 0 < b$ then we also have
+		\begin{IEEEeqnarray*}{rCl}
+				\myinta{a}{b}{\modulus{f(x)}}{x}
+					& = & \myinta{a}{0}{\modulus{f(x)}}{x}
+					+ \myinta{0}{b}{\modulus{f(x)}}{x} \\
+				& \leq & M_1 + M_2 \\
+				= M
+		\end{IEEEeqnarray*}
+
+	\item
+	ii) $\Rightarrow$ i)
+	There exists $M > 0$ such that
+		\begin{displaymath}
+			\myinta{0}{\lambda}{\modulus{f(x)}}{x} \leq M
+		\end{displaymath}
+	for all $\lambda > 0$. Thus, by definition, $f$ is
+	absolutely integrable on $[0,+\infty)$. Similarly, $f$
+	is absolutely integrable on $(-\infty,0]$. So $f \in
+	\absint$.
+	
+	\item
+	i) $\Rightarrow$ iii)
+	If $f \in \absint$ then it is absolutely integrable on $[0,+\infty)$.
+	This means
+		\begin{displaymath}
+			\lim_{b \rightarrow \infty}
+				\myinta{0}{b}{\modulus{f(x)}}{x}
+		\end{displaymath}
+	exists. Fix $\epsilon > 0$. By the Cauchy criterion, there exists
+	$A_1 > 0$ such that
+		\begin{displaymath}
+			\myinta{a}{b}{\modulus{f(x)}}{x} = 
+				\myinta{0}{b}{\modulus{f(x)}}{x}
+				- \myinta{0}{a}{\modulus{f(x)}}{x}
+				< \epsilon
+		\end{displaymath}
+	whenever $A_1 < a < b \in \real$. A similar argument shows that if $f \in
+	\absint$ then there exists $A_2 > 0$ such that
+		\begin{displaymath}
+			\myinta{a}{b}{\modulus{f(x)}}{x}
+				= \myinta{a}{0}{\modulus{f(x)}}{x}
+				- \myinta{b}{0}{\modulus{f(x)}}{x}
+				< \epsilon
+		\end{displaymath}
+	whenever $a < b < -A_2$. Let $A = \max (A_1, A_2)$. Then $[a,b] \cap
+	[-A,A] = \varnothing$ iff $a < b < -A \leq -A_2$
+	or $A_1 \leq A < a < b$. The result then follows.
+	
+	\item
+	iii) $\Rightarrow$ i)
+	Fix $\epsilon > 0$. Then by assumption there exists $A > 0$ such that
+		\begin{displaymath}
+			\myinta{a}{b}{\modulus{f(x)}}{x} < \epsilon
+		\end{displaymath}
+	whenever $b > a > A$. Hence
+		\begin{displaymath}
+			\lim_{a,b \rightarrow \infty} \myinta{a}{b}{\modulus{f(x)}}{x}
+				= 0
+		\end{displaymath}
+	So by the Cauchy criterion, $f$ is absolutely integrable on $[0,+\infty)$.
+	A similar argument shows that $f$ is absolutely integrable on $(-\infty,0]$.
+	Therefore, $f \in \absint$ as required.
+			
+	\end{enumerate}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Defn of 1-norm
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Sometimes, the quantity
+	\begin{displaymath}
+		\myintb{\modulus{f(x)}}{x}
+	\end{displaymath}
+is denoted by $\norm[1]{f}$. This is called the 
+\emph{1-norm} of $f$. This terminology is indeed
+justified, as the next theorem shows.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 1-norm is a norm
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thrm}
+	The function $\norm[1]{\cdot}: \absint \to \real$ is
+	a norm provided we identify functions which agree
+	almost everywhere.
+\end{thrm}
+
+\begin{proof}
+	Clearly, if $f \in \absint$ then
+		\begin{displaymath}
+			\norm[1]{f}
+				= \myintb{\modulus{f(x)}}{x} \geq 0
+		\end{displaymath}
+	with equality iff $f = 0$ almost everywhere.
+	
+	If in addition, $\lambda \in \cmplx$ then
+		\begin{displaymath}
+			\norm[1]{\lambda f}
+				= \myintb{\modulus{\lambda f(x)}}{x}
+				= \modulus{\lambda}
+				\myintb{\modulus{f(x)}}{x}
+				= \modulus{\lambda} \norm[1]{f}
+		\end{displaymath}
+
+	Finally, the triangle inequality holds because if
+	$f,g \in \absint$ then
+		\begin{IEEEeqnarray*}{rCl}
+			\norm[1]{f + g} & = &
+				\myintb{\modulus{f(x)+g(x)}}{x} \\
+			& \leq & \myintb{[\modulus{f(x)}
+				+ \modulus{g(x)}]}{x} \\
+			& = & \myintb{\modulus{f(x)}}{x}
+				+ \myintb{\modulus{g(x)}}{x} \\
+			& = & \norm[1]{f} + \norm[1]{g}
+		\end{IEEEeqnarray*}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Convergence of fn to f with respect to 1-norm
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{prop}
+	Given $f \in \absint$ define
+		\begin{displaymath}
+			f_n(x) =
+				\begin{cases}
+					f(x) & \text{ if } \modulus{x} \leq n \\
+					0 & \text{ if } \modulus{x} > n
+				\end{cases}
+		\end{displaymath}
+	for $n \in \natrl$. Then $f_n \rightarrow f$
+	in $\absint$ with respect to the 1-norm.
+\end{prop}
+
+\begin{proof}
+	\begin{IEEEeqnarray*}{rCl}
+		\norm[1]{f - f_n} & = &
+			\myintb{\modulus{f(x)-f_n(x)}}{x} \\
+		& = & \myinta{-\infty}{-n}{\modulus{f(x)}}{x}
+			+ \myinta{n}{\infty}{\modulus{f(x)}}{x} \\
+		& = & \myintb{\modulus{f(x)}}{x}
+			- \myintb[n]{\modulus{f(x)}}{x} \\
+	\end{IEEEeqnarray*}
+	$\rightarrow 0$ as $n \rightarrow \infty$ since
+	$f \in \absint$.
+\end{proof}
+			
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% The set of fns with compact support is dense
+%% in the set of a.i. fns
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thrm}
+	A function $\varphi:\real \to \cmplx$ is said to
+	have \emph{compact support} if it vanishes outside
+	a compact set. Let
+		\begin{displaymath}
+			C_c(\real) = \{\varphi:\real \to \cmplx:
+				\varphi \text{ is continuous and has compact
+				support} \}
+		\end{displaymath}
+	Then, $C_c(\real)$ is a dense linear subspace of
+	$\absint$.
+\end{thrm}
+
+\begin{proof}
+	Let $f \in \absint$. Then given $\epsilon > 0$
+	there exists $N_1 > 0$ such that
+		\begin{displaymath}
+			\myintb{\modulus{f(x)}}{x}
+				- \myintb[n]{\modulus{f(x)}}{x}
+				= \myinta{-\infty}{-n}{\modulus{f(x)}}{x}
+				+ \myinta{n}{\infty}{\modulus{f(x)}}{x}
+				< \epsilon/2
+		\end{displaymath}
+	whenever $n > N_1$.
+	
+	Also, given $n \in \natrl$, there exist a step
+	function $s_n(x):\real \to \cmplx$ and a continuous
+	function $\varphi_n(x):\real \to \cmplx$, both
+	of which vanish outside $[-n,n]$, such that
+		\begin{displaymath}
+			\myintb[n]{\modulus{f(x) - s_n(x)}}{x}
+				< 1/2n
+		\end{displaymath}
+	and
+		\begin{displaymath}
+			\myintb[n]{\modulus{s_n(x) - \varphi_n(x)}}{x}
+				< 1/2n
+		\end{displaymath}
+	
+	Choose $N_2 > 0$ such that $1/N_2 < \epsilon/2$ and let
+	$N = \max(N_1,N_2)$. Then for $n > N$, we have
+		\begin{IEEEeqnarray*}{rCl}
+			\norm[1]{f - \varphi_n} & = &
+				\myintb{\modulus{f(x) - \varphi_n(x)}}{x} \\
+			& = & \myinta{-\infty}{-n}{\modulus{f(x)}}{x}
+				+ \myinta{n}{\infty}{\modulus{f(x)}}{x}
+				+ \myintb[n]{\modulus{f(x) - \varphi_n(x)}}{x} \\
+			& < & \epsilon/2 + \myintb[n]{\modulus{f(x) - s_n(x)}}{x}
+				+ \myintb[n]{\modulus{s_n(x) - \varphi_n(x)}}{x} \\
+			& < & \epsilon/2 + 1/2n + 1/2n \\
+			& < & \epsilon/2 + \epsilon/2 \\
+			& = & \epsilon
+		\end{IEEEeqnarray*}
+	and so $\norm[1]{f - \varphi_n} \rightarrow 0$ as $n \rightarrow
+	\infty$.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% A function bounded by a a.i function is a.i
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{prop}
+	Suppose $f:\real \to \cmplx$ and $f$ is Riemann Integrable on $[a,b]
+	\subset \real$ for all $a < b$. Furthermore, suppose there is a
+	function $h \in \absint$ such that $\modulus{f(x)} \leq h(x)$ for
+	all $x \in \real$. Then $f \in \absint$.
+\end{prop}
+
+\begin{proof}
+	For $0 < \lambda \in \real$ we have
+	\begin{displaymath}
+	\myinta{0}{\lambda}{\modulus{f(x)}}{x}
+	\leq \myinta{0}{\lambda}{h(x)}{x}
+	\end{displaymath}
+	
+	Hence,
+	\begin{displaymath}
+	\lim_{\lambda \rightarrow +\infty}
+	\myinta{0}{\lambda}{\modulus{f(x)}}{x}
+	\leq \lim_{\lambda \rightarrow +\infty}
+	\myinta{0}{\lambda}{h(x)}{x}
+	\end{displaymath}
+	and this latter limit exists since $h \in \absint$. Therefore,
+	$f$ is absolutely integrable on $[0,+\infty)$. A Similar argument
+	shows that $f$ is absolutely integrable on $(-\infty,0]$. So,
+	by the definition of absolute integrability on $\real$, $f \in
+	\absint$.
+\end{proof}
+
+\end{section}

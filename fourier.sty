@@ -1,0 +1,78 @@
+% This file contains the global definitions used by
+% the fourier analysis document.
+
+\ProvidesPackage{fourier}
+
+\newcommand{\natrl}{\mathbb{N}}
+\newcommand{\intgr}{\mathbb{Z}}
+\newcommand{\real}{\mathbb{R}}
+\newcommand{\cmplx}{\mathbb{C}}
+
+\newcommand{\isnatrl}[1][n]{{#1} \in \natrl}
+\newcommand{\isintgr}[1][n]{{#1} \in \intgr}
+\newcommand{\isreal}[1][x]{{#1} \in \real}
+\newcommand{\iscmplx}[1][z]{{#1} \in \cmplx}
+
+\newcommand{\conj}[1]{\overline{#1}}
+
+\newcommand{\cts}{\mathcal{C}}
+\newcommand{\ctsr}{\cts(\real)}
+\newcommand{\ctszero}{\cts_0}
+\newcommand{\ctszeror}{\cts_0(\real)}
+\newcommand{\ctscompact}{\cts_c(\real)}
+\newcommand{\ctsab}[2]{\cts \left( \left[ {#1},{#2} \right] \right)}
+\newcommand{\ctsdiff}[1][\infty]{\cts^{#1}}
+\newcommand{\Rloc}{\real_{loc}}
+\newcommand{\Rc}{\real_c}
+\newcommand{\periodic}[2][2\pi]{{#2}_{#1}}
+
+\newcommand{\riemint}{\mathcal{R}}
+\newcommand{\riemmint}[1][2\pi]{\riemint_{#1}}
+\newcommand{\absint}{\riemint^1}
+\newcommand{\ltwo}{l^2}
+\newcommand{\schwarz}{\mathbb{S}}
+\newcommand{\ud}[1][x]{\, \mathrm{d}{#1}}
+\newcommand{\myinta}[4]{\int_{#1}^{#2}{#3}\ud[#4]}
+\newcommand{\myintb}[3][\infty]{\myinta{-#1}{#1}{#2}{#3}}
+\newcommand{\myintc}[3][\gamma]{\int_{#1}{#2}\ud[#3]}
+\newcommand{\evalat}[4]{{#1} \; \bigg \vert _{{#2}={#3}}^{#4}}
+
+\newcommand{\ceil}[1]{\lceil {#1} \rceil}
+\newcommand{\norm}[2][2]{\left \Vert {#2} \right \Vert_{#1}}
+\newcommand{\supnorm}[1]{\left \Vert {#1} \right \Vert_\infty}
+\newcommand{\modulus}[1]{\left \vert {#1} \right \vert}
+%\newcommand{\innrprod}[2]{\left( {#1} \; \left{\vert} \right{.} \; {#2} % \right)}
+\newcommand{\innrprod}[2]{\left( {#1} \; \vert \; {#2} \right)}
+\newcommand{\innerprod}[2]{\left \langle {#1} \; \vert \; {#2} \right \rangle}
+
+\newcommand{\f}[1][f]{\hat{#1}}
+\newcommand{\F}[1][f]{\widehat{#1}}
+\newcommand{\ftransform}[1][f]{\mathcal{F}{#1}}
+\newcommand{\fmtransform}[1][f]{\mathcal{F}^-{#1}}
+\newcommand{\conva}[2]{{#1} \ast {#2}}
+\newcommand{\convb}[3]{({#1} \ast {#2})(#3)}
+\newcommand{\convc}[2]{{#1} \circledast {#2}}
+
+\newcommand{\fejers}{F\'{e}jer's\ }
+\newcommand{\cesaro}{Ces\'{a}ro\ }
+
+% The following theorem style adds extra space above the title.
+\newtheoremstyle{mytheoremstyle}% name
+  {2.5\baselineskip\@plus.2\baselineskip\@minus.2\baselineskip}% Space above
+  {.5\baselineskip\@plus.2\baselineskip\@minus.2\baselineskip}% Space below
+  {}% Body font
+  {}%Indent amount (empty = no indent, \parindent = para indent)
+  {\bfseries}%  Thm head font
+  {.}%       Punctuation after thm head
+  { }%      Space after thm head: " " = normal interword space;
+        %       \newline = linebreak
+  {}%       Thm head spec
+
+\theoremstyle{mytheoremstyle} \newtheorem{prop}{Proposition}[section]
+\theoremstyle{mytheoremstyle} \newtheorem{defn}[prop]{Definition}
+\theoremstyle{mytheoremstyle} \newtheorem{lemma}[prop]{Lemma}
+\theoremstyle{mytheoremstyle} \newtheorem{thrm}[prop]{Theorem}
+\theoremstyle{mytheoremstyle} \newtheorem{cor}[prop]{Corollary}
+\theoremstyle{mytheoremstyle} \newtheorem{ex}[prop]{Example}
+\theoremstyle{mytheoremstyle} \newtheorem*{soln}{Solution}
+

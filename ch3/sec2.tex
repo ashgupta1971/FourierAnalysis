@@ -1,0 +1,310 @@
+\begin{section}{Abel and \cesaro Sums}
+	Given a complex sequence $\{s_k\}_{k=0}^\infty$ there are
+	other ways to define the sum $\sum_{k=0}^\infty s_k$.
+	For example, although $\sum_{k=0}^\infty (-1)^k$ doesn't
+	exist when applying the usual definition of infinite
+	sums, Euler would have said it converges to $1/2$ because
+		\begin{IEEEeqnarray*}{rCl}
+			\sum_{k=0}^\infty (-1)^k & = & 1
+				+ \sum_{k=1}^\infty (-1)^k \\
+			& = & 1 + \sum_{k=0}^\infty (-1)^{k+1} \\
+			& = & 1 - \sum_{k=0}^\infty (-1)^k
+		\end{IEEEeqnarray*}
+	and so
+		\begin{IEEEeqnarray*}{rCl}
+			2\sum_{k=0}^\infty (-1)^k & = & 1
+		\end{IEEEeqnarray*}
+	from which the assertion follows.
+	
+	In this section we explore two alternative definitions of
+	the sum	of a series and then derive some related results.
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Definition of Cesaro Limit for sequences
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{defn}
+	Given a complex sequence $\{s_k\}_{k=0}^\infty$, its
+	\emph{\cesaro limit} is defined as
+		\begin{displaymath}
+			\lim_{n \rightarrow \infty}
+				\frac{1}{n+1} \sum_{k=0}^n s_k
+		\end{displaymath}
+	and this limit is denoted by
+		\begin{displaymath}
+			\text{C}\lim_{n \rightarrow \infty} s_n
+		\end{displaymath}
+	If the \cesaro limit of a sequence exists and equals $\iscmplx[L]$,
+	then we say the sequence \emph{converges in the sense of \cesaro
+	to $L$}.
+\end{defn}
+	
+%% Trivial example of Cesaro summability
+\begin{ex}
+	Find the \cesaro limit of the sequence $\{(-1)^k\}_{k=1}^\infty$.
+\end{ex}
+
+\begin{soln}
+	For $n \geq 0$, let $s_n = \sum_{k=0}^n (-1)^k$.
+	Then $s_{2n} = 1$ and $s_{2n+1}	= 0$. Therefore
+		\begin{displaymath}
+			\lim_{n \rightarrow \infty} \frac{s_{2n}}{2n} =
+				\lim_{n \rightarrow \infty} \frac{s_{2n+1}}{2n+1} = 0
+		\end{displaymath}
+	and hence C $\lim_{k \rightarrow \infty} (-1)^k = 0$.
+\end{soln}
+	
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Basic theorem about Cesaro Limits
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thrm}
+	Suppose $\lim_{k \rightarrow \infty} s_k = L$ for some sequence
+	$\{s_k\}_{k=0}^\infty$. Then the \cesaro limit of this sequence
+	is also $L$.
+\end{thrm}
+
+\begin{proof}
+	Without loss of generality, we may assume $L = 0$. Given $\epsilon
+	> 0$, choose $N_1$ such that $\modulus{s_k} < \epsilon/2$ when $k
+	> N_1$. Now choose $N_2$ such that
+		\begin{displaymath}
+			\modulus{\frac{1}{n+1}\sum_{k=0}^{N_1} s_k} < \epsilon/2
+		\end{displaymath}
+	whenever $n > N_2$. Let $N = \max(N_1,N_2)$. Then if $n > N$,
+	we have
+		\begin{IEEEeqnarray*}{rCl}
+			\modulus{\frac{1}{n+1}\sum_{k=0}^n s_k} & \leq &
+				\modulus{\frac{1}{n+1}\sum_{k=0}^{N_1} s_k}
+				+ \modulus{\frac{1}{n+1}\sum_{k=N_1+1}^n s_k} \\
+			& \leq & \epsilon/2 + \epsilon/2 \\
+			& = & \epsilon
+		\end{IEEEeqnarray*}
+	and so
+		\begin{displaymath}
+			\text{C}\lim_{k \rightarrow \infty} s_k
+				= \lim_{n \rightarrow \infty}
+				\frac{1}{n+1}\sum_{k=0}^n s_k = 0
+		\end{displaymath}
+	as required.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Definition of Cesaro Summability for series
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{defn}
+	Given a complex series $\sum_{k=0}^\infty s_k$, its \emph{\cesaro
+	sum} is defined as the \cesaro limit of its sequence of partial
+	sums. If this \cesaro sum is equal to $\iscmplx[L]$, we write
+		\begin{displaymath}
+			\text{(C)}\sum_{k=0}^\infty s_k = L
+		\end{displaymath}
+\end{defn}	
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Second basic theorem about Cesaro summability
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thrm}
+	Suppose the \cesaro sum of a complex series
+	$\sum_{k=0}^\infty s_k$ is $L$. Then
+		\begin{displaymath}
+			\lim_{n \rightarrow \infty} \sum_{k=0}^n
+				(1 - \frac{k}{n+1})s_k = L
+		\end{displaymath}
+\end{thrm}
+
+\begin{proof}
+	We have
+		\begin{IEEEeqnarray*}{rCl}
+			\sum_{k=0}^n (1 - \frac{k}{n+1})s_k & = &
+				\frac{1}{n+1} \sum_{k=0}^n (n + 1 - k)s_k \\
+			& = & \frac{1}{n+1} \left( (n+1)s_0 + n s_1 + \ldots
+				+ 2 s_{n-1} + s_n \right) \\
+			& = & \frac{1}{n+1} \left( s_0 + (s_0+s_1) + (s_0+s_1+s_2)
+				+ \ldots + (s_0+s_1+\ldots+s_n) \right) \\
+			& = & \frac{1}{n+1} \sum_{k=0}^n S_k
+		\end{IEEEeqnarray*}
+	where $\{S_k\}_{k=0}^\infty$ is the sequence of partial sums of
+	the series $\sum_{k=0}^\infty s_k$. Hence,
+		\begin{displaymath}
+			\lim_{n \rightarrow \infty}
+				\sum_{k=0}^n (1 - \frac{k}{n+1})s_k
+				= \text{(C)}\sum_{k=0}^\infty s_k = L
+		\end{displaymath}
+\end{proof}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%$$$
+%% Definition of Abel Summability of a complex series
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%$$$
+
+\begin{defn}
+	A complex series $\sum_{k=0}^\infty s_k$ is said to be
+	\emph{Abel summable} to $\iscmplx[L]$ provided the power
+	series $\sum_{k=0}^\infty s_k x^k$ has radius of convergence
+	at least $1$ and
+		\begin{displaymath}
+			\lim_{x \rightarrow 1^-}\sum_{k=0}^\infty s_k x^k
+				= L
+		\end{displaymath}
+	In this case we write
+		\begin{displaymath}
+			\text{(A)}\sum_{k=0}^\infty s_k = L
+		\end{displaymath}
+\end{defn}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% First example of sum, Cesaro sum and Abel sum of
+%% series
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{ex}
+	Show that the series $\sum_{k=0}^\infty (-1)^k$ is divergent
+	but \cesaro summable and Abel summable to $1/2$.
+\end{ex}
+
+\begin{soln}
+	Let $\{s_n\}_{n=0}^\infty$ be the sequence of partial sums of
+	the given series. Then, for $n \geq 0$, $s_{2n} = 1$ and
+	$s_{2n+1} = 0$. Therefore, the series diverges. However, if
+	$\{S_n\}_{n=0}^\infty$ is the sequence of partial sums of the
+	series $\sum_{k=0}^n s_k$, then $S_{2n} = n+1$ and $S_{2n+1}
+	= n+1$. Therefore,
+		\begin{displaymath}
+			\lim_{n \rightarrow \infty} \frac{1}{2n} S_{2n}
+				= \lim_{n \rightarrow \infty} \frac{n+1}{2n}
+				= \frac{1}{2}
+		\end{displaymath}
+	and also
+		\begin{displaymath}
+			\lim_{n \rightarrow \infty} \frac{1}{2n+1} S_{2n+1}
+				= \lim_{n \rightarrow \infty} \frac{n+1}{2n+1}
+				= \frac{1}{2}
+		\end{displaymath}
+	So the \cesaro sum of this series is $1/2$.
+	To compute the Abel sum of the series, we have
+		\begin{displaymath}
+			\lim_{x \rightarrow 1^-}\sum_{k=0}^\infty (-1)^k x^k
+				= \lim_{x \rightarrow 1^-} \frac{1}{1+x}
+				= \frac{1}{2}
+		\end{displaymath}
+	as required.
+\end{soln}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Second example of Cesaro sum and Abel sum of
+%% series
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{ex}
+	Show that the series $\sum_{k=0}^\infty (-1)^k k$ is
+	Abel summable but not \cesaro summable.
+\end{ex}
+
+\begin{soln}
+	The partial sums $\{s_n\}_{n=1}^\infty$ of the series
+	are given by $s_{2n} = n$ and $s_{2n+1} = -n-1$ for $n
+	\geq 0$. Therefore the partial sums $\{S_n\}_{n=0}^\infty$
+	of the series $\sum_{k=0}^\infty s_k$ are given by
+		\begin{IEEEeqnarray*}{rCl} 
+			S_{2n} & = & \sum_{k=0}^{2n} s_k \\
+			& = & \sum_{k=0}^n s_{2k} + \sum_{k=0}^{n-1} s_{2k+1} \\
+			& = & \sum_{k=0}^n k + \sum_{k=0}^{n-1} (-k-1) \\
+			& = & n + \sum_{k=0}^{n-1} k - \sum_{k=0}^{n-1} k
+				- \sum_{k=0}^{n-1} 1 \\
+			& = & n - n \\
+			& = & 0
+		\end{IEEEeqnarray*}
+	and
+		\begin{IEEEeqnarray*}{rCl}
+			S_{2n+1} & = & \sum_{k=0}^{2n+1} s_k \\
+			& = & \sum_{k=0}^n s_{2k} + \sum_{k=0}^n s_{2k+1} \\
+			& = & \sum_{k=0}^n k + \sum_{k=0}^n (-k-1) \\
+			& = & \sum_{k=0}^n k - \sum_{k=0}^n k
+				- \sum_{k=0}^n 1 \\
+			& = & -n-1
+		\end{IEEEeqnarray*}
+	Hence the given series is not \cesaro summable because
+		\begin{displaymath}
+			\lim_{n \rightarrow \infty} \frac{1}{2n+1} S_{2n} = 0
+		\end{displaymath}
+	but
+		\begin{displaymath}
+			\lim_{n \rightarrow \infty} \frac{1}{2n+2} S_{2n+1}
+				= - \frac{1}{2}
+		\end{displaymath}
+	
+	However, from the theory of power series, we know that the
+	radius of convergence of $\sum_{k=0}^\infty (-1)^k k x^k$ is
+		\begin{displaymath}
+			\lim_{k \rightarrow \infty} \frac{\modulus{(-1)^k k}}
+				{\modulus{(-1)^{k+1} (k+1)}} = 1
+		\end{displaymath}
+	Also, letting $S = \sum_{k=0}^\infty (-1)^k k x^k$, we have
+		\begin{IEEEeqnarray*}{rCl}
+			S + xS & = & \sum_{k=1}^\infty (-1)^k x^k \\
+			& = & \frac{-x}{1+x}
+		\end{IEEEeqnarray*}
+	which implies
+		\begin{displaymath}
+			\lim_{x \rightarrow 1^-} \sum_{k=0}^\infty (-1)^k k x^k
+				= \lim_{x \rightarrow 1^-} \frac{-x}{(1+x)^2}
+				= \frac{-1}{4}
+		\end{displaymath}
+	and so the given series is Abel summable to $-1/4$.
+\end{soln}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Final example of Cesaro sum and Abel sum of
+%% series
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{ex}
+	Suppose $\iscmplx$, $\modulus{z} = 1$ but $z \ne 1$.
+	Show that the series $\sum_{k=0}^\infty z^k$ is \cesaro
+	summable and Abel summable to $1/(1-z)$.
+\end{ex}
+
+\begin{soln}
+	The partial sums, $s_n, n \geq 0$ of the given series are given by
+		\begin{displaymath}
+			s_n = \frac{1 - z^{n+1}}{1 - z}
+		\end{displaymath}
+	Therefore,
+		\begin{IEEEeqnarray*}{rCl}
+			\lim_{n \rightarrow \infty}\frac{1}{n+1}
+				\sum_{k=0}^n s_n & = &
+				\lim_{n \rightarrow \infty}\frac{1}{n+1}
+				\sum_{k=0}^n \frac{1}{1-z} -
+				\lim_{n \rightarrow \infty}\frac{1}{n+1}
+				\sum_{k=0}^n \frac{z^{n+1}}{1-z} \\
+			& = & \frac{1}{1-z} - \frac{z}{1-z}
+				\lim_{n \rightarrow \infty}\frac{1}{n+1}
+				\sum_{k=0}^n z^n \\
+			& = & \frac{1}{1-z} - \frac{z}{1-z} 
+				\lim_{n \rightarrow \infty}\frac{1}{n+1}
+				\frac{1}{1-z} \\
+			& = & \frac{1}{1-z}
+		\end{IEEEeqnarray*}
+	So the \cesaro sum of the series is $1/(1-z)$ as required.
+	
+	To compute the Abel sum, note that the radius of convergence of
+	the series $\sum_{k=0}^\infty z^k x^k$ is
+		\begin{displaymath}
+			\lim_{k \rightarrow \infty}
+				\frac{\modulus{z^k}}{\modulus{z^{k+1}}}
+				= \lim_{k \rightarrow \infty} \frac{1}{\modulus{z}}
+				= 1
+		\end{displaymath}
+	Therefore, the Abel sum of the series is given by
+		\begin{IEEEeqnarray*}{rCl}
+			\lim_{x \rightarrow 1^-} \sum_{k=0}^\infty z^k x^k
+				& = & \lim_{x \rightarrow 1^-} \frac{1}{1 - zx} \\
+			& = & \frac{1}{1-z}
+		\end{IEEEeqnarray*}
+\end{soln}
+
+\end{section}

@@ -1,0 +1,448 @@
+\begin{section}{The Schwarz Space}
+
+	Here we present the Schwarz Space and prove
+	several relevant results.
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Defn of Schwarz Space
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{defn}
+	Let $\schwarz$, the \emph{Schwarz Space}, be the set of all
+	$\ctsdiff$ functions from $\real$ to $\cmplx$ having the
+	property that for every $k,m \in \intgr, k \geq 0,
+	m \geq 0$,
+		\begin{displaymath}
+			\lim_{\modulus{x} \rightarrow \infty}
+				\modulus{x^m f^{(k)}(x)} = 0
+		\end{displaymath}
+\end{defn}
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% First simple propostion
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{prop}
+	\begin{enumerate}[i)]
+		\item
+			If $G$ is the Gaussian Distribution then $G \in \schwarz$.
+		\item
+			$\schwarz \subset \ctsdiff(\real) \cap \ctszeror$.
+		\item
+			$\schwarz$ is a complex, commutative algebra (lacking
+			identity) with respect to pointwise addition and
+			multiplication.
+		\item
+			If, for $f \in \schwarz$, we define $f^-:\real \rightarrow 
+			\cmplx$ by $f^-(x) = f(-x)$ then $f^- \in \schwarz$.
+		\item
+			If, for $f \in \schwarz$, we define $\conj{f}:\real \rightarrow
+			\cmplx$ by $\conj{f}(x)=\conj{f(x)}$ then $\conj{f} \in \schwarz$.
+	\end{enumerate}
+\end{prop}
+
+\begin{proof}
+	The proof of all parts is trivial.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% First lemma
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{lemma}\label{lemma:S1}
+	If $f \in \schwarz$ then
+		\begin{enumerate}[i)]
+			\item
+				$f' \in \schwarz$.
+			\item
+				$Pf \in \schwarz$ where $P:\real \rightarrow \cmplx$
+				is any polynomial.
+			\item
+				$f \in \absint$.
+		\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+	The proof of i) and ii) is trivial. For iii), if $f \in \schwarz$
+	then $\modulus{(1+x^2)f(x)} \leq \modulus{f(x)}+\modulus{x^2 f(x)}$
+	for all $\isreal$. Hence
+		\begin{displaymath}
+			\lim_{\modulus{x} \rightarrow \infty} \modulus{(1+x^2)f(x)}=0
+		\end{displaymath}
+	Choose $C>0$ such that $\modulus{(1+x^2)f(x)}\leq C$ for all $\isreal$.
+	Then $\modulus{f(x)} \leq C/(1+x^2)$ which implies $f \in \absint$.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% First theorem
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thrm}\label{thrm:S1}
+	If $f \in \schwarz$ then so is $\f$.
+\end{thrm}
+
+\begin{proof}
+	Let $f \in \schwarz$. Since $f \in \absint$ by Lemma \ref{lemma:S1},
+	$\f \in \ctszeror$ and by definition,
+		\begin{displaymath}
+			\f(x)=\myintb{f(t)e^{-ixt}}{t}
+		\end{displaymath}
+	for all $\isreal$. By Theorem \ref{thrm:Leibniz2},
+		\begin{displaymath}
+			\f'(x)= -i \myintb{tf(t)e^{-ixt}}{t}
+		\end{displaymath}
+	for all $\isreal$. Note that the map $t \mapsto tf(t)$ belongs
+	to $\schwarz$ and hence to $\absint \cap \ctsdiff(\real)$. By
+	induction, $\f \in \ctsdiff(\real)$ and
+		\begin{displaymath}
+			\f^{(k)}(x)= (-i)^k \myintb{t^k f(t)e^{-ixt}}{t}
+		\end{displaymath}
+	for all $\isreal, \isnatrl[k]$. Now suppose $\isnatrl[k]$. Then
+	for each $\isreal$,
+		\begin{IEEEeqnarray*}{rCl}
+			x\f^{(k)}(x) & = & x (-i)^k \myintb{t^k f(t)e^{-ixt}}{t} \\
+			& = & (-i)^{k-1} \myintb{t^k f(t) \frac{d}{dt}(e^{-ixt})}{t} \\
+			& = & (-i)^{k-1}\evalat{t^k f(t)e^{-ixt}}{t}{-\infty}{\infty}
+				- (-i)^{k-1}\myintb{(kt^{k-1}f(t)+t^k f'(t))e^{-ixt}}{t} \\
+			& = & \f[g](x)
+		\end{IEEEeqnarray*}
+	where $g$ is that member of $\schwarz$ defined by
+		\begin{displaymath}
+			g(t) = -(-i)^{k-1}(kt^{k-1}f(t)+t^k f'(t))
+		\end{displaymath}
+	We know that $\f[g] \in \ctszeror$ so 
+		\begin{displaymath}
+			\lim_{\modulus{x} \rightarrow \infty} x \f^{(k)}(x)
+				= \lim_{\modulus{x} \rightarrow \infty} \f[g] = 0
+		\end{displaymath}
+	By induction, for all $m,k \geq 0$,
+		\begin{displaymath}
+			\lim_{\modulus{x} \rightarrow \infty} 
+				\modulus{x^m\f^{(k)}(x)}=0
+		\end{displaymath}
+	so that $\f \in \schwarz$.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Defn of M, D and F
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{defn}
+	For $f \in \schwarz$ define $Mf(x)=-ixf(x)$ for $\isreal$.
+	Note that $M$ is a linear operator on $\schwarz$ and for all
+	$\isnatrl[k]$, $M^k f(x)=(-ix)^k f(x)$. Also, define $Df=f'$
+	and again note that this is a linear operator on $\schwarz$.
+	Finally, let
+		\begin{displaymath}
+			Ff = \frac{1}{\sqrt{2\pi}}\f
+		\end{displaymath}
+	(which is also a linear operator on $\schwarz$ and is called
+	the Fourier Transform of $f$ in some texts). (Note that by
+	Example \ref{ex:GaussianDist}, $FG=G$	where $G$ is the Gaussian
+	Distribution.)
+\end{defn}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Second lemma -- involving M,D,F
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{lemma}\label{lemma:S2}
+	If $f \in \schwarz$ then
+		\begin{enumerate}[i)]
+			\item
+				$DFf = FMf$
+			\item
+				$FD = -MFf$
+		\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+	i) follows from the proof of Theorem \ref{thrm:S1}. For ii),
+		\begin{IEEEeqnarray*}{rCl}
+			FDf(x) & = & \frac{1}{\sqrt{2\pi}}\myintb{f'(t)e^{-ixt}}{t} \\
+			& = & \evalat{\frac{1}{\sqrt{2\pi}}f(t)e^{-ixt}}{t}{-\infty}
+				{\infty} - (-ix)\frac{1}{\sqrt{2\pi}}\myintb{f(t)e^{-ixt}}{t} \\
+			& = & -(-ix)\frac{1}{\sqrt{2\pi}}\f(x) \\
+			& = & -MFf(x)
+		\end{IEEEeqnarray*}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Corollary to Second lemma -- involving M,D,F
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{cor}\label{cor:S2}
+	If $f \in \schwarz$ and $\isnatrl[k]$ then
+		\begin{enumerate}[i)]
+			\item
+				$D^k F f = F M^k f$
+			\item
+				$F D^k f = (-1)^k M^k F f$
+		\end{enumerate}
+\end{cor}
+
+\begin{proof}
+	The proof of both assertions follows from Lemma \ref{lemma:S2}
+	and induction.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Theorem 3 - F is an automorphism on S
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thrm}\label{thrm:FisAutomorphism}
+	The operator $F$ is a vector space automorphism of $\schwarz$
+	onto itself and $F^{-1}f=Ff^-$ for all $f \in \schwarz$.
+\end{thrm}
+
+\begin{proof}
+	This follows from Corollary \ref{cor:FIT2}.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Prop. involving Schwarz Space and Convolutions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{prop}
+	If $f,g \in \schwarz$ then $\conva{f}{g} \in \schwarz$
+	and
+		\begin{displaymath}
+			\convb{f}{g}{x} = \myintb{f(s)}{s}\myintb{g(t)}{t}
+		\end{displaymath}
+\end{prop}
+
+\begin{proof}
+	It follows from Theorem \ref{thrm:Fubini3} that $\conva{f}{g}
+	\in \ctsdiff(\real)$ and from Theorem \ref{thrm:Leibniz2} that
+		\begin{displaymath}
+			D^k (\conva{f}{g}) = \conva{f}{(D^k g)}
+		\end{displaymath}
+	for all $\isnatrl[k]$. Now suppose $\isnatrl[m]$. Then for all
+	$\isreal, \isreal[t]$,
+		\begin{displaymath}
+			\modulus{x}^m \leq (\modulus{x-t}+\modulus{t})^m
+				= \sum_{k=0}^m {m \choose k}\modulus{x-t}^{m-k}
+				\modulus{t}^k
+		\end{displaymath}
+	Therefore,
+		\begin{IEEEeqnarray*}{rCl}
+			\modulus{x^m \convb{f}{g}{x}} & \leq &
+				\sum_{k=0}^m {m \choose k} \myintb
+				{\modulus{t}^k \modulus{f(t)}
+				\modulus{x-t}^{m-k} \modulus{g(x-t)}}{t} \\
+			& \leq & \sum_{k=0}^m {m \choose k} \myintb
+				{\modulus{t}^k \modulus{f(t)} \supnorm{M^{m-k} g}}{t} \\
+			& = & C_m
+		\end{IEEEeqnarray*}
+	So we have
+		\begin{displaymath}
+			\modulus{x^{m-1} \convb{f}{g}{x}} \leq \frac{C_m}{\modulus{x}}
+		\end{displaymath}
+	for $0 \neq x \in \real$ and hence,
+		\begin{displaymath}
+			\lim_{\modulus{x} \rightarrow \infty} \modulus{x^{m-1}
+			\convb{f}{g}{x}} = 0
+		\end{displaymath}
+	Thus for all $0 \leq m,k \in \natrl$,
+		\begin{displaymath}
+			\lim_{\modulus{x} \rightarrow \infty} \modulus{x^m
+			(\convb{f}{g}{x})^{(k)}} = \lim_{\modulus{x} \rightarrow \infty}
+			\modulus{x^m \convb{f}{g^{(k)}}{x}} = 0
+		\end{displaymath}
+	Finally, the formula for $\convb{f}{g}{x}$ was derived in the proof of
+	Theorem \ref{thrm:ConvForFourierTransform}.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Defn of "circled asterisk"
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{defn}
+	For the sake of elegance in certain formulae, we define
+		\begin{displaymath}
+			\convc{f}{g} = \frac{1}{\sqrt{2\pi}}(\conva{f}{g})
+		\end{displaymath}
+\end{defn}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% New version of conv. theorem for the Fourier Trans.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thrm}\label{thrm:ConvForFourierTransform2}
+	If $f,g \in \schwarz$ then $F(\convc{f}{g})
+	= (Ff)(Fg)$.
+\end{thrm}
+
+\begin{proof}
+	This follows immediately from Theorem \ref{thrm:ConvForFourierTransform}.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Properties of circled asterisk
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{prop}
+	\begin{enumerate}[i)]
+		\item
+			The operation $\circledast$ is associative on $\schwarz$.
+		\item
+			$\schwarz$ is isomorphic as an algebra with respect to
+			$\circledast$ to itself as an algebra with respect to
+			pointwise multiplication. $F$ is such an isomorphism.
+	\end{enumerate}
+\end{prop}
+
+\begin{proof}
+	\begin{enumerate}[i)]
+	
+		%% circled asterisk is associative
+		\item
+			Suppose $f,g,h \in \schwarz$. Then by Theorem
+			\ref{thrm:ConvForFourierTransform2},
+				\begin{IEEEeqnarray*}{rCl}
+					F(\convc{(\convc{f}{g})}{h}) & = &
+						F(\convc{f}{g}) F(h) \\
+					& = & (Ff)(Fg)(Fh) \\
+					& = & (Ff) F(\convc{g}{h}) \\
+					& = & F(\convc{f}{(\convc{g}{h})})
+				\end{IEEEeqnarray*}
+			But by Theorem \ref{thrm:FisAutomorphism} $F$
+			is a bijection. Hence
+				\begin{displaymath}
+					\convc{(\convc{f}{g})}{h} =
+						\convc{f}{(\convc{g}{h})}
+				\end{displaymath}
+		
+		%% F is an isomorphism
+		\item
+			This follows immmediately from Theorem 
+			\ref{thrm:ConvForFourierTransform2}.
+	
+	\end{enumerate}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Another general propostion
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{prop}\label{prop:PropertiesOfF}
+	Suppose $f,g \in \schwarz$. Then
+		\begin{enumerate}[i)]
+			\item
+				$FFf = f^-$
+			\item
+				$F^4 f = f$
+			\item
+				$\myintb{\f(x)g(x)}{x} = \myintb{f(x)\f[g](x)}{x}$
+			\item
+				$\conj{Ff} = F(\conj{f^-})$.
+		\end{enumerate}
+\end{prop}
+
+\begin{proof}
+	\begin{enumerate}[i)]
+		
+		\item
+			This follows from Theorem \ref{thrm:FisAutomorphism}.
+			
+		\item
+			This follows from i).
+			
+		\item
+			Since $f,g \in \schwarz$ they belong to $\absint$.
+			Hence by Theorem \ref{thrm:Fubini3},
+				\begin{IEEEeqnarray*}{rCl}
+					\myintb{\f(x)g(x)}{x} & = &
+						\myintb{\left(\myintb{f(t)e^{-ixt}}{t}
+						\right)g(x)}{x} \\
+					& = & \myintb{\left(\myintb{f(t)g(x)e^{-ixt}}{t}
+						\right)}{x} \\
+					& = & \myintb{f(t)\left(\myintb{g(x)e^{-ixt}}{x}
+						\right)}{t} \\
+					& = & \myintb{f(t)\f[g](t)}{t}
+				\end{IEEEeqnarray*}
+			
+		\item
+			By definition,
+				\begin{IEEEeqnarray*}{rCl}
+					\conj{Ff(x)} & = & \frac{1}{\sqrt{2\pi}} \conj{
+						\myintb{f(t)e^{-ixt}}{t}} \\
+					& = & \frac{1}{\sqrt{2\pi}}\myintb{\conj{f(t)}
+						e^{ixt}}{t} \\
+					& = & \frac{1}{\sqrt{2\pi}}\myintb{\conj{f(-s)}
+						e^{-ixs}}{s} \; \; (s=-t) \\
+					& = & F(\conj{f^-})
+				\end{IEEEeqnarray*}
+				
+	\end{enumerate}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Defn of inner product and norm on Schwarz Space
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{defn}
+	For $f,g \in \schwarz$ define
+		\begin{displaymath}
+			\innerprod{f}{g} = \frac{1}{\sqrt{2\pi}}
+				\myintb{f(x)\conj{g(x)}}{x}
+		\end{displaymath}
+	Then $\innerprod{\cdot}{\cdot}$ is an inner product on $\schwarz$
+	and the norm induced from this inner product is obviously
+	$\norm[2]{f} = \innerprod{f}{f}^{1/2}$.
+\end{defn}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% F is unitary
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thrm}
+	$F$ is a unitary operator on $\schwarz$. That is,
+	for all $f,g \in \schwarz$,
+		\begin{enumerate}[i)]
+			\item
+				$\innerprod{Ff}{Fg} = \innerprod{f}{g}$.
+			\item
+				$\norm[2]{Ff} = \norm[2]{f}$.
+		\end{enumerate}
+\end{thrm}
+
+\begin{proof}
+	\begin{enumerate}[i)]
+	
+		\item
+			By Proposition \ref{prop:PropertiesOfF},
+				\begin{IEEEeqnarray*}{rCl}
+					\innerprod{Ff}{Fg} & = & \frac{1}{\sqrt{2\pi}}
+						\myintb{Ff(x)\conj{Fg(x)}}{x} \\
+					& = & \frac{1}{\sqrt{2\pi}}\myintb
+						{f(x)F(\conj{Fg(x)})}{x} \\
+					& = & \frac{1}{\sqrt{2\pi}}\myintb
+						{f(x)(FF(\conj{g^-(x)}))}{x} \\
+					& = & \frac{1}{\sqrt{2\pi}}\myintb
+						{f(x)\conj{g(x)}}{x} \\
+					& = & \innerprod{f}{g}
+				\end{IEEEeqnarray*}
+			
+		\item
+			This follows immediately from part i).
+			
+	\end{enumerate}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Metric completion of Schwarz Space
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	The following theorem will be stated without proof.
+	
+\begin{thrm}
+	Let $L^2$ denote the metric completion of $\schwarz$ with respect
+	to $\norm[2]{\cdot}$. Then $L^2$ is a Hilbert space (a complete
+	inner product space), F has a unique continuous extension, say
+	$\tilde{F}$, to a map from $L^2$ onto itself and this $\tilde{F}$
+	is a Hilbert space automorphism of $L^2$. Moreover, $\schwarz$ is
+	a dense subspace of $L^2$.
+\end{thrm}
+
+\end{section}

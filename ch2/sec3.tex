@@ -1,0 +1,457 @@
+\begin{section}{The Fourier Problem}
+
+Recall from section 1 of this chapter that
+the heat problem has a solution corresponding
+to $f \in C_0[0,\pi]$ if we can
+find real constants $b_1, b_2, \ldots, b_n$
+such that
+	\begin{displaymath}
+		f(x) = \sum_{k=1}^n b_k \sin kx
+	\end{displaymath}
+for $x \in [0,\pi]$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Fourier Problem
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+In this section, we ask a slightly different
+question, called the \emph{Fourier Problem}:
+Given $f:\real \to \real$ is it possible to
+find real numbers $a_0, a_1, b_1, a_2, b_2,
+\ldots$ such that
+	\begin{displaymath}
+		f(x) = \frac{a_0}{2} + \sum_{k=1}^\infty
+			(a_k \cos kx + b_k \sin kx)
+	\end{displaymath}
+for all $x \in \real$. If this is possible,
+then we must have $f(x + 2\pi) = f(x)$, which
+leads to the following definition and results.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Periodic functions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{defn}
+	If $f$ is a complex-valued function on $\real$
+	and $p$ is a non-zero real number, we say that
+	\emph{f has period p} or \emph{f is p-periodic}
+	provided $f(x+p) = f(x)$ for all $x \in \real$.
+	We denote the set of all p-periodic functions by
+	$P_p$.
+\end{defn}
+
+\begin{prop}\label{prop:periodic}
+	\begin{enumerate}[i)]
+		\item
+			If $f \in P_p$ then $f(x+kp) = f(x)$
+			for all $k \in \intgr$ and $x \in \real$.
+		\item
+			Let $T = \{z \in \cmplx: \modulus{z} = 1\}$ and
+			suppose $g:T \to \cmplx$ is given. Then $f:
+			\real \to \cmplx$ defined by $f(x) = g(e^{ix})$
+			is $2\pi$-periodic. Conversely, given $f \in
+			P_{2\pi}$, there exists a unique $g:T \to \cmplx$
+			such that $f(x) = g(e^{ix})$ for all $x \in \real$.
+			The map $f \mapsto g$ is an algebra isomorphism
+			between $P_{2\pi}$ and the set of functions from
+			$T$ to $\cmplx$.
+		\item
+			Given $a \in \real$ and $f_0:[a,a+2\pi) \to
+			\cmplx$ there exists a unique $2\pi$-periodic
+			function $f$ such that $f_0(x) = f(x)$ for all
+			$x \in [a,a+2\pi)$.
+		\item
+			If $f \in P_p$ and we let $g(x) = f(px)$ then
+			$g \in P_1$ and the map $f \mapsto g$ is and
+			algebra isomorphism between $P_p$ and $P_1$.
+		\item
+			If $f \in P_{2\pi}$ then $f$ is Riemann Integrable
+			on $[a,b]$ whenever $a < b$ iff $f$ is Riemann
+			Integrable on $[c,c+2\pi]$ for some $c \in \real$,
+			in which case
+				\begin{displaymath}
+					\int_c^{c+2\pi} f = \int_0^{2\pi} f
+				\end{displaymath}
+	\end{enumerate}
+\end{prop}
+
+\begin{proof}
+	\begin{enumerate}[i)]
+		\item
+			Trivial.
+		\item
+			Trivial.
+		\item
+			Trivial.
+		\item
+			It suffices to note that $g(x+1) = f(p(x+1))
+			= f(px + p) = f(px) = g(x)$.
+		\item
+			The first statement is trivial. To prove the
+			equality of the integrals, choose $n \in \intgr$
+			such that $2\pi n < c \leq 2\pi (n+1)$. Then
+				\begin{IEEEeqnarray*}{rCl}
+					\myinta{c}{c+2\pi}{f(x)}{x} & = &
+						\myinta{c}{2\pi (n+1)}{f(x)}{x}
+						+ \myinta{2\pi (n+1)}{c+2\pi}{f(x)}{x} \\
+					& = & \myinta{c-2\pi n}{2\pi}{f(x+2\pi n)}{x}
+						+ \myinta{0}{c-2\pi n}{f(x + 2\pi (n+1))}{x} \\
+					& = & \myinta{c-2\pi n}{2\pi}{f(x)}{x}
+						+ \myinta{0}{c-2\pi n}{f(x)}{x}
+						\text{\ \ by part i)} \\
+					& = & \myinta{0}{2\pi}{f(x)}{x}
+				\end{IEEEeqnarray*}
+	\end{enumerate}
+\end{proof}
+
+In the remainder of this book we will only consider functions
+which are $2\pi$-periodic.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Derivation of trigonometric fourier coeffs.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+In order to find real numbers $a_0, a_1, b_1, a_2, b_2,
+\ldots$ such that
+	\begin{displaymath}
+		f(x) = \frac{a_0}{2} + \sum_{k=1}^\infty
+			(a_k \cos kx + b_k \sin kx)
+	\end{displaymath}
+for all $x \in \real$, we need the following lemma.
+
+%% Lemma of trig. identities
+\begin{lemma}\label{lemma:trigidentities}
+	If $m, n \in \intgr$ then
+		\begin{enumerate}[i)]
+			\item
+				\begin{IEEEeqnarray*}{l}
+					\myintb[\pi]{\cos mx}{x}
+					 = \myintb[\pi]{\sin mx}{x}
+					 = 0
+				\end{IEEEeqnarray*}
+				provided $m \neq 0$.
+			\item
+				\begin{IEEEeqnarray*}{l}
+					\myintb[\pi]{\cos mx \sin nx}{x}
+						= 0
+				\end{IEEEeqnarray*}
+			\item
+				\begin{IEEEeqnarray*}{l}
+					\myintb[\pi]{\cos mx \cos nx}{x} \\
+						= \myintb[\pi]{\sin mx \sin nx}{x}
+						= 0 \text{ if } m \neq \pm n
+				\end{IEEEeqnarray*}
+			\item
+				\begin{IEEEeqnarray*}{l}
+					\myintb[\pi]{\cos^2 mx}{x}
+						 = \myintb[\pi]{\sin^2 mx}{x}
+						 = \pi
+				\end{IEEEeqnarray*}
+			\item
+				\begin{IEEEeqnarray*}{l}
+					\myintb[\pi]{e^{imx}e^{-inx}}{x} =
+						\begin{cases}
+							0 & \text{if } m \neq n \\
+							2\pi & \text {if } m = n
+						\end{cases}
+				\end{IEEEeqnarray*}
+		\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+	\begin{enumerate}[i)]
+		\item
+			Trivial.
+		\item
+			It suffices to see that $\cos mx \sin nx$
+			is odd.
+		\item
+			Integrating by parts twice, we obtain
+				\begin{IEEEeqnarray*}{l}
+					\myintb[\pi]{\cos mx \cos nx}{x} \\
+					= \evalat{
+						\frac{\sin mx \cos nx}{m}}{x}{-\pi}
+						{\pi}
+						+ \frac{n}{m}\myintb[\pi]
+						{\sin mx \sin nx}{x} \\
+					= \evalat{\frac{-n \cos mx \sin nx}{m^2}}{x}
+						{-\pi}{\pi}
+						+ \frac{n^2}{m^2}\myintb[\pi]
+						{\cos mx \cos nx}{x} \\
+					= \frac{n^2}{m^2}\myintb[\pi]
+						{\cos mx \cos nx}{x}
+				\end{IEEEeqnarray*}
+			Since $m \neq \pm n$, we must have
+				\begin{displaymath}
+					\myintb[\pi]{\cos mx \cos nx}{x}
+						= 0
+				\end{displaymath}
+			The other integral is handled similarly.
+		\item
+			Using the identity $\cos 2x = 2 \cos^2 x - 1$
+			we obtain,
+				\begin{IEEEeqnarray*}{rCl}
+					\myintb[\pi]{\cos^2 mx}{x} & = &
+						\myintb[\pi]{\frac{1+\cos 2mx}{2}}{x} \\
+					& = & \evalat{\frac{x}{2}}{x}{-\pi}{\pi}
+						+ \evalat{\frac{\sin 2mx}{4m}}{x}{-\pi}{\pi} \\
+					& = & \pi
+				\end{IEEEeqnarray*}
+			To obtain the other result, use the identity $\cos 2x
+			= 1 - 2 \sin^2 x$.
+		\item
+			\begin{IEEEeqnarray*}{l}
+				\myintb[\pi]{e^{imx}e^{-inx}}{x} =
+					\myintb[\pi]{e^{i(m-n)x}}{x} \\
+				= \myintb[\pi]{\cos (m-n)x}{x} +
+					i \myintb[\pi]{\sin (m-n)x}{x}
+			\end{IEEEeqnarray*}
+			If $m \neq n$ then by part i) this expression
+			is zero. If $m = n$ then $\sin (m-n)x = 0$ and
+			$\cos (m-n)x = 1$, so the result follows.
+	\end{enumerate}
+\end{proof}
+
+\begin{thrm}\label{thrm:trigFcoeffs}
+	Suppose for some real numbers $a_0, a_1, b_1, a_2, b_2,
+	\ldots$ the series
+		\begin{displaymath}
+			\frac{a_0}{2} + \sum_{k=1}^\infty
+				(a_k \cos kx + b_k \sin kx)
+		\end{displaymath}
+	converges uniformly to a given function $f:\real \to
+	\real$. Then
+		\begin{displaymath}
+			a_n = \frac{1}{\pi}\myintb[\pi]{f(x)\cos nx}{x}
+				\text{ for } 0 \leq n \in \intgr
+		\end{displaymath}
+	and
+		\begin{displaymath}
+			b_n = \frac{1}{\pi}\myintb[\pi]{f(x)\sin nx}{x}
+				\text{ for } 0 < n \in \intgr
+		\end{displaymath}
+\end{thrm}
+
+\begin{proof}
+	Since the given series converges uniformly, $f$ is
+	continuous on $\real$ and hence Riemann Integrable
+	on $\real$. Then, integrating $f$ on the interval
+	$[-\pi,\pi]$, we obtain
+		\begin{IEEEeqnarray*}{rCl}
+			\myintb[\pi]{f(x)}{x} & = &
+				\myintb[\pi]{\frac{a_0}{2}}{x}
+				+ \sum_{k=1}^\infty \left( a_k
+				\myintb[\pi]{\cos kx}{x}
+				+ b_k \myintb[\pi]{\sin kx}{x}
+				\right) \\
+			& = & \myintb[\pi]{\frac{a_0}{2}}{x} \\
+			& = & a_0 \pi
+		\end{IEEEeqnarray*}
+	by using Lemma \ref{lemma:trigidentities}. (Note that
+	we can integrate the series term by term because of
+	uniform convergence.)
+	
+	Similarly,
+		\begin{IEEEeqnarray*}{rCl}
+			\myintb[\pi]{f(x)\cos nx}{x} & = &
+				\myintb[\pi]{\frac{a_0}{2}\cos nx}{x} \\
+			& & + \; \sum_{k=1}^\infty \left( a_k
+				\myintb[\pi]{\cos kx \cos nx}{x}
+				+ b_k \myintb[\pi]{\sin kx \cos nx}{x}
+				\right) \\
+			& = & \myintb[\pi]{a_n \cos^2 nx}{x} \\
+			& = & a_n \pi
+		\end{IEEEeqnarray*}
+	again by using Lemma \ref{lemma:trigidentities}. So the
+	result is true for the sequence $\{a_n:0 \leq n \in \intgr\}$.
+	A similar argument can be used for the sequence $\{b_n:
+	0 < n \in \intgr\}$.
+\end{proof}
+
+%% Value of trig. Fourier coeffs. when f is even or odd
+\begin{cor}\label{cor:EvenOdd}
+	If $f:\real \to \real$ is odd then $a_n = 0$ for
+	all $n \geq 0$. If $f$ is even then $b_n = 0$ for
+	all $n > 0$.
+\end{cor}
+
+\begin{proof}
+	If $f$ is odd then $f(x)\cos nx$ is odd for all
+	$n \geq 0$. So the result follows from the formula
+	for $a_n$ given in Theorem \ref{thrm:trigFcoeffs}.
+	Similarly, if $f$ is even then $f(x)\sin nx$ is
+	odd and so $b_n$ is zero for all $n \in \natrl$.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Derivation of exponential fourier coeffs.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+We now deal with a reformulation of the
+Fourier Problem: Given a $2\pi$-periodic function
+$f:\real \to \cmplx$, do there exist complex scalars
+$\ldots, c_{-2}, c_{-1}, c_0, c_1, c_2, \ldots$
+such that
+	\begin{displaymath}
+		f(x) = c_0 + \sum_{k=1}^\infty
+			(c_k e^{ikx} + c_{-k} e^{-ikx})
+	\end{displaymath}
+for $x \in \real$?
+
+The next theorem deals with this question.
+
+\begin{thrm}
+	Suppose $f:\real \to \cmplx$ is $2\pi$-periodic and
+	$f(x) = F(e^{ix})$ for some complex-valued function
+	$F$ analytic on the annulus $A = \{z \in \cmplx:r <
+	\modulus{z} < R\}$, where $r < 1 < R$. Then the
+	reformulation of the Fourier problem, given above,
+	has a solution. Moreover, the scalars $\{c_k:k \in
+	\intgr\}$ are given by
+		\begin{displaymath}
+			c_n = \frac{1}{2\pi}
+				\myintb[\pi]{f(x)e^{-inx}}{x}
+		\end{displaymath}
+\end{thrm}
+
+\begin{proof}
+	Since $F$ is analytic on $A$, it has a Laurent
+	expansion in that region, namely
+		\begin{displaymath}
+			F(z) = c_0 + \sum_{k=1}^\infty
+				(c_k z^k + c_{-k} z^{-k})
+		\end{displaymath}
+	Since $f(x) = F(e^{ix})$, we have
+		\begin{displaymath}
+			f(x) = c_0 + \sum_{k=1}^\infty
+				(c_k e^{ikx} + c_{-k} e^{-ikx})
+		\end{displaymath}
+	for $x \in \real$.
+	
+	Now the series given above converges uniformly on
+	the annulus $A$, hence we can integrate term by
+	term to obtain
+		\begin{IEEEeqnarray*}{rCl}
+			\myintb[\pi]{f(x)e^{-inx}}{x} & = &
+				\sum_{k=-\infty}^\infty c_k
+				\myintb[\pi]{e^{ikx}e^{-inx}}{x} \\
+			& = & 2\pi c_n
+		\end{IEEEeqnarray*}
+	by Lemma \ref{lemma:trigidentities}.		
+\end{proof}
+
+%% Definition of exp. and trig. fourier coeffs.
+\begin{defn}
+	The real scalars $a_0, a_1, b_1, a_2, b_2, \ldots$
+	are called the \emph{trigonometric Fourier
+	coefficients of f}. The complex scalars
+	$\ldots, c_{-2}, c_{-1}, c_0, c_1, c_2,
+	\ldots$ are called the \emph{exponential
+	Fourier coefficients of f}.
+\end{defn}
+
+%% Relationship between trig. and exp. fourier coeffs.
+\begin{prop}
+	The trigonometric and exponential fourier coefficients
+	of a function $f$ are related by
+		\begin{IEEEeqnarray*}{l}
+			a_0 = 2 c_0 \\
+			a_n = c_n + c_{-n} \text{ for } 0 < n \in \intgr \\
+			b_n = i(c_n - c_{-n}) \text{ for } 0 < n \in \intgr
+		\end{IEEEeqnarray*}
+\end{prop}
+
+\begin{proof}
+	Clearly $a_0 = 2 c_0$. For $a_n, n > 0$,
+		\begin{IEEEeqnarray*}{rCl}
+			c_n + c_{-n} & = & \frac{1}{2\pi}
+				\myintb[\pi]{f(x)e^{inx}}{x}
+				+ \frac{1}{2\pi}\myintb[\pi]{f(x)e^{-inx}}{x} \\
+			& = & \frac{1}{2\pi}\left(\myintb[\pi]{f(x)\cos nx}{x}
+				+ i \myintb[\pi]{f(x)\sin nx}{x}\right) \\
+			& & + \; \frac{1}{2\pi}\left(\myintb[\pi]{f(x)\cos (-nx)}{x}
+				+ i \myintb[\pi]{f(x)\sin (-nx)}{x}\right) \\
+			& = & \frac{1}{2\pi}\myintb[\pi]{2f(x)\cos nx}{x} \\
+			& = & \frac{1}{\pi}\myintb[\pi]{f(x)\cos nx}{x} \\
+			& = & a_n
+		\end{IEEEeqnarray*}
+	The expression for $b_n$ is handled similarly.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% When does the Fourier series converge uniformly to f?
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thrm}\label{thrm:coeffbounds}
+	Suppose $f$ is a $2\pi$-periodic, $\ctsdiff[p]$ function
+	for some $p \in \natrl$. Then there exists $M_p > 0$
+	such that
+		\begin{enumerate}[i)]
+			\item
+				$\modulus{a_k} \leq M_p/\modulus{k}^p$
+				for all $k \in \natrl$.
+			\item
+				$\modulus{b_k} \leq M_p/\modulus{k}^p$
+				for all $k \in \natrl$.
+			\item
+				$\modulus{c_k} \leq M_p/\modulus{k}^p$
+				for all $0 \neq k \in \intgr$.				
+		\end{enumerate}
+\end{thrm}
+
+\begin{proof}
+	\begin{enumerate}[i)]
+		\item
+			Using the formula for $a_k$ and integrating by
+			parts, we obtain
+				\begin{IEEEeqnarray*}{rCl}
+					a_k & = & \frac{1}{\pi}\myintb[\pi]{f(x)\cos kx}{x} \\
+					& = & \evalat{\frac{f(x)\sin kx}{k\pi}}{x}{-\pi}{\pi}
+						+ \frac{1}{k\pi}\myintb[\pi]{f'(x)\sin kx}{x} \\
+					& = & \frac{1}{k\pi}\myintb[\pi]{f'(x)\sin kx}{x}
+				\end{IEEEeqnarray*}
+			Now integrating by parts $p-1$ more times
+				\begin{displaymath}
+					a_k = \frac{1}{k^p\pi}\myintb[\pi]{f^{(p)}(x)\sin kx}{x}
+				\end{displaymath}
+			Since $f \in \ctsdiff[p]$, $f^{(p)}\sin kx$ is continuous
+			and hence bounded on $[-\pi,\pi]$. Therefore,
+				\begin{IEEEeqnarray*}{rCl}
+					\modulus{a_k} & = & \frac{1}{\modulus{k}^p\pi}
+						\modulus{\myintb[\pi]{f^{(p)}(x)\sin kx}{x}} \\
+					& \leq & \frac{1}{\modulus{k}^p\pi}
+						\myintb[\pi]{\modulus{f^{(p)}(x)\sin kx}}{x} \\
+					& \leq & \frac{1}{\modulus{k}^p\pi}
+						\myintb[\pi]{M}{x} \\
+					& \leq \frac{M_p}{\modulus{k}^p}
+				\end{IEEEeqnarray*}
+			for some $M_p > 0$.
+		\item
+			This is handled similarly to part i).
+		\item
+			This is handled similarly to part i).
+	\end{enumerate}
+\end{proof}
+
+\begin{cor}\label{cor:FourierUniformConv}
+	If $f \in \ctsdiff[2]$ is $2\pi$-periodic then the Fourier
+	series of $f$ converges uniformly on $\real$.
+\end{cor}
+
+\begin{proof}
+	By Theorem \ref{thrm:coeffbounds} $\modulus{c_k} \leq
+	M/\modulus{k}^2$ for some $M > 0$ and all $0 \neq k
+	\in \intgr$. Therefore $\modulus{c_k e^{ikx}} \leq
+	M/\modulus{k}^2$. Now the series $\sum_{k=1}
+	^\infty \frac{M}{k^2}$ and $\sum_{k=-\infty}^{-1}
+	\frac{M}{k^2}$ both converge. So by the Weierstrass
+	M-test, the Fourier series of $f$
+		\begin{displaymath}
+			s_n(x) = \sum_{k=-\infty}^\infty c_k e^{ikx}
+		\end{displaymath}
+	converges uniformly (and absolutely) on $\real$.
+\end{proof}
+
+Although Corollary \ref{cor:FourierUniformConv} says the Fourier series of a function $f$ converges uniformly, it doesn't necessarily have to converge to the function $f$ itself. In fact it does,
+and this will be shown in Theorem \ref{thrm:DirchConv}.
+\end{section}

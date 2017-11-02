@@ -1,0 +1,395 @@
+\begin{section}{\fejers Example}
+
+	In this section, we present an example
+	of a continuous, $2\pi$-periodic function
+	whose Fourier series diveges at zero. But
+	we first need to develop some preliminary
+	lemmas.
+		
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% First Lemma
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{lemma}\label{lemma:FejersExample1}
+	Suppose $\isreal, x \neq 2\pi k, \isintgr[k]$ so
+	that $e^{ix} \neq 1$ and $\sin x/2 \neq 0$. Then
+	for all $\isnatrl$,
+		\begin{enumerate}[i)]
+		
+			\item
+				\begin{displaymath}
+					\sum_{k=1}^n e^{ikx} = \left(
+						\frac{\sin nx/2}{\sin x/2}
+						\right) e^{i(n+1)x/2}
+				\end{displaymath}
+				
+			\item
+				\begin{displaymath}
+					\modulus{\sum_{k=1}^n e^{ikx}} \leq 
+						\frac{1}{\sin x/2}
+				\end{displaymath}
+				
+			\item
+				\begin{displaymath}
+					\sum_{k=1}^n \sin kx = \frac{
+						(\sin nx/2)(\sin (n+1)x/2)}
+						{\sin x/2}
+				\end{displaymath}
+				
+			\item
+				\begin{displaymath}
+					\modulus{\sum_{k=1}^n \sin kx} \leq
+						\frac{1}{\modulus{\sin x/2}}
+				\end{displaymath}
+		
+		\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+	\begin{enumerate}[i)]
+	
+		\item
+			If $x$ satisfies the hypothesis of the lemma
+			and $\isnatrl$, then
+				\begin{IEEEeqnarray*}{rCl}
+					\sum_{k=1}^n e^{ikx} & = & e^{ix} \left(
+						\frac{1-e^{inx}}{1-e^{ix}} \right) \\
+					& = & \frac{e^{ix} e^{inx/2}}{e^{ix/2}} \left(
+						\frac{e^{-inx/2}-e^{inx/2}}{e^{-ix/2} -
+						e^{ix/2}} \right) \\
+					& = & e^{i(n+1)x/2} \left( \frac{-2\sin nx/2}
+						{-2\sin x/2} \right) \\
+					& = & e^{i(n+1)x/2} \frac{\sin nx/2}{\sin x/2}
+				\end{IEEEeqnarray*}
+		
+		\item
+			This follows from part i).
+			
+		\item
+			This follows from part i) by taking imaginary parts
+			of both sides of the identity.
+			
+		\item
+			This follows from part iii).
+			
+	\end{enumerate}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Example 1 using Lemma 1
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{ex}
+	\begin{enumerate}[i)]
+		\item
+			Suppose $\{b_k\}_{k=1}^\infty$ is a real
+			sequence decreasing to zero. Show that
+				\begin{displaymath}
+					\sum_{k=1}^\infty b_k \sin kx
+				\end{displaymath}
+			converges for all $\isreal$.
+		\item
+			Show that the given series converges 
+			uniformly on $0 < a \leq x \leq b < \pi$.
+	\end{enumerate}
+\end{ex}
+
+\begin{soln}
+	\begin{enumerate}[i)]
+		\item
+			Clearly, the given series converges if $x = 2\pi k$
+			for some $\isintgr[k]$. So assume $x$ is not a multiple
+			of $2\pi$. Then by part iv) of Lemma 
+			\ref{lemma:FejersExample1},
+				\begin{displaymath}
+					\modulus{\sum_{k=1}^n \sin kx}
+						< \frac{1}{\modulus{\sin x/2}}
+				\end{displaymath}
+			Now given $\epsilon > 0$, choose $\isnatrl[p]$ such
+			that $b_p < (\epsilon \modulus{\sin x/2})/2$. Then by Theorem 
+			\ref{thrm:AbelsLemma}, for $q > p$,
+				\begin{IEEEeqnarray*}{rCl}
+					\modulus{\sum_{k=p}^q b_k \sin kx} & < & 
+						2 \left(\frac{1}{\modulus{\sin x/2}}\right)b_p \\
+					& < & \epsilon
+				\end{IEEEeqnarray*}
+			So the given series is Cauchy and hence converges.
+		\item
+			By part iv) of Lemma \ref{lemma:FejersExample1},
+				\begin{IEEEeqnarray*}{rCl}
+					\modulus{\sum_{k=1}^n \sin kx} & < &
+						\frac{1}{\modulus{\sin x/2}} \\
+					& \leq & \frac{1}{\sin a/2}
+				\end{IEEEeqnarray*}
+			So by Theorem \ref{thrm:DirTestUniConv}, the convergence
+			of the given series is uniform.
+	\end{enumerate}
+\end{soln}		
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Example 2 using Lemma 1
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{ex}
+	Show that the series
+		\begin{displaymath}
+			\sum_{k=1}^\infty \frac{(-1)^k}{\sqrt{k}}
+				\sin (1 + x/k)
+		\end{displaymath}
+	converges uniformly on $\real$.
+\end{ex}
+
+\begin{soln}
+\end{soln}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Second Lemma
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{lemma}
+	Suppose $0 < \delta < \pi$. Then
+		\begin{displaymath}
+			\sum_{k=1}^\infty \frac{1}{k}\sin kx
+		\end{displaymath}
+	converges uniformly for $\delta \leq x \leq 2\pi-\delta$.
+\end{lemma}
+
+\begin{proof}
+	By part iv) of Lemma \ref{lemma:FejersExample1},
+		\begin{displaymath}
+			\modulus{\sum_{k=1}^n \sin kx} \leq \frac{1}{\sin x/2}
+				\leq \frac{1}{\sin \delta/2}
+		\end{displaymath}
+	if $\delta \leq x \leq 2\pi-\delta$. Therefore the result
+	follows by Theorem \ref{thrm:DirTestUniConv}.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Final Lemma for Fejer's Example
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{lemma}\label{lemma:FejersExample3}
+	If $\isreal, \isnatrl$, then
+		\begin{displaymath}
+			\modulus{\sum_{k=1}^n \frac{\sin kx}{k}} 
+				\leq 9\sqrt{\pi}
+		\end{displaymath}
+\end{lemma}
+
+\begin{proof}
+	We may assume, without loss of generality, that $0 < x < 2\pi$.
+	Choose $\isnatrl[p]$ such that $p \leq \sqrt{\pi}/x < p+1$.
+	Suppose $p < n$. Then
+		\begin{IEEEeqnarray*}{rCl}
+			\modulus{\sum_{k=1}^n \frac{\sin kx}{k}}
+				& \leq & \sum_{k=1}^p \modulus{\frac{\sin kx}{k}}
+				+ \modulus{\sum_{k=p+1}^n \frac{\sin kx}{k}} \\
+			& = & \sum_{k=1}^p \modulus{\frac{\sin kx}{kx}}x
+				+ \modulus{\sum_{k=p+1}^n \frac{\sin kx}{k}} \\
+			& \leq & px + \modulus{\sum_{k=p+1}^n \frac{\sin kx}{k}}
+		\end{IEEEeqnarray*}
+	It follows from part iii) of Lemma \ref{lemma:FejersExample1}
+	that
+		\begin{displaymath}
+			\modulus{\sum_{k=p+1}^n \frac{\sin kx}{k}}
+				\leq \frac{2}{\sin x/2}
+		\end{displaymath}
+	and hence, by a slight modification of Theorem 
+	\ref{thrm:AbelsLemma} that
+		\begin{displaymath}
+			\modulus{\sum_{k=p+1}^n \frac{\sin kx}{k}}
+				\leq 2 \left(\frac{2}{\sin x/2}\right)
+				\frac{1}{p+1}
+		\end{displaymath}
+	Therefore,
+		\begin{IEEEeqnarray*}{rCl}
+			\modulus{\sum_{k=1}^n \frac{\sin kx}{k}} & \leq &
+				px + \frac{4}{(p+1)\sin x/2} \\
+			& \leq & \sqrt{\pi} + \frac{4}{p+1}\frac{x/2}{\sin x/2}
+				\frac{2}{x} \\
+			& \leq & \sqrt{\pi} + \frac{8}{(p+1)x}\left(\frac{x/2}
+				{\sin x/2}\right) \\
+			& \leq & \sqrt{\pi} + \frac{8}{\sqrt{\pi}}\pi \\
+			& = & 9\sqrt{\pi}
+		\end{IEEEeqnarray*}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Fejer's Example
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thrm}[\fejers Example]
+	Given $\mu, n \in \natrl$ and $\isreal$, define
+		\begin{IEEEeqnarray*}{rCl}
+			Q(x,\mu,n) & = & \frac{\cos \mu x}{n} +
+				\frac{\cos (\mu+1)x}{n-1} + \ldots +
+				\frac{\cos (\mu+n-1)x}{1} \\
+			& & - \frac{\cos (\mu+n+1)x}{1} -
+				\frac{\cos (\mu+n+2)x}{2} - \ldots
+				- \frac{\cos (\mu+2n)x}{n}
+		\end{IEEEeqnarray*}
+	Now suppose $\{\mu_k\}_{k=1}^\infty$ and $\{n_k\}_{k=1}^\infty$
+	are two increasing sequences in $\natrl$ satisfying
+	$\mu_k+2n_k < \mu_{k+1}$ and also that $\{a_k\}_{k=1}^\infty$
+	is a sequence of positive reals such that
+		\begin{displaymath}
+			\sum_{k=1}^\infty a_k
+		\end{displaymath}
+	converges. Then the series
+		\begin{displaymath}
+			\sum_{k=1}^\infty a_k Q(x,\mu_k,n_k)
+		\end{displaymath}
+	converges uniformly and absolutely to a continuous, 
+	$2\pi$-periodic function $f$. Moreover, the $\mu_k, n_k$
+	and $a_k$ can be chosen so that the Fourier series
+	of $f$ diverges at 0.
+\end{thrm}
+
+\begin{proof}
+	We will divide the proof into multiple steps.
+		\begin{enumerate}[{Step} 1.]
+		
+			% Step 1. Show that the series converges uniformly.
+			\item
+				Using the identity $\cos(a-b)-\cos(a+b) 
+				= 2\sin a \sin b$, we obtain
+					\begin{IEEEeqnarray*}{rCl}
+						Q(x,\mu_k,n_k) & = & \frac{\cos \mu_k x}
+							{n_k} + \frac{\cos (\mu_k+1)x}
+							{n_k-1} + \ldots +
+							\frac{\cos (\mu_k+n_k-1)x}{1} \\
+						& & - \frac{\cos (\mu_k+n_k+1)x}{1} -
+							\frac{\cos (\mu_k+n_k+2)x}{2} - \ldots
+							- \frac{\cos (\mu_k+2n_k)x}{n_k} \\
+						& = & \sum_{k=1}^{n_k} \frac{1}{k} \left(
+							\cos(\mu_k+n_k-k)x-\cos(\mu_k+n_k+k)x
+							\right) \\
+						& = & 2 \sin(\mu_k+n_k)\sum_{k=1}^{n_k}
+							\frac{\sin kx}{k}
+					\end{IEEEeqnarray*}
+				But by Lemma \ref{lemma:FejersExample3}
+					\begin{displaymath}
+						\modulus{\sum_{k=1}^{n_k} \frac{\sin kx}{k}}
+							\leq 9\sqrt{\pi}
+					\end{displaymath}
+				and so, $\modulus{Q(x,\mu_k,n_k)} < 18\sqrt{\pi}$.
+				Now, given $\epsilon > 0$ choose $N > 0$ such
+				that
+					\begin{displaymath}
+						\sum_{k=p}^q a_k < \frac{\epsilon}
+							{18\sqrt{\pi}}
+					\end{displaymath}
+				for $q > p > N$. Then for this choice of $p$ and
+				$q$ and all $\isreal$, we have
+					\begin{IEEEeqnarray*}{rCl}
+						\modulus{\sum_{k=p}^q a_k Q(x,\mu_k,n_k)}
+							& < & 18\sqrt{\pi} \sum_{k=p}^q a_k \\
+						& < & 18\sqrt{\pi} \frac{\epsilon}
+							{18\sqrt{\pi}} \\
+						& = & \epsilon
+					\end{IEEEeqnarray*}
+				Therefore, the series
+					\begin{displaymath}
+						\sum_{k=1}^\infty a_k Q(x,\mu_k,n_k)
+					\end{displaymath}
+				satisfies the uniform Cauchy criterion on $\real$, 
+				and hence converges uniformly and absolutely to a 
+				continuous, $2\pi$-periodic function $f$.
+	
+			% Step 2. Find the Fourier series of f.
+			\item
+				Notice that because $\mu_k+2n_k < \mu_{k+1}$, the
+				terms of $Q(x,\mu_k,n_k)$ and $Q(x,\mu_j,n_j)$ 
+				do not "overlap" when $j \neq k$. Also notice that
+					\begin{displaymath}
+						f(x) = \sum_{k=1}^\infty a_k Q(x,\mu_k,n_k)
+					\end{displaymath}
+				is obtained by "bracketing" a trigonometric series 
+				of the form
+					\begin{displaymath}
+						\frac{\alpha_0}{2}+\sum_{\nu=1}^\infty 
+							\alpha_\nu \cos \nu x \; (\ast)
+					\end{displaymath}
+				Let $s_n, \isnatrl$ be the $n$th partial sum of this
+				series.	Then $s_{\mu_k-1}(x)$ converges uniformly on
+				$\real$ to $f$. We will show that the series $(\ast)$
+				is indeed the Fourier series of $f$. To see this, 
+				first suppose $\mu_j \leq \nu \leq \mu_j+2n_j$. Then
+					\begin{IEEEeqnarray*}{rCl}
+						\frac{1}{\pi}\myintb[\pi]{f(x)\cos \nu x}{x}
+							& = & \frac{1}{\pi}\myintb[\pi]
+							{\sum_{k=1}^\infty a_k Q(x,\mu_k,n_k)
+							\cos \nu x}{x} \\
+						& = & \frac{1}{\pi} \sum_{k=1}^\infty
+							a_k \myintb[\pi]{Q(x,\mu_k,n_k)
+							\cos \nu x}{x} \\
+						& = & \frac{a_j}{\pi} \myintb[\pi]{Q(x,\mu_j,n_j) 
+							\cos \nu x}{x} \\
+						& = & \alpha_\nu
+					\end{IEEEeqnarray*}
+				Next, suppose
+					\begin{displaymath}
+						\nu \notin \bigcup_{j=1}^\infty
+							\{\mu_j,\ldots,\mu_j+n_j-1,
+							\mu_j+n_j+1,\ldots,\mu_j+2n_j\}
+					\end{displaymath}
+				Then
+					\begin{IEEEeqnarray*}{rCl}
+						\frac{1}{\pi}\myintb[\pi]{f(x)\cos \nu x}{x}
+							& = & \frac{1}{\pi}\myintb[\pi]
+							{\sum_{k=1}^\infty a_k Q(x,\mu_k,n_k)
+							\cos \nu x}{x} \\
+						& = & 0
+					\end{IEEEeqnarray*}
+				which proves the assertion.	
+
+			% Step 3. Show that the Fourier series diverges at 0.
+			\item
+				Finally, we will show that we can choose the $\mu_k,
+				n_k$ and $a_k$ so that the Fourier series of $f$
+				diverges at zero. First notice that
+					\begin{IEEEeqnarray*}{rCl}
+						\modulus{s_{\mu_k+n_k-1}(0) - s_{\mu_k-1}(0)}
+							& = & \sum_{\nu=\mu_k}^{\mu_k+n_k-1}
+							\alpha_\nu \cos \nu 0 \\
+						& = & a_k \left(\frac{1}{n_k}+\frac{1}{n_k-1}
+							+ \ldots + 1 \right) \\
+						& > & a_k \log n_k
+					\end{IEEEeqnarray*}
+				Hence $\{s_n(0)\}_{n=1}^\infty$ will not be Cauchy, and hence
+				divergent, if we choose	$\{a_k\}_{k=1}^\infty$ and 
+				$\{n_k\}_{k=1}^\infty$ so that $\{a_k \log n_k\}_{k=1}^\infty$
+				does not converge to zero. It is easy to see that if we let
+				$a_k = 1/k^2$ and $\mu_k = n_k = 2^{k^3}$ then this requirement
+				is met as well as the condition $\mu_k+2n_k < \mu_{k+1}$.
+			
+		\end{enumerate}
+\end{proof}
+
+	We conclude this section with the statement of two theorems
+	closely related to the previous one. However, we will not prove
+	these theorems here.
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Statement of 2 theorems similar to Fejers
+%% Example
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thrm}[Carlson]
+	If $f$ is a continuous, $2\pi$-periodic function then
+	its Fourier series converges pointwise to $f$ almost
+	everywhere.
+\end{thrm}
+
+\begin{thrm}[Katznelson and Kahame]
+	If $E \subset \real$ is a null set then there is a function
+	$f$ such that for all $t \in E$,
+		\begin{displaymath}
+			\limsup_{n \rightarrow \infty} \modulus{s_n(t)}
+				= \infty
+		\end{displaymath}
+	(where $s_n$ is the $n$th partial sum of the Fourier series
+	of $f$).
+\end{thrm}
+
+\end{section}

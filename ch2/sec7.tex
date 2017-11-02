@@ -1,0 +1,120 @@
+\begin{section}{The Heat Problem (Revisited)}
+
+Recall the Heat Problem stated in the first
+section of this chapter: Given a continuous 
+function $f:[0,\pi] \to \real$
+which satisfies $f(0) = f(\pi) = 0$ and represents
+the temperature at time zero of a wire of length
+$\pi$, is it possible to find a
+continuous function $u:[0,\pi] \times [0,\infty)
+\to \real$ which represents the temperature of the
+wire at time $t \geq 0$?
+
+We stated that $u$ must have partial derivatives
+on $(0,\pi) \times (0,\infty)$ and furthermore, it must
+satisfy the following conditions
+
+%% Conditions for the heat equation
+	\begin{IEEEeqnarray*}{l}
+		u(x,0) = f(x) \text{ for all } x \in [0,\pi] \; (\ast) \\
+		u(0,t) = u(\pi,t) = 0 \text{ for all } t \geq 0 \; (\dagger) \\
+		\frac{\partial u}{\partial t}(x,t) = c^2 \,
+			\frac{\partial^2 u}{\partial x^2}(x,t)
+			\text{ for all } (x,t) \in 
+			(0,\pi) \times (0,\infty) \; (\ddagger)
+	\end{IEEEeqnarray*}
+where $c$ is a real constant.
+
+We showed that the funtion $u$ defined by
+	\begin{displaymath}
+		u(x,t) = \sum_{k=1}^\infty b_k e^{-k^2t}\sin kx
+			\; (\ast)
+	\end{displaymath}
+for some real scalars $b_k, k \in \natrl$ satisfies
+$(\dagger)$ and $(\ddagger)$ and that
+this $u$ is $\ctsdiff$ on $\real \times (0,\infty)$.
+
+Therefore, to show that $u$ represents the solution
+to the Heat Problem corresponding to $f$, we only
+have to show that $u$ is continuous on $[0,\pi] \times
+\{0\}$ and that $f$ can be written in the form
+	\begin{displaymath}
+		f(x) = \sum_{k=1}^\infty b_k\sin kx
+	\end{displaymath}
+
+In this section we present one condition, which,
+if satisfied, allows $f$ to have a solution $u$
+for the Heat Problem.
+
+%% Existence of soln to heat problem
+\begin{thrm}
+	Suppose $f$ belongs to $C_0[0,\pi]$ and that
+	$f \in \ctsdiff[2]$ on $[0,\pi]$. Then the
+	Heat Problem has a (unique) solution (namely,
+	the function $u$ stated above.)
+\end{thrm}
+
+\begin{proof}
+	By Proposition \ref{prop:periodic}, there exists
+	a unique, odd, $2\pi$-periodic extension of $f$
+	to $\real$. Call this extension $g$. Then by
+	Corollary \ref{cor:EvenOdd} the Fourier series
+	of $g$ has the form
+		\begin{displaymath}
+			\sum_{k=1}^\infty b_k \sin kx
+		\end{displaymath}
+	and this series converges uniformly to $g$ on
+	$\real$ by Corollary \ref{cor:FourierUniformConv2}.
+	Therefore, the function $u$ given in $(\ast)$
+	represents a solution to the Heat Problem for $f$
+	provided we can show it is continuous at $(x_0,0)$
+	for $x_0 \in [0,\pi]$. In fact, we will show that
+	$u$ is continuous on $\real \times \{0\}$.
+	
+	Let $M > 0$ be an upper bound for the $b_k$'s.
+	Fix $\epsilon > 0$. Given $x_0 \in \real$
+	choose $\delta' > 0$ such that $\modulus{g(x)-g(x_0)}
+	< \epsilon/2$ whenever $\modulus{x-x_0} < \delta'$.
+	Next choose $N \in \natrl$ such that
+		\begin{displaymath}
+			M\sum_{k=N+1}^\infty \frac{2}{k^2}
+				< \epsilon/4
+		\end{displaymath}
+	
+	Finally, choose $\tau > 0$ such that
+		\begin{displaymath}
+			M\sum_{k=1}^N \frac{1-e^{-k^2\tau}}{k^2}
+				< \epsilon/4
+		\end{displaymath}
+	Let $\delta = \min(\delta',\tau)$. Then if
+	$\norm[]{(x,t)-(x_0,0)} < \delta$ we have
+		\begin{IEEEeqnarray*}{rCl}
+			\modulus{u(x,t)-u(x_0,0)} & \leq &
+				\modulus{u(x,t)-u(x,0)} +
+				\modulus{u(x,0)-u(x_0,0)} \\
+			& = & \modulus{\sum_{k=1}^\infty
+				b_k e^{-k^2t}\sin kx - \sum_{k=1}^\infty
+				b_k \sin kx} + \modulus{g(x)-g(x_0)} \\
+			& \leq & \sum_{k=1}^\infty \modulus{b_k}
+				(1-e^{-k^2t}) + \epsilon/2 \\
+			& \leq & M \sum_{k=1}^\infty \frac{1-e^{-k^2t}}{k^2}
+				+ \epsilon/2
+		\end{IEEEeqnarray*}
+	By Theorem \ref{thrm:coeffbounds}. Therefore,
+		\begin{IEEEeqnarray*}{rCl}
+			\modulus{u(x,t)-u(x_0,0)} & \leq &
+				M \sum_{k=1}^N \frac{1-e^{-k^2t}}{k^2}
+				+ M \sum_{k=N+1}^\infty \frac{1-e^{-k^2t}}{k^2}
+				+ \epsilon/2 \\
+			& \leq & M \sum_{k=1}^N \frac{1-e^{-k^2\tau}}{k^2}
+			 	+ M \sum_{k=N+1}^\infty \frac{2}{k^2} + \epsilon/2 \\
+			& \leq & \epsilon/4 + \epsilon/4 + \epsilon/2 \\
+			& = & \epsilon
+		\end{IEEEeqnarray*}
+	And so $u$ is continuous on $\real \times [0,\infty)$. Thus
+	the restriction of this $u$ to $[0,\pi] \times [0,\infty)$
+	represents the solution to the Heat Problem for $f$. (This is
+	solution is unique by Theorem \ref{thrm:HeatUnique}.)
+\end{proof}
+
+\end{section}

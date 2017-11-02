@@ -1,0 +1,308 @@
+\begin{section}{Properties of Convolutions}
+
+	In this section we define the convolution of two
+	functions and present some relevant results.
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Some preliminary Defns and Lemmas
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{defn}
+	If $f:\real \rightarrow \cmplx$ and $\isreal$, define
+	$\tau_x f:\real \rightarrow \cmplx$ by
+		\begin{displaymath}
+			(\tau_x f)(t) = f(t-x)
+		\end{displaymath}
+	for $\isreal[t]$.
+\end{defn}
+
+	The following lemmas will be stated without proof.
+	
+\begin{lemma}
+	Suppose $\isreal$, $V$ is one of $\ctszeror, \ctscompact$
+	or $\ctsdiff[p](\real)$ and $f \in V$. Then $\tau_x f \in
+	V$ and moreover the map $f \mapsto \tau_x f$ is a vector
+	space isomorphism between $V$ and itself.
+\end{lemma}
+
+\begin{lemma}
+	\begin{enumerate}[i)]
+	
+		\item
+			For each $\isreal[h]$ the restriction of $\tau_h$ to $\absint$
+			is a norm-preserving, isomorphism of $\absint$ onto itself.
+			When we say norm-preserving, we mean that $\norm[1]{f-g} =
+			\norm[1]{\tau_h f - \tau_h g}$ for all $f,g \in \absint$.
+			Moreover,
+				\begin{displaymath}
+					\myintb{(\tau_h f)(t)}{t} = \myintb{f(t)}{t}
+				\end{displaymath}
+		
+		\item
+			For each $\isreal[h]$ the restriction of $\tau_h$ to $\ctszeror$
+			is a norm-preserving, isomorphism of $\ctszeror$ onto itself.
+			That is,
+				\begin{displaymath}
+					\supnorm{\tau_h f - \tau_h g} = \supnorm{f-g}
+				\end{displaymath}
+			In fact,
+				\begin{displaymath}
+					\F[\tau_h f](x) = e^{-ihx} \f(x)
+				\end{displaymath}
+			
+	\end{enumerate}
+\end{lemma}
+
+\begin{lemma}
+		Suppose $V$ is one of $\ctszeror$ or $\absint$ (with their natural
+		norms). Then the mapping
+			\begin{displaymath}
+				x \mapsto \tau_x \bigg \vert_V
+			\end{displaymath}
+		is a group homomorphism from $\real$ under addition to the group
+		of linear operators on $V$ under composition.
+\end{lemma}
+
+\begin{defn}
+	If $f:\real \rightarrow \cmplx$, define $f^-:\real \rightarrow \cmplx$
+	by $f^-(t)=f(-t)$ and write $If=f^-$.
+\end{defn}
+
+\begin{lemma}
+	\begin{enumerate}[i)]
+		\item
+			If $V$ is either $\absint$ or $\ctszeror$ then the restriction of
+			$I$ to $V$ is a norm-preserving isomorphism of $V$ onto itself.
+		\item
+			If $f \in \absint$ then
+				\begin{displaymath}
+					\F[If](x)=\f(-x)=(I\f)(x)=\check{f}(x)
+				\end{displaymath}
+	\end{enumerate}
+\end{lemma}
+
+\begin{defn}
+	Let $\Rloc$ be the set of all functions from $\real$ to $\cmplx$ which
+	are Riemann integrable on $[a,b]$ whenever $a,b \in \real$ and $a < b$.
+	Note that $\Rloc = \ctsr \cup \absint$. Let $\Rc$ be the subset of
+	functions in $\Rloc$ which vanish outside a compact set. Note that $\Rc
+	\in \absint$.
+\end{defn}
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Defn of Convolution
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{defn}
+	Suppose $f,g \in \Rloc$ and that, for all $\isreal$, the map
+		\begin{displaymath}
+			t \mapsto f(t)g(x-t)
+		\end{displaymath}
+	belongs to $\absint$. Then we say \emph{$f$ is convolvable with $g$}
+	and	we define $\conva{f}{g}:\real \rightarrow \cmplx$ by
+		\begin{displaymath}
+			\convb{f}{g}{x} = \myintb{f(t)g(x-t)}{t}
+		\end{displaymath}
+	for all $\isreal$. We call $\conva{f}{g}$ the \emph{convolution of
+	$f$ with $g$}.
+\end{defn}
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% First result of convolutions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{prop}
+	Suppose $f,g \in \Rloc$ and $\conva{f}{g}$ is defined. Then
+	$\conva{g}{f}$ is defined and the two functions are equal.
+\end{prop}
+
+\begin{proof}
+	Let $\isreal$ and $A > 0$. Then
+		\begin{IEEEeqnarray*}{rCl}
+			\myintb[A]{\modulus{g(t)f(x-t)}}{t} & = &
+				-\myinta{x+A}{x-A}{\modulus{g(x-s)f(s)}}{s} \; \;
+				(s=x-t) \\
+			& = & \myinta{x-A}{x+A}{\modulus{f(s)g(x-s)}}{s} \\
+			& \leq & \myintb{\modulus{f(t)g(x-t)}}{t} \\
+			& < & \infty
+		\end{IEEEeqnarray*}
+	Hence the map $t \mapsto g(t)f(x-t)$ belongs to $\absint$ and
+		\begin{displaymath}
+			\myintb{\modulus{g(t)f(x-t)}}{t} \leq \myintb
+				{\modulus{f(t)g(x-t)}}{t}
+		\end{displaymath}
+	Similarly,
+		\begin{displaymath}
+			\lim_{A \rightarrow \infty}\myintb[A]{g(t)f(x-t)}{t}
+				= \myintb{f(t)g(x-t)}{t}
+		\end{displaymath}
+	ie. $\convb{g}{f}{x} = \convb{f}{g}{x}$ for all $\isreal$.
+\end{proof}
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Second result of convolutions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{lemma}
+	If $f_1,f_2,g \in \Rloc, \iscmplx[\alpha]$ and both
+	$\conva{f_1}{g}$ and $\conva{f_2}{g}$ are defined
+	then $\conva{(\alpha f_1+f_2)}{g}$ is defined and
+	$\conva{(\alpha f_1+f_2)}{g} = \alpha \conva{f_1}{g}
+	+ \conva{f_2}{g}$.
+\end{lemma}
+
+\begin{proof}
+	Trivial.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Third result of convolutions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{lemma}
+	If $f,g \in \Rloc, \conva{f}{g}$ is defined and $\isreal[h]$
+	then $\conva{(\tau_h f)}{g}$ is defined and $\conva{(\tau_h f)}
+	{g} = \tau_h(\conva{f}{g})$.
+\end{lemma}
+
+\begin{proof}
+	For any $A > 0$,
+		\begin{IEEEeqnarray*}{rCl}
+			\myintb[A]{(\tau_h f)(t)g(x-t)}{t} & = &
+				\myintb[A]{f(t-h)g(x-t)}{t} \\
+			& = & \myinta{-A-h}{A-h}{f(s)g(x-s-h)}{s} \; \;
+				(s=t-h) \\
+			& = & \myinta{-A-h}{A-h}{f(s)g((x-h)-s)}{s} \\
+			& \rightarrow & \convb{f}{g}{x-h} \; \; \text{as }
+				A \rightarrow \infty \\
+			& = & \tau_h(\convb{f}{g}{x})
+		\end{IEEEeqnarray*}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Fourth result of convolutions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{lemma}\label{lemma:Conv1}
+	If $f \in \Rc$ and $g \in \Rloc$ then $\conva{f}{g}$
+	is defined. Moreover, if either $f \in \ctsr$ or $g
+	\in \ctsr$ then $\conva{f}{g} \in \ctsr$ as well.
+\end{lemma}
+
+\begin{proof}
+	We will divide the proof into steps.
+		\begin{enumerate}[i)]
+		
+			%% f*g is defined
+			\item
+				Choose $a > 0$ such that $f(t)=0$ for $\modulus{t} > a$.
+				Then for $a \leq A \in \real$ and $\isreal$,
+					\begin{displaymath}
+						\myintb[A]{f(t)g(x-t)}{t} = \myintb[a]{f(t)g(x-t)}{t}
+					\end{displaymath}
+				So $\conva{f}{g}$ is defined and
+					\begin{displaymath}
+						\convb{f}{g}{x} = \myintb[a]{f(t)g(x-t)}{t}
+					\end{displaymath}
+				for all $\isreal$.
+				
+			%% Upper bound on f*g
+			\item
+				Now notice that for all $\isreal$,
+					\begin{IEEEeqnarray*}{rCl}
+						\modulus{\convb{f}{g}{x}} & \leq &
+							\myintb[a]{\modulus{f(t)}\modulus{g(x-t)}}{t} \\
+						& \leq & \supnorm{f} \myinta{x-a}{x+a}{\modulus{g(s)}}{s}
+							\; \; (s=x-t)
+					\end{IEEEeqnarray*}
+			
+			%% Final step
+			\item
+				Suppose $f \in \ctsr$. If $\isreal[h]$ and $\modulus{h} < 1$
+				then for all $\isreal$,
+					\begin{IEEEeqnarray*}{rCl}
+						\modulus{\convb{f}{g}{x-h}-\convb{f}{g}{x}} & = &
+							\modulus{\tau_h \convb{f}{g}{x}-\convb{f}{g}{x}} \\
+						& = & \modulus{\convb{(\tau_h f - f)}{g}{x}} \\
+						& \leq & \supnorm{\tau_h f - f} \myinta{x-a-1}{x+a+1}
+							{\modulus{g(t)}}{t} \; \; \text{by Step 2} \\
+						& \rightarrow & 0 \; \; \text{as } h \rightarrow 0
+					\end{IEEEeqnarray*}
+				(for all fixed $\isreal$) because $f$ is uniformly continuous on
+				$[x-1,x+1]$.
+			
+		\end{enumerate}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Fifth result of convolutions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{lemma}
+	Suppose $f \in \Rloc \cap B(\real)$ (where $B(\real)$ is the
+	set of bounded functions on $\real$). If $g \in \absint$ then
+	$\conva{f}{g}$ is defined and belongs to $B(\real)$. Moreover,
+	$\supnorm{\conva{f}{g}} \leq \supnorm{f} \norm[1]{g}$.
+\end{lemma}
+
+\begin{proof}
+	This follows from the proof of Lemma \ref{lemma:Conv1}.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Sixth result of convolutions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{lemma}\label{lemma:Conv2}
+	If $f \in \ctsr$ and $g \in \cts_c^p(\real)$ for some $\isnatrl[p]$
+	then $\conva{f}{g} \in \ctsdiff[p](\real)$ and
+		\begin{displaymath}
+			(\conva{f}{g})^{(k)}(x) = (\conva{f}{g^{(k)}}){x}
+		\end{displaymath}
+	for all $\isreal$, $1 \leq k \leq p$.
+\end{lemma}
+
+\begin{proof}
+	Let $h(x)=\convb{f}{g}{x}$ for $\isreal$. Choose $a > 0$ such that
+	$g(t)=0$ for $\modulus{t} \geq a$. Then
+		\begin{displaymath}
+			h(x) = \myinta{x-a}{x+a}{f(t)g(x-t)}{t}
+		\end{displaymath}
+	For $b > 0, -b < x < b$ we have
+		\begin{displaymath}
+			h(x) = \myinta{-b-a}{b+a}{f(t)g(x-t)}{t}
+		\end{displaymath}
+	If we let
+		\begin{displaymath}
+			F(x,t) = f(t)g(x-t)
+		\end{displaymath}
+	for $\modulus{t} \leq a+b$ and $-b < x < b$ then we may apply
+	Theorem \ref{thrm:Leibniz1} to conclude that $h \in \ctsdiff[1]$
+	on $(-b,b)$ and
+		\begin{IEEEeqnarray*}{rCl}
+			h'(x) & = & \myinta{-b-a}{b+a}{f(t)g'(x-t)}{t} \\
+			& = & \myintb{f(t)g'(x-t)}{t}
+		\end{IEEEeqnarray*}
+	It follows that $h \in \ctsdiff[1](\real)$ and by induction that
+	$h \in \ctsdiff[p](\real)$ and that $h^{(k)} = \conva{f}{g^{(k)}}$
+	for $1 \leq k \leq p$.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Seventh result of convolutions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{lemma}
+	If $f \in \ctsdiff[p](\real)$ for some $\isnatrl[p]$ and $g \in
+	\ctscompact$ then $\conva{f}{g} \in \ctsdiff[p](\real)$ and
+		\begin{displaymath}
+			(\conva{f}{g})^{(k)} = \conva{f^{(k)}}{g}
+		\end{displaymath}
+	for $1 \leq k \leq p$.
+\end{lemma}
+
+\begin{proof}
+	The proof is similar to that used in Lemma \ref{lemma:Conv2}.
+\end{proof}
+
+\end{section}

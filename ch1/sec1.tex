@@ -1,0 +1,323 @@
+\begin{section}{Calculus of Complex-Valued Functions}
+
+\begin{prop}
+Suppose $f:[a,b] \to \cmplx$ for some interval $[a,b]$ in
+$\real$. Let $u(t) = \text{Re} f(t)$ and $v(t) = \text{Im} f(t)$, so that
+$f(t) = u(t) + iv(t)$. Also, suppose $c = a +ib$, for some
+$c \in \cmplx$ and $a \leq t_0 \leq b$. Then
+\begin{enumerate}[i)]
+	\item
+	$\lim_{t \to t_0} f(t) = c \ \text{iff}
+	\ \lim_{t \to t_0} u(t) = a \ \text{and}
+	\lim_{t \to t_0} v(t) = b$.
+
+	\item
+	$f$ is continuous at $t_0$ iff $u$ and $v$ are.
+\end{enumerate}
+\end{prop}
+\begin{proof}
+\bigskip
+\begin{enumerate}[i)]
+	\item
+	\begin{displaymath}
+	\modulus{f(t) - c} = \modulus{(u(t) - a) + i(v(t) - b)}
+	\leq \modulus{u(t) - a} + \modulus{v(t) - b}
+	\end{displaymath}
+	Therefore,
+	\begin{displaymath}
+	\lim_{t \to t_0}f(t) = c \ \text{if} \ 
+	\lim_{t \to t_0}u(t) = a \ \text{and} \ 
+	\lim_{t \to t_0}v(t) = b
+	\end{displaymath}
+	Conversely, we have the inequalities
+	\begin{displaymath}
+	\modulus{u(t) - a} \leq \modulus{f(t) - c}
+	\end{displaymath}
+	and
+	\begin{displaymath}
+	\modulus{v(t) - b} \leq \modulus{f(t) - c}
+	\end{displaymath}
+	from which it follows that $\lim_{t \to t_0}u(t) = a$
+	and $\lim_{t \to t_0}v(t) = b$ if $\lim_{t \to t_0}f(t)=c$.
+	
+
+	\item
+	This follows immediately from i).
+\end{enumerate}
+\end{proof}
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Def'n of Differentiation and Integration
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{defn}
+	If $f$, $t_0$, $u$ and $v$, are defined as above, we say
+	that $f$ is \emph{differentiable} at $t_0$ if $u$ and $v$ are
+	differentiable at $t_0$ (in the sense of real-valued functions).
+	In this case, we define $f'(t_0) = u'(t_0) + iv'(t_0)$.
+	This is the same as saying,
+	\begin{displaymath}
+	f'(t_0) = \lim_{t \to t_0} \frac{f(t) - f(t_0)}{t - t_0}
+	\end{displaymath}
+\end{defn}
+
+\begin{defn}
+	We say $f:[a,b] \to \cmplx$ is \emph{Riemann Integrable} on $[a,b]$
+	provided both $u = \text{Re} f$ and $v = \text{Im} f$ are (in
+	the sense of real-valued functions). In this case, we define the
+	integral of $f$ to be
+	\begin{displaymath}
+	\int_a^b{f} = \int_a^b{u} + i \int_a^b{v}
+	\end{displaymath}
+\end{defn}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Basic facts about integration and differentiation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Most rules from the calculus of real-valued functions carry over to that
+of complex-valued functions. For example, the Fundamental Theorem of Calculus,
+the product rule for derivatives and integration by parts all hold.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Integration is a linear operator
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{prop}
+	Suppose $f:[a,b] \to \cmplx$ is Riemann Integrable on its domain,
+	$\lambda \in \cmplx$ and $g = \lambda f$. Then $g$ is Riemann Integrable
+	on $[a,b]$ and 
+	\begin{displaymath}
+	\int_a^b g = \lambda \int_a^b f
+	\end{displaymath}
+\end{prop}
+\begin{proof}
+	Let $u(t) = \text{Re} f(t)$, $v(t) = \text{Im} f(t)$, and
+	$\lambda = \alpha + i \beta$. Then
+
+	\begin{displaymath}
+	g(t) = [\alpha u(t) - \beta v(t)] + i[\alpha v(t) + \beta u(t)]
+	\end{displaymath}
+
+	Hence $g$ is Riemann Integrable on $[a,b]$ and
+
+	\begin{IEEEeqnarray*}{+rCl+x*}
+	\int_a^b g(t)\ud[t] & = & \int_a^b [\alpha u(t) - \beta v(t)]\ud[t]
+	+ i \int_a^b [\alpha v(t) + \beta u(t)]\ud[t] \\
+	& = & (\alpha + i \beta) \left(\int_a^b u(t)\ud[t] + i \int_a^b v(t)\ud[t]\right) \\
+	& = & \lambda \int_a^b f(t) \ud[t]
+	\end{IEEEeqnarray*}
+
+	This result, along with the obvious fact that
+	\begin{displaymath}
+	\int_a^b{(f + g)} = \int_a^b{f} + \int_a^b{g}
+	\end{displaymath}
+	shows that integration is a linear operator on the space of complex-valued, Riemann
+	Integrable functions (just as it is on the space of real-valued functions).
+\end{proof}
+
+
+
+\begin{prop}
+	If $a < b < c$ and $f:[a,c] \to \cmplx$ is Riemann Integrable on $[a,b]$ and
+	$[b,c]$, then $f$ is Riemann Integrable on $[a,c]$ and
+	
+	\begin{displaymath}
+	\int_a^c f = \int_a^b f + \int_b^c f
+	\end{displaymath}
+\end{prop}
+\begin{proof}
+	The solution follows directly from the definition of the integral of $f$ and
+	the corresponding result for real-valued functions.
+\end{proof}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Fundamental Theorem of Calculus
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thrm}[Fundamental Theorem of Calculus]\label{thrm:FTC}
+	\begin{enumerate}[i)]
+	\item
+	Suppose $f:[a,b] \to \cmplx$ is continuous on its domain and let
+	$F:[a,b] \to \cmplx$ be defined by $F(x) = \myinta{a}{x}{f(t)}{t}$.
+	Then $F$ is differentiable on $[a,b]$ and $F'(x) = f(x)$ for all
+	$a \leq x \leq b$.
+
+	\item
+	Suppose $f:[a,b] \to \cmplx$ is $\ctsdiff[1]$ on its domain. Then
+	$f(b) - f(a) = \myinta{a}{b}{f'(t)}{t}$.
+	\end{enumerate}
+\end{thrm}
+\begin{proof}
+	\begin{enumerate}[i)]
+	\item
+	Let $f = u + iv$. Then $F(x) = \myinta{a}{x}{u(t)}{t} + i\myinta{a}{x}{v(t)}{t}$.
+	Since $u$ and $v$ are continuous on $[a,b]$, we can apply the Fundamental Theorem
+	of Calculus for real-valued functions to obtain
+	\begin{IEEEeqnarray*}{rCl}
+	F'(x) & = & \frac{\mathrm{d}}{\mathrm{dx}}\myinta{a}{x}{u(t)}{t} + 
+	i \frac{\mathrm{d}}{\mathrm{dx}}\myinta{a}{x}{v(t)}{t} \\
+	& = & u(x) + iv(x) \\
+	& = & f(x)
+	\end{IEEEeqnarray*}
+
+	\item
+	Let $f = u + iv$. Then $u$ and $v$ are $\ctsdiff[1]$ on $[a,b]$ so we may apply
+	the Fundamental Theorem of Calculus for real-valued functions to obtain
+	\begin{IEEEeqnarray*}{rCl}
+	\myinta{a}{b}{f'(t)}{t} & = & \myinta{a}{b}{u'(t)}{t} + i \myinta{a}{b}{v'(t)}{t} \\
+	& = & u(b) - u(a) + i [v(b) - v(a)] \\
+	& = & [u(b) + iv(b)] - [u(a) + iv(a)] \\
+	& = & f(b) - f(a)
+	\end{IEEEeqnarray*}
+	\end{enumerate}
+\end{proof}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Product Rule of Differentiation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{prop}[Product Rule of Differentiation]
+	If $h(x) = f(x)g(x)$ for $a \leq x \leq b$ and if $f$ and $g$
+	are differentiable at $x_0$ for some $x_0 \in [a,b]$, then so
+	is $h$ and
+	\begin{displaymath}
+	h'(x_0) = f'(x_0)g(x_0) + f(x_0)g'(x_0)
+	\end{displaymath}
+\end{prop}
+\begin{proof}
+	Let
+	\begin{displaymath}
+	f = u_1 + iv_1 \ \text{and} \ g = u_2 + iv_2
+	\end{displaymath}
+	Then $h = (u_1u_2 - v_1v_2) + i(u_1v_2 + v_1u_2)$
+	So, by the product rule for real-valued functions,
+	$h$ is differentiable at $x_0$ since $u_1, v_1, u_2$
+	and $v_2$ are. Furthermore,
+	\begin{IEEEeqnarray*}{rCl}
+	h' & = & [(u_1'u_2 + u_1u_2') -	(v_1'v_2 + v_1v_2')] \\
+	   & & + \; i[(u_1'v_2 + u_1v_2') + (v_1'u_2 + v_1u_2')] \\
+	   & = & [(u_1'u_2 - v_1'v_2) +	i(u_1'v_2 + v_1'v_2)] \\
+	   & & + \; [(u_1u_2' - v_1v_2') + i(u_1v_2' + v_1u_2')] \\
+	   & = & (u_1' + iv_1')(u_2 + iv_2) + (u_1 + iv_1)(u_2' + iv_2') \\
+	   & = & f'g + fg'
+	\end{IEEEeqnarray*}
+	where all functions are evaluated at $x_0$.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Integration by parts
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{prop}[Integration by Parts]
+	Suppose $f,g:[a,b] \to \cmplx$ are $\ctsdiff[1]$ on their domain.
+	Then
+	\begin{displaymath}
+	\myinta{a}{b}{f(t)g'(t)}{t} = \evalat{f(t)g(t)}{t}{a}{b} - \myinta{a}{b}{f'(t)g(t)}{t}
+	\end{displaymath}
+\end{prop}
+\begin{proof}
+	Let $f = u_1 + iv_1$ and $g = u_2 + iv_2$. Then
+	\begin{IEEEeqnarray*}{rCl}
+	\myinta{a}{b}{f(t)g'(t)}{t} & = & \myinta{a}{b}{\Big([(u_1(t)u_2'(t) - v_1(t)v_2'(t)]
+	+ i[u_1(t)v_2'(t) + v_1(t)u_2'(t)]\Big)}{t} \\
+	& = & \myinta{a}{b}{u_1(t)u_2'(t)}{t} - \myinta{a}{b}{v_1(t)v_2'(t)}{t} \\
+	& & + \; i \left( \myinta{a}{b}{u_1(t)v_2'(t)}{t} + \myinta{a}{b}{v_1(t)u_2'(t)}{t} \right)
+	\end{IEEEeqnarray*}
+	
+	Since $u_1, v_1, u_2$ and $v_2$ are $\ctsdiff[1]$ on $[a,b]$,
+	we can apply Integration by Parts for real-valued functions on each of these integrals.
+	After doing so and rearranging, we obtain
+	\begin{IEEEeqnarray*}{rCl}
+	\myinta{a}{b}{f(t)g'(t)}{t} & = & \evalat{\Big([u_1(t)u_2(t) - v_1(t)v_2(t)]
+	+ i[u_1(t)v_2(t) + v_1(t)u_2(t)]\Big)}{t}{a}{b} \\
+	& & - \; \myinta{a}{b}{\Big([u_1'(t)u_2(t) - v_1'(t)v_2(t)] + i[u_1'(t)v_2(t) + v_1'(t)u_2(t)]\Big)}{t} \\
+	& = & \evalat{f(t)g(t)}{t}{a}{b} - \myinta{a}{b}{f'(t)g(t)}{t}
+	\end{IEEEeqnarray*}
+\end{proof}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% MVT counterexample and Mean Value Inequalities
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Unfortunately, there is no parallel to the Intermediate Value Theorem since
+the complex numbers are not an ordered field. Also the Mean Value Theorem does
+not hold. To see this, let $f(t) = e^{it}$. Then $f(0) = f(2\pi) = 0$ but $f'(t) \ne 0$ for any
+$0 < t < 2\pi$ since
+	\begin{displaymath}
+	\modulus{f'(t)} = \modulus{ie^{it}} = 1 \ \text{for all} \ t \in \real
+	\end{displaymath}
+
+However, we do have the following two Mean Value Inequalities.
+
+\begin{prop}
+	Suppose $f:[a,b] \to \cmplx$ is Riemann Integrable on its domain and let
+	\begin{displaymath}
+	M = \sup \{\modulus{f(t)}: a \leq t \leq b\}
+	\end{displaymath}
+
+	Then
+	\begin{displaymath}
+	\modulus{\myinta{a}{b}{f(t)}{t}} \leq \myinta{a}{b}{\modulus{f(t)}}{t}
+	\leq M(b-a)
+	\end{displaymath}
+\end{prop}
+\begin{proof}
+	This proposition is the complex version of the corresponding result for real-
+	valued functions. To prove it, we will compare $\myinta{a}{b}{\modulus{f(t)}}{t}$
+	to a real number whose absolute value is equal to the modulus of
+	$\myinta{a}{b}{f(t)}{t}$. Let
+	\begin{displaymath}
+	re^{i\theta} = \myinta{a}{b}{f(t)}{t} \ \text{where} \ r \geq 0
+	\end{displaymath}
+	Then
+	\begin{IEEEeqnarray*}{rCl}
+	r & = & e^{-i\theta} \myinta{a}{b}{f(t)}{t}
+	= \myinta{a}{b}{e^{-i\theta} f(t)}{t} \\
+	& = & \text{Re} \left( \myinta{a}{b}{e^{-i\theta} f(t)}{t} \right) \; \text{(since } r \text{ is real)} \\
+	& = & \myinta{a}{b}{\text{Re} (e^{-i\theta} f(t))}{t}
+	\leq \myinta{a}{b}{\modulus{e^{-i\theta} f(t)}}{t} \\
+	& = & \myinta{a}{b}{\modulus{f(t)}}{t}
+	\end{IEEEeqnarray*}
+	But,
+	\begin{displaymath}
+	r = \modulus{\myinta{a}{b}{f(t)}{t}}
+	\end{displaymath}
+
+	So this proves the first inequality. For the second, note that
+	\begin{displaymath}
+	\myinta{a}{b}{\modulus{f(t)}}{t}  \leq \myinta{a}{b}{M}{t} = M(b-a)
+	\end{displaymath}
+\end{proof}
+
+\begin{prop}
+	Suppose $I$ is an open interval in $\real$, $[a,b] \subset I$,
+	$f:I \to \cmplx$ and $f$ is $\ctsdiff[1]$ on $I$. Then there
+	exists $M > 0$ such that $\modulus{f(b) - f(a)} \leq M(b-a)$.
+\end{prop}
+\begin{proof}
+	Let $M =$ max $\{\modulus{f'(t)}: a \leq t \leq b\}$. Then by the
+	Fundamental Theorem of Calculus,
+	\begin{displaymath}
+	f(b) - f(a) = \myinta{a}{b}{f'(t)}{t}
+	\end{displaymath}
+	So,
+	\begin{displaymath}
+	\modulus{f(b) - f(a)} = \modulus{\myinta{a}{b}{f'(t)}{t}} \leq
+	\myinta{a}{b}{\modulus{f'(t)}}{t} \leq \myinta{a}{b}{M}{t} =
+	M(b-a)
+	\end{displaymath}
+\end{proof}
+\end{section}

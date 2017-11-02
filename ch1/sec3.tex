@@ -1,0 +1,138 @@
+\begin{section}{Riemann-Lebesgue Lemma}
+
+The Riemann-Lebesgue Lemma is used extensively in this
+book and will be proven in this section.
+
+\begin{thrm}[Riemann-Lebesgue Lemma]\label{thrm:RLL}
+	Suppose $f:[a,b] \to \cmplx$ is Riemann Integrable on its domain.
+	Then
+	\begin{displaymath}
+	\lim_{\substack{\lambda \rightarrow \infty \\ \lambda \in \real}}
+	\myinta{a}{b}{f(x)\sin(\lambda x + \alpha)}{x}
+	= 0
+	\end{displaymath}
+\end{thrm}
+	
+\begin{proof}
+	\begin{enumerate}[{Case} 1.]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% f is constant
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\item
+	$f = c$ on $[a,b]$ for some $c \in \real$. Then for all $\lambda \in \real$,
+	$\lambda \neq 0$,
+	\begin{IEEEeqnarray*}{l}
+	\myinta{a}{b}{f(x)\sin(\lambda x + \alpha)}{x} \\
+	= c \myinta{a}{b}{\sin(\lambda x + \alpha)}{x} \\
+	= \evalat{\frac{-c \cos(\lambda x + \alpha)}{\lambda}}{x}{a}{b} \\
+	= \frac{c}{\lambda} \left(\cos(\lambda a + \alpha) - \cos(\lambda b + \alpha) \right)
+	\end{IEEEeqnarray*}
+	
+	So,
+	\begin{displaymath}
+	\modulus{\myinta{a}{b}{f(x)\sin(\lambda x + \alpha)}{x}} \leq
+	\frac{2\modulus{c}}{\modulus{\lambda}} \rightarrow 0
+	\end{displaymath}
+	as $\lambda \rightarrow \infty$.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% f is a step function
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
+	\item
+	$f$ is a step function. Then there exist $x_0, x_1, \ldots, x_n$ and
+	$c_1, c_2, \ldots, c_n$ such that $a = x_0 < x_1 < \ldots < x_n = b$ and
+	$f(x) = c_k$ for $x_{k-1} < c_k \leq x_k$, $1 \leq k \leq n$. In this case
+	we have
+	\begin{displaymath}
+	\myinta{a}{b}{f(x)\sin(\lambda x + \alpha)}{x}
+	= \sum_{k=1}^n \myinta{x_{k-1}}{x_k}{c_k\sin(\lambda x + \alpha)}{x}
+	\end{displaymath}
+	$\rightarrow 0$ as $\lambda \rightarrow \infty$ by case 1.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% f is real-valued
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
+	\item
+	$f$ is real-valued. Fix $\epsilon > 0$. Since $f$ is Riemann Integrable,
+	there exists a step function $g:[a,b] \to \real$ such that
+	\begin{displaymath}
+	\myinta{a}{b}{\modulus{f(x) - g(x)}}{x} < \epsilon/2
+	\end{displaymath}
+	Then
+	\begin{IEEEeqnarray*}{l}
+	\modulus{\myinta{a}{b}{f(x)\sin(\lambda x + \alpha)}{x}
+	- \myinta{a}{b}{g(x)\sin(\lambda x + \alpha)}{x}} \\
+	= \modulus{\myinta{a}{b}{(f(x)-g(x))\sin(\lambda x + \alpha)}{x}} \\
+	\leq \myinta{a}{b}{\modulus{f(x)-g(x)}}{x} \\
+	< \epsilon/2
+	\end{IEEEeqnarray*}
+	
+	Therefore,
+	\begin{IEEEeqnarray*}{l}
+	\limsup_{\lambda \rightarrow \infty}
+	\modulus{\myinta{a}{b}{f(x)\sin(\lambda x + \alpha)}{x}} \\
+	\leq \limsup_{\lambda \rightarrow \infty}
+	\modulus{\myinta{a}{b}{(f(x)- g(x))\sin(\lambda x + \alpha)}{x}} \\
+	+ \; \limsup_{\lambda \rightarrow \infty}
+	\modulus{\myinta{a}{b}{g(x)\sin(\lambda x + \alpha)}{x}} \\
+	< \epsilon/2 + \limsup_{\lambda \rightarrow \infty}
+	\modulus{\myinta{a}{b}{g(x)\sin(\lambda x + \alpha)}{x}} \\
+	< \epsilon
+	\end{IEEEeqnarray*}
+	(by Case 2 and the fact that $g$ is a step function).
+	
+	Since this is true for all $\epsilon > 0$,
+	\begin{displaymath}
+	\limsup_{\lambda \rightarrow \infty}
+	\modulus{\myinta{a}{b}{f(x)\sin(\lambda x + \alpha)}{x}} = 0
+	\end{displaymath}
+	and the result follows.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% General case of RL Lemma
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
+	\item
+	For the general case in which $f$ is complex-valued, simply apply
+	the previous case to the real and imaginary parts of $f$.
+	\end{enumerate}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Corollary to Riemann-Lebesgue Lemma
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{cor}\label{cor:RLL}
+	Let $f:[a,b] \to \cmplx$ be Riemann Integrable on its domain. Then
+	\begin{enumerate}[i)]
+	\item
+	\begin{IEEEeqnarray*}{l}
+	\myinta{a}{b}{f(x)\sin \lambda x}{x} \rightarrow 0
+	\end{IEEEeqnarray*}
+	as $\lambda \rightarrow \infty$ or $\lambda \rightarrow -\infty$.
+	
+	\item
+	\begin{IEEEeqnarray*}{l}
+	\myinta{a}{b}{f(x)\cos \lambda x}{x} \rightarrow 0
+	\end{IEEEeqnarray*}
+	as $\lambda \rightarrow \infty$ or $\lambda \rightarrow -\infty$.
+	
+	\item
+	\begin{IEEEeqnarray*}{l}
+	\myinta{a}{b}{f(x)e^{i\lambda x}}{x} \rightarrow 0
+	\end{IEEEeqnarray*}
+	as $\lambda \rightarrow \infty$ or $\lambda \rightarrow -\infty$.
+	\end{enumerate}
+\end{cor}
+
+\begin{proof}
+	\begin{enumerate}[i)]
+	\item
+	Apply the Riemann-Lebesgue Lemma with $\alpha = 0$.
+	
+	\item
+	Apply the Riemann-Lebesgue Lemma with $\alpha = \pi/2$.
+	
+	\item
+	This is a simple consequence of parts i) and ii) and
+	the fact that $e^{i\lambda x} = \cos \lambda x + i \sin \lambda x$
+	for all $\lambda, x \in \real$.
+	\end{enumerate}
+\end{proof} 
+\end{section}

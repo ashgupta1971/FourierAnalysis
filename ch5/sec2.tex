@@ -1,0 +1,282 @@
+\begin{section}{Theorem of Approximation by Convolution}
+
+	In this section we present the Theorem of Approximation by
+	Convolution and two of its consequences. One of which 
+	involves the heat problem and another
+	providing an alternate proof of the Weierstrass Approximation
+	Theorem. But before presenting any of these results, we prove
+	the following.
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Utility Grade of the Convolution Theorem for the Fourier Transform
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thrm}[Convolution Theorem for the Fourier Transform]
+\label{thrm:ConvForFourierTransform}
+	Suppose $f,g \in \absint \cap \ctszeror$. Then $\conva{f}{g}
+	\in \absint \cap \ctszeror$, $\F[\conva{f}{g}] = \f\f[g]$
+	and $\norm[1]{\conva{f}{g}} \leq \norm[1]{f}\norm[1]{g}$.
+\end{thrm}
+
+\begin{proof}
+	We will divide the proof into steps.
+		\begin{enumerate}[i)]
+		
+			%% f*g is in ctszeror
+			\item
+				For $\isnatrl[k]$ choose $\gamma_k \in \ctszeror$ such
+				that $0 \leq \gamma_k(t) \leq 1$, $\gamma_k(t) = 1$ if
+				$-k \leq t \leq k$ and $\gamma_k(t) = 0$ if $\modulus{t}
+				\geq k+1$. Now let $g_k = \gamma_k g$ for $\isnatrl[k]$.
+				Then for $\isreal$,
+					\begin{IEEEeqnarray*}{rCl}
+						\modulus{\convb{f}{g}{x}-\convb{f}{g_k}{x}} & = &
+							\modulus{\convb{f}{(g-g_k)}{x}} \\
+						& \leq & \supnorm{f}\norm[1]{g-g_k} \\
+						& & \text{(by Step 2 of the proof of Lemma \ref{lemma:Conv1})} \\
+						& \leq & \supnorm{f} \left(2\myinta{-\infty}{-k}
+							{\modulus{g(t)}}{t} + 2\myinta{k}{\infty}{\modulus{g(t)}}{t}
+							\right)
+					\end{IEEEeqnarray*}
+				It follows that $\{\conva{f}{g_k}\}_{k=1}^\infty$ converges to
+				$\conva{f}{g}$ uniformly on $\real$ and hence that $\conva{f}{g}$
+				lies in $\ctszeror$.
+				
+			%% f*g is in absint
+			\item
+				For any $A > 0$,
+					\begin{IEEEeqnarray*}{rCl}
+						\myintb[A]{\modulus{\convb{f}{g}{x}}}{x} & \leq &
+							\myintb[A]{\left(\myintb{\modulus{f(t)}
+							\modulus{g(x-t)}}{t}\right)}{x} \\
+						& = & \myintb{\left(\myintb[A]{\modulus{f(t)}
+							\modulus{g(x-t)}}{x}\right)}{t} 
+							\; \; \text{(by Theorem \ref{thrm:Fubini2})} \\
+						& = & \myintb{\modulus{f(t)}\left(\myintb[A]
+							{\modulus{g(x-t)}}{x}\right)}{t} \\
+						& \leq & \myintb{\modulus{f(t)}\norm[1]{g}}{t} \\
+						& = & \norm[1]{f}\norm[1]{g}
+					\end{IEEEeqnarray*}
+				Hence $\conva{f}{g} \in \absint$ and $\norm[1]{\conva{f}{g}} \leq
+				\norm[1]{f}\norm[1]{g}$. A similar argument shows that
+					\begin{displaymath}
+						\myintb{\convb{f}{g}{x}}{x} = \myintb{f(t)}{t}
+							\myintb{g(t)}{t}
+					\end{displaymath}
+				
+			%% Final step -- equality of transforms
+			\item
+				For any $\isreal[y]$,
+					\begin{IEEEeqnarray*}{rCl}
+						\F[(\conva{f}{g})](y) & = & \myintb{\left(\myintb
+							{f(t)g(x-t)}{t}\right)e^{-iyx}}{x} \\
+						& = & \myintb{\left(\myintb{f(t)e^{-iyt}
+							g(x-t)e^{-iy(x-t)}}{t}\right)}{x} \\
+						& = & \myintb{\convb{f_y}{g_y}{x}}{x}
+					\end{IEEEeqnarray*}
+				where $f_y(t) = f(t)e^{-iyt}$ and $g_y(t) = g(t)e^{-iyt}$
+				for all $\isreal[t]$. By the remarks in Step 1, we get
+					\begin{IEEEeqnarray*}{rCl}
+						\F[(\conva{f}{g})](y) & = & \myintb{\convb
+							{f_y}{g_y}{x}}{x} \\
+						& = & \myintb{f(t)e^{-iyt}}{t}\myintb{g(s)e^{-iys}}{s} \\
+						& = & \f(y)\f[g](y)
+					\end{IEEEeqnarray*}
+					
+		\end{enumerate}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Theorem involving Fourier transform of derivative of a fn
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thrm}
+	Suppose $f \in \absint \cap \ctszeror \cap \ctsdiff[1](\real)$ and
+	$f' \in \absint$. Then $\F[f'](x)=ix\f(x)$.
+\end{thrm}
+
+\begin{proof}
+	For all $\isreal$,
+		\begin{IEEEeqnarray*}{rCl}
+			\F[f'](x) & = & \myintb{f'(t)e^{-ixt}}{t} \\
+			& = & \evalat{f(t)e^{-ixt}}{t}{-\infty}{\infty}
+				+ ix \myintb{f(t)e^{-ixt}}{t} \\
+			& = & ix \f(x)
+		\end{IEEEeqnarray*}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Theorem of Approximation by Convolution
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thrm}\label{thrm:ApproxByConv}
+	Suppose $g \in \absint$, $0 \leq g(t) \in \real$ for all $\isreal[t]$
+	and
+		\begin{displaymath}
+			\myintb{g(t)}{t} = 1
+		\end{displaymath}
+	For $\lambda > 0$ let $H_\lambda g(t)=\lambda g(\lambda t)$ for all
+	$\isreal[t]$. If $f:\real \rightarrow \cmplx$ and $f$ is bounded and
+	uniformly continuous on $\real$ then
+		\begin{displaymath}
+			\lim_{\lambda \rightarrow \infty}\convb{f}{H_\lambda g}{x}
+				= f(x) \; \; \text{(uniformly)}
+		\end{displaymath}
+\end{thrm}
+
+\begin{proof}
+	Choose $M > 0$ such that $\modulus{f(t)}<M$ for all $\isreal[t]$. Let
+	$\epsilon>0$. Choose $\delta>0$ such that $\modulus{f(s)-f(t)}<\epsilon/2$
+	whenever $\modulus{s-t} \leq \delta$. Choose $\lambda_0>0$ such that
+		\begin{displaymath}
+			\myintb{g(s)}{s}-\myintb[\lambda \delta]{g(s)}{s} <
+				\frac{\epsilon}{4M}
+		\end{displaymath}
+	whenever $0 < \lambda_0 < \lambda \in \real$. Note that
+		\begin{displaymath}
+			\myintb{H_\lambda g(t)}{t} = \myintb{g(s)}{s}
+		\end{displaymath}
+	for all $\lambda>0$. Then for all $\isreal$ and $\lambda>\lambda_0$,
+		\begin{IEEEeqnarray*}{rCl}
+			\modulus{\convb{f}{H_\lambda g}{x}-f(x)} & = &
+				\modulus{\myintb{f(x-t)\lambda g(\lambda t)}{t}
+				- f(x)\myintb{\lambda g(\lambda t)}{t}} \\
+			& = & \modulus{\myintb{[f(x-t)-f(x)]\lambda g(\lambda t)}{t}} \\
+			& \leq & \myinta{-\infty}{-\delta}{2M\lambda g(\lambda t)}{t}
+				+ \myintb[\delta]{\frac{\epsilon}{2}\lambda g(\lambda t)}{t}
+				+ \myinta{\delta}{\infty}{2M\lambda g(\lambda t)}{t} \\
+			& = & 2M\left(\myinta{-\infty}{-\delta}{\lambda g(\lambda t)}{t}
+				+ \myinta{\delta}{\infty}{\lambda g(\lambda t)}{t}\right)
+				+ \frac{\epsilon}{2}\myintb{\lambda g(\lambda t)}{t} \\
+			& = & 2M\left(\myintb{\lambda g(\lambda t)}{t}
+				- \myintb[\lambda \delta]{\lambda g(\lambda t)}{t}\right)
+				+ \frac{\epsilon}{2}\myintb{\lambda g(\lambda t)}{t} \\
+			& < & 2M\left(\frac{\epsilon}{4M}\right)+\frac{\epsilon}{2} \\
+			& = & \epsilon
+		\end{IEEEeqnarray*}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Heat Problem Revisited
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thrm}[Heat Problem. Revisited]
+	Suppose $f:\real \rightarrow \cmplx$ is bounded and uniformly
+	continuous on $\real$. Define $u(x,t):\real \times [0,\infty)
+	\rightarrow \cmplx$ by
+		\begin{displaymath}
+			u(x,t) = 
+				\begin{cases}
+					\displaystyle{\frac{1}{\sqrt{2\pi t}}
+						\myintb
+						{f(y)\exp\left(-\frac{(x-y)^2}{2t}\right)}{y}}
+						& \isreal, t>0 \\
+					f(x) & \isreal, t=0
+				\end{cases}
+		\end{displaymath}
+	Then
+		\begin{enumerate}[i)]
+			\item
+				$u$ is continuous on its domain.
+			\item
+				$u \in \ctsdiff$ on $\real \times (0,\infty)$.
+			\item
+				$\displaystyle{\frac{\partial u}{\partial t}(x,t) =
+				\frac{\partial^2 u}{\partial x^2}(x,t)}$ for all $\isreal,
+				t>0$.
+			\item
+				$u(x,0)=f(x)$.
+		\end{enumerate}
+\end{thrm}
+
+\begin{proof}
+	Statement iv) is obvious and statements ii) and iii) can be easily
+	proven by using Theorem \ref{thrm:Leibniz2}. For statement i), note
+	that
+		\begin{displaymath}
+			u(x,t) = \convb{f}{H_{1/\sqrt{t}}G}{x}
+		\end{displaymath}
+	for $\isreal, t>0$, where $G$ is the Gaussian distribution and is
+	defined by
+		\begin{displaymath}
+			G(t) = \frac{1}{\sqrt{2\pi}}e^{-t^2/2}
+		\end{displaymath}
+	By Theorem \ref{thrm:ApproxByConv},
+		\begin{displaymath}
+			\lim_{t \rightarrow 0}u(x,t)
+				= \lim_{t \rightarrow 0}\convb{f}{H_{1/\sqrt{t}}G}{x}
+				= f(x)
+		\end{displaymath}
+	uniformly for all $\isreal$. Hence $u$ is continuous on its entire
+	domain.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Weierstrass Approximation Theorem Revisited
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thrm}[Weierstrass Approximation Theorem Revisited]
+	Suppose $[a,b] \subset \real, \phi:[a,b] \rightarrow \real$ and
+	$\phi$ is continuous. Then for all $\epsilon>0$ there exists a
+	polynomial function $P:\real \rightarrow \real$ such that
+	$\modulus{\phi(x)-P(x)}<\epsilon$ for all $x \in [a,b]$.
+\end{thrm}
+
+\begin{proof}
+	Choose $A>0$ such that $[a,b] \subset (-A,A)$ and choose a
+	continuous function $f:\real \rightarrow \real$ which agrees
+	with $\phi$ on $[a,b]$ and vanishes outside $(-A,A)$. Fix
+	$\epsilon>0$. By Theorem \ref{thrm:ApproxByConv}, we can choose
+	$t>0$ such that
+		\begin{displaymath}
+			\modulus{f(x)-\convb{f}{H_{1/\sqrt{t}}G}{x}} < \epsilon/2
+		\end{displaymath}
+	for all $\isreal$. Observe that
+		\begin{displaymath}
+			\convb{f}{H_{1/\sqrt{t}}G}{x} = \frac{1}{\sqrt{2\pi t}}
+				\myintb{f(y)\exp\left(-\frac{(x-y)^2}{2t}\right)}{y}
+		\end{displaymath}
+	for all $\isreal$. Let
+		\begin{displaymath}
+			F(z) = \frac{1}{\sqrt{2\pi t}}
+				\myintb{f(y)\exp\left(-\frac{(z-y)^2}{2t}\right)}{y}
+		\end{displaymath}
+	for $\iscmplx$. It follows from Theorem \ref{thrm:Fubini1} that
+	$F$ is continuous. Now if $\gamma:[\alpha,\beta] \rightarrow \cmplx$
+	is a closed, $\ctsdiff[1]$ curve then
+		\begin{IEEEeqnarray*}{rCl}
+			\myintc{F(z)}{z} & = & \myinta{\alpha}{\beta}
+				{F(\gamma(s))\gamma'(s)}{s} \\
+			& = & \myinta{\alpha}{\beta}{\left(\frac{1}{\sqrt{2\pi t}}
+				\myintb[A]{f(y)\exp\left(-\frac{(\gamma(s)-y)^2}{2t}\right)}{y}
+				\right)\gamma'(s)}{s} \\
+			& = & \frac{1}{\sqrt{2\pi t}}\myintb[A]{\left(
+				\myinta{\alpha}{\beta}
+				{\exp\left(-\frac{(\gamma(s)-y)^2}{2t}\right)\gamma'(s)}{s}\right)
+				f(y)}{y} \\
+			& = & \frac{1}{\sqrt{2\pi t}}\myintb[A]{\left(\myintc
+				{\exp\left(-\frac{(z-y)^2}{2t}\right)}{z}\right)f(y)}{y} \\
+			& = & 0
+		\end{IEEEeqnarray*}
+	by Cauchy's Theorem. Thus
+		\begin{displaymath}
+			\myintc{F(z)}{z} = 0
+		\end{displaymath}
+	for every closed, $\ctsdiff[1]$ curve $\gamma$ in $\cmplx$. By
+	Morera's Theorem, $F$ is entire and so its Taylor series converges
+	to it uniformly on the set $\{\iscmplx \; : \; \modulus{z} \leq A\}$.
+	It follows that there exists a polynomial function $P_1:\cmplx \rightarrow
+	\cmplx$ such that $\modulus{F(z)-P_1(z)}<\epsilon/2$ for all $\iscmplx$,
+	$\modulus{z} \leq A$. Since $F$ is real valued on the real line, its
+	derivatives at zero are real and so $P_1$ is real valued on the reals
+	as well. Let $P = P_1 \vert_\real$. Then
+		\begin{IEEEeqnarray*}{rCl}
+			\modulus{f(x)-P(x)} & \leq & \modulus{f(x)-F(x)}
+				+ \modulus{F(x)-P(x)} \\
+			& < & \frac{\epsilon}{2} + \frac{\epsilon}{2} \\
+			& = & \epsilon
+		\end{IEEEeqnarray*}
+	for all $x \in [-A,A]$.
+\end{proof}
+
+\end{section}

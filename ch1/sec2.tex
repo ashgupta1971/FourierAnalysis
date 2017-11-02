@@ -1,0 +1,222 @@
+\begin{section}{Three Convergence Theorems}
+
+In this section, we establish three convergence
+theorems which will be used in later sections. The
+first two theorems deal with derivatives and the
+second with integrals.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% First Derivative convergence theorem
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thrm}
+\label{thrm:derivative}
+	\begin{enumerate}[i)]
+		\item
+			Suppose $\{f_k\}_{k=1}^\infty$ is a sequence of complex-valued,
+			continuously differentiable functions on a set $X \subset \real$
+			which converge pointwise on their domain and whose derivatives
+			converge uniformly on $X$. Then $\{f_k\}_{k=1}^\infty$ converges
+			pointwise on $X$ to a $\ctsdiff[1]$ function which satisfies
+				\begin{displaymath}
+					\frac{d}{dx}\lim_{k \rightarrow \infty}f_k(x)
+						= \lim_{k \rightarrow \infty}f_k'(x)
+				\end{displaymath}
+			
+		\item
+			Suppose $\{f_k\}_{k=1}^\infty$ is a sequence of complex-valued,
+			continuously differentiable functions on a set $X \subset \real$.
+			Futhermore, suppose $\sum_{k=1}^\infty f_k$ converges pointwise
+			on $X$ and $\sum_{k=1}^\infty f_k'$ converges uniformly
+			on $X$. Then $\sum_{k=1}^\infty f_k$ converges pointwise on $X$ to
+			a $\ctsdiff[1]$ function which satisfies
+				\begin{displaymath}
+					\frac{d}{dx}\sum_{k=1}^\infty f_k(x)
+						= \sum_{k=1}^\infty f_k'(x)
+				\end{displaymath}
+	\end{enumerate}
+\end{thrm}
+
+\begin{proof}
+	\begin{enumerate}[i)]
+		\item
+			Let $g = \lim_{k \rightarrow \infty} f_k'$. Then for $x \in X$,
+				\begin{IEEEeqnarray*}{rCl}
+					f(x) & = & \lim_{k \rightarrow \infty} f_k(x) \\
+					& = & \lim_{k \rightarrow \infty}
+						\left( f_k(x_0) + \myinta{x_0}{x}{f_k'(t)}{t}
+						\right) \\
+					& = & f(x_0) + \lim_{k \rightarrow \infty}
+						\myinta{x_0}{x}{f_k'(t)}{t} \\
+					& = & f(x_0) + \myinta{x_0}{x}{g(t)}{t}
+				\end{IEEEeqnarray*}
+			But $g$ is continuous on $X$, so the result follows by 
+			the Fundamental Theorem of Calculus.
+				
+		\item
+			Apply part i) to the sequence of partial sums
+				\begin{displaymath}
+					s_n(x) = \sum_{k=1}^n f(x)
+				\end{displaymath}
+	\end{enumerate}			
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Second Derivative convergence theorem
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thrm}\label{thrm:DerivUniConv}
+	Suppose $\{f_k\}_{k=1}^\infty$ is a sequence of complex-valued,
+	continuously differentiable functions on a bounded interval $[a,b]$.
+
+		\begin{enumerate}[i)]
+			\item
+			If the sequence $\{f_k\}_{k=1}^\infty$ converges pointwise 
+			at some $x_0 \in [a,b]$ and $\{f_k'\}_{k=1}^\infty$ converges
+			uniformly to some $g \in \ctsab{a}{b}$ then $\{f_k\}_{k=1}^\infty$
+			converges uniformly on $[a,b]$ to some $f \in \ctsdiff[1]([a,b])$
+			and $f'(x) = g(x)$ for all $x \in [a,b]$.
+			
+			\item
+			If $\sum_{k=1}^\infty f_k$ converges pointwise at some $x_0 \in
+			[a,b]$ and $\sum_{k=1}^\infty f_k'$ converges uniformly on $[a,b]$
+			then $\sum_{k=1}^\infty f_k$ converges uniformly on $[a,b]$ to a
+			$\ctsdiff[1]$ function which satisfies
+				\begin{displaymath}
+					\frac{d}{dx}\sum_{k=1}^\infty f_k(x)
+						= \sum_{k=1}^\infty f_k'(x)
+				\end{displaymath}
+		\end{enumerate}
+\end{thrm}
+
+\begin{proof}
+	\begin{enumerate}[i)]
+		\item
+		Fix $\epsilon > 0$. Choose $N_1$ such that
+		$\modulus{f_m(x_0) - f_n(x_0)} < \epsilon/2$ for
+		$n, m > N_1$. Choose $N_2$ such that $\modulus{f_m'(t) -
+		f_n'(t)} < \epsilon/2(b-a)$ for $n, m > N_2$ and all
+		$t \in [a,b]$. Let $N =	\max(N_1, N_2)$. Then for $n, m > N$,
+	
+			\begin{IEEEeqnarray*}{rCl}
+				\modulus{f_m(x) - f_n(x)} & = &
+					\modulus{\left(f_m(x_0) + \myinta{a}{b}{f_m'(t)}{t}\right)
+					- \left(f_n(x_0) + \myinta{a}{b}{f_n'(t)}{t}\right)} \\
+				& \leq & \modulus{f_m(x_0) - f_n(x_0)}
+					+ \modulus{\myinta{a}{b}{f_m'(t)}{t}
+					- \myinta{a}{b}{f_n'(t)}{t}} \\
+				& < & \epsilon/2 + \myinta{a}{b}{\modulus{f_m'(t)-f_n'(t)}}{t} \\
+				& < & \epsilon/2 + \myinta{a}{b}{\frac{\epsilon}{2(b-a)}}{t} \\
+				& = & \epsilon/2 + \epsilon/2 \\
+				& = & \epsilon
+			\end{IEEEeqnarray*}
+	
+		Hence, $\{f_k\}_{k=1}^\infty$ satisfies the uniform Cauchy criterion
+		and so converges uniformly to some $f:[a,b] \to \cmplx$. The remaining
+		assertion can be proven identically as in Theorem \ref{thrm:derivative}.
+		
+		\item
+		Apply part i) to the sequence of partial sums
+			\begin{displaymath}
+				s_n(x) = \sum_{k=1}^n f(x)
+			\end{displaymath}
+	\end{enumerate}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Integral convergence theorem
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thrm}\label{thrm:IntegralConv}
+	\begin{enumerate}[i)]
+	\item
+	Suppose $h:[a,b] \to \cmplx$ is bounded on its domain and
+	is Riemann Integrable on $[c,b]$ for all $a < c < b$. Then
+	$h$ is Riemann Integrable on $[a,b]$ and $\int_a^b h =
+	\lim_{c \rightarrow a^+}\int_c^b h$.
+	
+	\item
+	Suppose $h:[a,b] \to \cmplx$ is bounded on its domain and
+	is Riemann Integrable on $[a,c]$ for all $a < c < b$. Then
+	$h$ is Riemann Integrable on $[a,b]$ and $\int_a^b h =
+	\lim_{c \rightarrow b^-}\int_a^c h$.
+	\end{enumerate}
+\end{thrm}
+
+\begin{proof}
+	We will only prove part i). The second part follows by a similar
+	argument. First note that we may assume, without loss of generality, that $h$
+	is real-valued. (For the general case, just apply the following argument
+	to the real and imaginary parts of of $h$.) Fix $\epsilon > 0$. Let
+		\begin{displaymath}
+			M = \sup\{\modulus{h(x)}:	a < x < b\}
+		\end{displaymath}
+	Choose $c \in (a,b)$ such that $(c-a) < \epsilon/4M$.
+	Since $h$ is Riemann Integrable on $[c,b]$, we can find a partition
+	$c = x_1 < x_2 < \ldots < x_n = b$ such that
+	\begin{displaymath}
+	\sum_{k=2}^n M_k(x_k - x_{k-1}) - \sum_{k=2}^n m_k(x_k - x_{k-1}) < \epsilon/2
+	\end{displaymath}
+	where
+		\begin{displaymath}
+			M_k = \sup\{h(x): x_{k-1} \leq x \leq x_k\}
+		\end{displaymath}
+	and
+		\begin{displaymath}
+			m_k = \inf\{h(x): x_{k-1} \leq x \leq x_k\}
+		\end{displaymath}
+	Let $x_0 = a$,
+		\begin{displaymath}
+			M_1 = \sup\{h(x): x_0 = a \leq x \leq x_1 = c\}
+		\end{displaymath}
+	and
+		\begin{displaymath}
+			m_1 = \inf\{h(x): x_0 = a \leq x \leq x_1 = c\}
+		\end{displaymath}
+	Then
+	\begin{IEEEeqnarray*}{l}
+	\sum_{k=1}^n M_k(x_k - x_{k-1}) - \sum_{k=1}^n m_k(x_k - x_{k-1}) \\
+	= (M_1 - m_1)(c - a) + \sum_{k=2}^n (M_k - m_k)(x_k - x_{k-1}) \\
+	< \frac{2M\epsilon}{4M} + \epsilon/2 = \epsilon
+	\end{IEEEeqnarray*}
+	
+	It follows that $h$ is Riemann Integrable on $[a,b]$. Moreover,
+	\begin{displaymath}
+	\modulus{\int_a^b h - \int_c^b h} = \modulus{\int_a^c h}
+	\leq \int_a^c \modulus{h} \leq M(c-a) \rightarrow 0
+	\end{displaymath}
+	as $c \rightarrow a^+$.
+\end{proof}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Corollary to the integral convergence theorem
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{cor}\label{cor:IntegralConv}
+	\begin{enumerate}[i)]
+	\item
+	Suppose $h:[a,b] \to \cmplx$ is right continous at $a$ and Riemann
+	Integrable on $[c,b]$ for all $c \in (a,b)$. Then $h$ is Riemann
+	Integrable on $[a,b]$ and $\int_a^b h =
+	\lim_{c \rightarrow a^+}\int_c^b h$.
+	
+	\item
+	Suppose $h:[a,b] \to \cmplx$ is left continuous at $b$ and Riemann
+	Integrable on $[a,c]$ for all $c \in (a,b)$. Then $h$ is Riemann
+	Integrable on $[a,b]$ and $\int_a^b h =
+	\lim_{c \rightarrow b^-}\int_a^c h$.
+	\end{enumerate}
+\end{cor}
+
+\begin{proof}
+	Again, we will only prove part i). The second part follows by a similar
+	argument.
+	Choose $c > a$ such that $\modulus{h(t) - h(a)} \leq 1$ for $t \in [a,c]$.
+	Then $\modulus{h(t)} \leq \modulus{h(a)} + 1$ on for $t \in [a,c]$. So $h$
+	is bounded on $[a,c]$. Also, it is bounded on $[c,b]$ because it is Riemann
+	Integrable on this interval. Therefore, $h$ satisfies the hypotheses of
+	Theorem \ref{thrm:IntegralConv} and the result follows.
+\end{proof}
+
+\end{section}

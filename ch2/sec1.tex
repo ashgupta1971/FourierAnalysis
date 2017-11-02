@@ -1,0 +1,239 @@
+\begin{section}{The Heat Problem}
+
+The one dimensional heat problem is the following:
+Given a continuous function $f:[0,\pi] \to \real$
+which satisfies $f(0) = f(\pi) = 0$ and represents
+the temperature at time zero of a wire of length
+$\pi$, is it possible to find a
+continuous function $u:[0,\pi] \times [0,\infty)
+\to \real$ which represents the temperature of the
+wire at time $t \geq 0$?
+
+It can be shown (although we will not do it here) using
+methods from physics, that $u$ must have partial derivatives
+on $(0,\pi) \times (0,\infty)$ and furthermore, it must
+satisfy the following conditions
+
+%% Conditions for the heat equation
+	\begin{IEEEeqnarray}{l}
+		u(x,0) = f(x) \text{ for all } x \in [0,\pi] \\ \label{heat1}
+		u(0,t) = u(\pi,t) = 0 \text{ for all } t \geq 0 \label{heat2} \\
+		\frac{\partial u}{\partial t}(x,t) = c^2 \,
+			\frac{\partial^2 u}{\partial x^2}(x,t)
+			\text{ for all } (x,t) \in 
+			(0,\pi) \times (0,\infty) \label{heat3}
+	\end{IEEEeqnarray}
+where $c$ is a real constant.
+
+To find a possible solution for $u$, let us make two
+simplying assumptions, namely, that $c = 1$ and $u(x,t)
+= X(x)T(t)$ for some functions $X:[0,\pi] \to \real$ and
+$T:[0,\infty) \to \real$.
+
+By condition \ref{heat3}, we must have $X(x)T'(t) =
+X''(x)T(t)$. If we omit the trivial case where $X =
+T = 0$, then there exist $0 < x_0 < \pi$ and $t_0 > 0$
+such that $X(x_0) \neq 0$ and $T(t_0) \neq 0$.
+
+Let
+	\begin{displaymath}
+		\lambda = \frac{T'(t_0)}{T(t_0)}
+			= \frac{X''(x_0)}{X(x_0)}
+	\end{displaymath}
+	
+Then $X(x_0)T'(t) = X''(x_0)T(t)$ and $X(x)T'(t_0)
+= X''(x)T(t_0)$. So we have
+	\begin{IEEEeqnarray}{l}
+		T'(t) = \lambda T(t) \text{ and } \label{heat4} \\
+		X''(x) = \lambda X(x) \label{heat5}
+	\end{IEEEeqnarray}
+
+%% Possibilities for lambda
+
+%% lambda > 0
+There are three possibilities for $\lambda$. Either
+$\lambda > 0, \lambda = 0$ or $\lambda < 0$. If
+$\lambda > 0$ then by equation \ref{heat5} we must have
+	\begin{displaymath}
+		X(x) = \alpha e^{\sqrt{\lambda}x}
+			+ \beta e^{-\sqrt{\lambda}x}
+	\end{displaymath}
+But by condition \ref{heat2}, this implies $\alpha =
+\beta = 0$ which is impossible.
+
+%% lambda = 0
+If $\lambda = 0$ then $X''(x) = 0$ so $X(x) = ax$
+for some constant $a$. Again, condition \ref{heat2}
+implies $a = 0$ so this is impossible.
+
+%% lambda < 0
+Therefore $\lambda < 0$. Say $\lambda = -k^2$ for some
+$k \in \real, k > 0$. Equation \ref{heat5} implies
+	\begin{displaymath}
+		X(x) = \alpha \cos kx + \beta \sin kx
+	\end{displaymath}
+	
+But condition \ref{heat2} implies $\alpha = 0$ and $k
+\in \natrl$.
+
+Substituting $\lambda$ in equation \ref{heat4}, we obtain
+	\begin{displaymath}
+		T(t) = \gamma e^{-k^2t} \text{ for } t \geq 0
+	\end{displaymath}
+
+%% Final form of heat equation
+Therefore, $u$ is of the form
+	\begin{displaymath}
+		u(x,t) = b e^{-k^2t} \sin kx \text{ for }
+			(x,t) \in [0,\pi] \times [0,\infty)
+	\end{displaymath}
+where $b$ is a constant. It follows that for any
+choice of constants $b_1, b_2, \ldots, b_n$ the
+function
+	\begin{equation}
+		u(x,t) = \sum_{k=1}^n b_k e^{-k^2 t} \sin kx
+			\label{heat7}
+	\end{equation}
+satisfies conditions \ref{heat2} and \ref{heat3}
+above. For condition \ref{heat1} to hold, we must
+be able to write $f$ in the form
+	\begin{equation}
+		f(x) = \sum_{k=1}^n b_k \sin kx \label{heat6}
+	\end{equation}
+for some constants $b_1, b_2, \ldots, b_n$.
+
+Another possibility for $f$ and $u$ is that there
+exist real scalars $b_1, b_2, \ldots$ such that
+	\begin{equation}
+		f(x) = \sum_{k=1}^\infty b_k \sin kx \label{heat8}
+	\end{equation}
+and
+	\begin{equation}
+		u(x,t) = \sum_{k=1}^\infty b_k e^{-k^2 t} \sin kx
+			\label{heat9}
+	\end{equation}
+Of course, the series in \ref{heat9} must be
+$\ctsdiff[2]$ and we must be able to
+differentiate it term by term on $(0,\pi) \times (0,\infty)$.
+
+We will show in this chapter the conditions that $f$ must satisfy
+for equation \ref{heat8} to hold and hence, for the
+function $u$ in \ref{heat9} to represent a solution to
+the heat problem.
+
+%% Uniqueness
+In the next section, we will also show that the solution
+to the heat problem derived here is unique.
+
+Before concluding this section, we will show that the function
+$u$, defined by \ref{heat9} is $\ctsdiff$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% lemma of u is C-infinity
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{lemma}\label{lemma:uniformconv}
+	Suppose $\{b_k\}_{k=1}^\infty$ is a bounded real
+	sequence.
+	\begin{enumerate}[i)]
+		\item
+			Let $\tau > 0$ and $x \in \real$ and define
+			$\varphi_k(t):[\tau,\infty) \to \real$ by 
+			$\varphi_k(t) = b_k e^{-k^2 t} \sin kx$. Then
+				\begin{displaymath}
+					\sum_{k=1}^\infty k^n \varphi_k(t)
+				\end{displaymath}
+			converges uniformly on $[\tau,\infty)$ for fixed
+			$0 \leq n \in \intgr$.
+			
+		\item
+			Let $t > 0$ and define $\psi_k(x):\real \to
+			\real$ by $\psi_k(x) = b_k e^{-k^2 t} \sin kx$.
+			Then
+				\begin{displaymath}
+					\sum_{k=1}^\infty k^n \psi_k(x)
+				\end{displaymath}
+			converges uniformly on $\real$ for fixed
+			$0 \leq n \in \intgr$.
+	\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+	Let $M$ be an upper bound for the set
+	$\{\modulus{b_k}: k \geq 1\}$.
+	\begin{enumerate}[i)]
+		\item
+			For $t \geq \tau > 0$ we have
+				\begin{IEEEeqnarray*}{rCl}
+					\modulus{k^n \varphi_k(t)}
+						& = & \modulus{k^n b_k
+						e^{-k^2 t} \sin kx} \\
+					& \leq & M k^n e^{-k^2 t} \\
+					& \leq & M k^n e^{-k^2 \tau} \\
+					& \leq & M k^n e^{-k \tau} \\
+					& = & M k^n a^k \text{ where } a = e^{-\tau} < 1
+				\end{IEEEeqnarray*}
+			By the ratio test, $\sum_{k=1}^\infty {M k^n a^k}$ converges
+			and so, by the Weierstrass M-test, $\sum_{k=1}^\infty
+			k^n \varphi_k(t)$ converges uniformly on $[\tau,\infty)$.
+			
+		\item
+			The proof is similar to that in part i).
+	\end{enumerate}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Theorem of u is C-infinity
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thrm}\label{thrm:HeatSolnIsCInfty}
+	Let $u:\real \times (0,\infty)$ be defined by
+		\begin{displaymath}
+			u(x,t) = \sum_{k=1}^\infty b_k e^{-k^2 t} \sin kx
+		\end{displaymath}
+	where $\{b_k\}_{k=1}^\infty$ is a bounded real sequence.
+	Then $u$ is $\ctsdiff$ on its domain.
+\end{thrm}
+
+\begin{proof}
+	Fix $x \in \real$ and $\tau > 0$ and let $\varphi_k(t)
+	:[\tau,\infty) \to \real$ be defined by $\varphi_k(t)
+	= b_k e^{-k^2 t} \sin kx$. Then by Lemma \ref{lemma:uniformconv},
+	the function $\varphi:[\tau,\infty) \to
+	\real$ defined by
+		\begin{displaymath}
+			\varphi(t) = \sum_{k=1}^\infty \varphi_k(t)
+		\end{displaymath}
+	converges uniformly on its domain. Also by Lemma
+	\ref{lemma:uniformconv},
+		\begin{displaymath}
+			\sum_{k=1}^\infty \varphi_k'(t)
+				= \sum_{k=1}^\infty -k^2 b_k e^{-k^2 t}
+				\sin kx
+		\end{displaymath}
+	converges uniformly on its domain.
+	
+	Therefore, by Theorem \ref{thrm:derivative}, $\varphi$
+	is $\ctsdiff[1]$ on $[\tau,\infty)$ and $\varphi'(t) =
+	\sum_{k=1}^\infty \varphi_k'(t)$.
+	
+	Assume $\varphi$ is $\ctsdiff[n]$ for $n > 1$ and that
+	$\varphi^{(n)}(t) = \sum_{k=1}^\infty \varphi_k^{(n)}(t)$.
+	Then, noting that $\varphi_k^{(n+1)}(t) = (-1)^{(n+1)}
+	k^{2(n+1)} b_k e^{-k^2 t} \sin kx$ and using Lemma
+	\ref{lemma:uniformconv} combined with Theorem \ref
+	{thrm:derivative} again, it is easy to see that $\varphi$
+	is $\ctsdiff[n+1]$ on $[\tau,\infty)$. Therefore, by induction,
+	$\varphi$ is $\ctsdiff$ on $[\tau,\infty)$ for all
+	$\tau > 0$. It follows that $\varphi$ is $\ctsdiff$ on
+	$(0,\infty)$.
+	
+	Now let $\psi_k(x) = b_k e^{-k^2 t} \sin kx$ for $x \in \real$
+	and fixed $t > 0$. An argument identical to that used above
+	shows that the function $\psi(x) = \sum_{k=1}^\infty \psi_k(x)$
+	is $\ctsdiff$ on $\real$.
+	
+	Thus, $u$ is $\ctsdiff$ on $\real \times (0,\infty)$.
+\end{proof}
+
+\end{section}

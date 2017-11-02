@@ -1,0 +1,189 @@
+\begin{section}{\fejers Kernel}
+
+	In this section we will derive an expression
+	called \fejers Kernel and then deduce some of
+	its properties.
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Derivation of Fejer's Kernel
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	Suppose $f$ is a $2\pi$-periodic, Riemann integrable
+	function and let $s_k, k \geq 0$ be the $k$th partial 
+	sum of its Fourier series. Define $\sigma_n(x): \real
+	\rightarrow \cmplx$ by
+		\begin{displaymath}
+			\sigma_n(x) = \frac{1}{n+1}\sum_{k=0}^n s_k(x)
+		\end{displaymath}
+	Then, we have
+		\begin{IEEEeqnarray*}{rCl}
+			\sigma_n(x) & = & \frac{1}{n+1}
+				\sum_{k=0}^n \frac{1}{2\pi}
+				\myintb[\pi]{f(x-t) D_k(t)}{t} \\
+			& = & \frac{1}{2\pi}\myintb[\pi]{f(x-t)\left(
+				\sum_{k=0}^n \frac{1}{n+1}D_k(t) \right)}{t} \\
+			& = & \frac{1}{2\pi}\myintb[\pi]{f(x-t) F_n(t)}{t}
+		\end{IEEEeqnarray*}
+	where
+		\begin{displaymath}
+			F_n(t) = \frac{1}{n+1}\sum_{k=0}^n D_k(t)
+		\end{displaymath}
+	for $\isreal[t]$. We call $\{F_n\}_{n=0}^\infty$ the \emph{\fejers
+	Kernel}.
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Properties of the Fejer's Kernel
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thrm}\label{thrm:FejersKernel}
+	\begin{enumerate}[i)]
+	
+		\item
+			For all $n \geq 0$, \fejers Kernel is a real-valued, even,
+			trigonometric polynomial of "degree n".
+			
+		\item
+			For all $n \geq 0$,
+				\begin{displaymath}
+					F_n(x) =
+						\begin{cases}
+							\displaystyle{
+								\frac{1}{n+1}
+								\frac{\sin^2(\frac{n+1}{2}x)}
+								{\sin^2 x/2}} & \text{ if }
+								\isreal, x \neq 2\pi k, \isintgr[k] \\
+							n+1  & \text{ if } x = 2\pi k, \isintgr[k]
+						\end{cases}
+				\end{displaymath}
+		
+		\item
+			For all $n \geq 0$ and all $\isreal$, $0 \leq F_n(x)
+			\leq F_n(0) = n+1$.
+			
+		\item
+			For all $n \geq 0$,
+				\begin{displaymath}
+					\myintb[\pi]{F_n(t)}{t} = 2\pi
+				\end{displaymath}
+				
+		\item
+			For $0 < \delta < \pi$ and $\isnatrl$,
+				\begin{displaymath}
+					0 \leq F_n(x) \leq \frac{2}{n+1}\left(
+						\frac{1}{1-\cos \delta}\right)
+				\end{displaymath}
+			if $\isreal$ and $\delta \leq x \leq \pi$.
+			
+		\item
+			For $0 < \delta < \pi$,
+				\begin{displaymath}
+					\lim_{n \rightarrow \infty}
+						\myinta{\delta}{\pi}{F_n(t)}{t} = 0
+						= \lim_{n \rightarrow \infty}
+						\myinta{-\pi}{-\delta}{F_n(t)}{t}
+				\end{displaymath}
+				
+		\item
+			For $0 < \delta < \pi$,
+				\begin{displaymath}
+					\lim_{n \rightarrow \infty}
+						\myintb[\delta]{F_n(t)}{t} = 2\pi
+				\end{displaymath}
+	
+	\end{enumerate}
+\end{thrm}
+
+\begin{proof}
+	\begin{enumerate}[i)]
+		
+		\item
+			This follows from the properties of the Dirichlet kernel.
+		
+		\item
+			For all $n \geq 0$, we have
+				\begin{IEEEeqnarray*}{rCl}
+					(\sin^2 x/2) F_n(x) & = & \frac{\sin^2 x/2}{2} \sum_{k=0}^n D_k(x) \\
+					& = & \frac{\sin^2 x/2}{2} \sum_{k=0}^n \frac{\sin(k+1/2)x}{\sin x/2} \\
+					& = & \frac{1}{n+1}\sum_{k=0}^n (\sin(k+1/2)x)(\sin x/2) \, (\ast)
+				\end{IEEEeqnarray*}
+			Recall that
+				\begin{IEEEeqnarray*}{rCl}
+					\cos(a-b)-\cos(a+b) & = & [\cos a \cos (-b) - \sin a \sin (-b)] \\
+						& & - [\cos a \cos b - \sin a \sin b] \\
+						& = & [\cos a \cos b + \sin a \sin b] \\
+						& & - [\cos a \cos b - \sin a \sin b] \\
+						& = & 2 \sin a \sin b
+				\end{IEEEeqnarray*}
+			Substituting into $(\ast)$, we obtain
+				\begin{IEEEeqnarray*}{rCl}
+					(\sin^2 x/2) F_n(x) & = & \frac{1}{n+1}\sum_{k=0}^n
+						\frac{\cos kx - \cos (k+1)x}{2} \\
+					& = & \frac{1 - \cos (n+1)x}{2(n+1)} \, (\dagger)
+				\end{IEEEeqnarray*}
+			Substituting the following identity into $(\dagger)$,
+				\begin{displaymath}
+					1 - \cos 2x = 2\sin^2 x
+				\end{displaymath}
+			we obtain
+				\begin{displaymath}
+					(\sin^2 x/2) F_n(x) = \frac{\sin^2 \frac{n+1}{2}x}{n+1}
+				\end{displaymath}
+			which proves the assertion when $x \neq 2\pi k, \isnatrl[k]$.
+			When $x$ is a multiple of $2\pi$, $D_k(x) = 2k+1$, hence
+				\begin{IEEEeqnarray*}{rCl}
+					F_n(x) & = & \frac{1}{n+1}\sum_{k=0}^n D_k(x) \\
+					& = & \frac{1}{n+1}\sum_{k=0}^n (2k+1) \\
+					& = & \frac{1}{n+1}\left(2\frac{n(n+1)}{2}+(n+1)\right) \\
+					& = & n+1
+				\end{IEEEeqnarray*}
+			as required.
+			
+		\item
+			By part ii), we clearly have $0 \leq F_n(x)$ for all $\isreal$. Also, since $\modulus{D_k(x)} \leq 2k+1$, we have
+				\begin{IEEEeqnarray*}{rCl}
+					F_n(x) & = & \frac{1}{n+1}\sum_{k=0}^n D_k(x) \\
+					& \leq & \frac{1}{n+1}\sum_{k=0}^n (2k+1) \\
+					& = & n+1 \\
+					& = & F_n(0)
+				\end{IEEEeqnarray*}
+			again by part ii).
+			
+		\item
+			This follows from the fact that
+				\begin{displaymath}
+					\myintb[\pi]{D_n(t)}{t} = 2\pi
+				\end{displaymath}
+				
+		\item
+			By part ii) above, we have
+				\begin{IEEEeqnarray*}{rCl}
+					0 \leq F_n(x) & = & \frac{1}{n+1}
+						\frac{\sin^2 \frac{n+1}{2}x}{\sin^2 x/2} \\
+					& \leq & \frac{1}{n+1}\frac{1}{\sin^2 \delta/2} \\
+					& = & \frac{1}{n+1}\frac{1}{1 - \cos \delta}
+				\end{IEEEeqnarray*}
+			provided $0 < \delta \leq x \leq \pi$.
+			
+		\item
+			If $0 < \delta < \pi$, then
+				\begin{IEEEeqnarray*}{rCl}
+					0 \leq \myinta{\delta}{\pi}{F_n(t)}{t}
+						& \leq & \myinta{\delta}{\pi}
+						{\frac{1}{n+1}\frac{1}{1-\cos \delta}}{t} \\
+					& = & \frac{1}{n+1}\frac{\pi-\delta}{1-\cos \delta}
+				\end{IEEEeqnarray*}
+			$\rightarrow 0$ as $n \rightarrow \infty$. Since $F_n(x)$
+			is even,
+				\begin{displaymath}
+					\lim_{n \rightarrow \infty}\myinta{-\pi}{-\delta}
+						{F_n(t)}{t} =
+						\lim_{n \rightarrow \infty}\myinta{\delta}{\pi}{F_n(t)}{t} = 0
+				\end{displaymath}
+
+		\item
+			This follows from parts iv) and vi).
+			
+	\end{enumerate}
+\end{proof}
+
+\end{section}

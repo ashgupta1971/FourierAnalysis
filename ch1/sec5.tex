@@ -1,0 +1,485 @@
+\begin{section}{Fubini's Theorem}
+
+The main result of this section is Fubini's Theorem
+which deals with the order of integration of an integral.
+One the consequences of Fubini's Theorem is a result due
+to Leibniz, which will be proven in the next section.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Version 1 of Fubini's Theorem
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thrm}[Fubini. Version 1]\label{thrm:Fubini1}
+Suppose $F:[a,b] \times [c,d] \to \cmplx$ is continuous and
+define
+	\begin{displaymath}
+	\varphi(x) = \myinta{c}{d}{F(x,y)}{y} , \; a \leq x \leq b
+	\end{displaymath}
+and
+	\begin{displaymath}
+	\psi(y) = \myinta{a}{b}{F(x,y)}{x} , \; c \leq y \leq d
+	\end{displaymath}
+Then,
+	\begin{enumerate}[i)]
+	\item
+	$\varphi$ and $\psi$ are both continuous on their
+	domain.
+	
+	\item
+	\begin{displaymath}
+	\myinta{a}{b}{\varphi(x)}{x} = \myinta{c}{d}{\psi(y)}{y}
+	\end{displaymath}
+	\end{enumerate}
+\end{thrm}
+
+\begin{proof}
+	\begin{enumerate}[i)]
+	%%%%%%%% Continuity
+	\item
+	Since $F$ is continuous on the compact set $[a,b] \times [c,d]$, it
+	is uniformly continuous. So given $\epsilon > 0$ we can choose
+	$\delta > 0$ such that $\modulus{F(x,y) - F(s,t)} <
+	\epsilon/(d-c)$ whenever $\norm[]{(x,y) - (s,t)} < \delta$. Thus,
+	if $x,s \in [a,b]$ and $\modulus{x - s} < \delta$, we have
+		\begin{IEEEeqnarray*}{rCl}
+		\modulus{\varphi(x) - \varphi(s)}
+		& = & \modulus{\myinta{c}{d}{F(x,y)}{y}
+		- \myinta{c}{d}{F(s,y)}{y}} \\
+		& \leq & \myinta{c}{d}{\modulus{F(x,y) - F(s,y)}}{y} \\
+		& \leq & \myinta{c}{d}{\epsilon/(d-c)}{y} \text{ since }
+		\norm[]{(x,y) - (s,y)} < \delta \\
+		& = & \epsilon
+		\end{IEEEeqnarray*}
+	Therefore, $\varphi$ is continuous on $[a,b]$. A similar argument
+	shows that $\psi$ is continuous on $[c,d]$.
+	
+	%%%%%%%%%%%%% Equality of iterated integrals
+	\item
+	Without loss of generality, we may assume $F$ is real-valued. The
+	general case can be handled by applying this special case to the
+	real and imaginary parts of $F$.
+	
+	Choose $\delta > 0$ such that $\modulus{F(x,y) - F(s,t)} < \epsilon/(b-a)(d-c)$
+	whenever $\norm[]{(x,y) - (s,t)} < \delta$. Choose partitions
+	$a = x_0 < x_1 < \ldots < x_m = b$ of $[a,b]$ and $c = y_0 < y_1 <
+	\ldots < y_n = d$ of $[c,d]$ such that $\modulus{x_j - x_{j-1}} <
+	\delta/\sqrt{2}$ for $1 \leq j \leq m$ and $\modulus{y_k - y_{k-1}} <
+	\delta/\sqrt{2}$ for $1 \leq k \leq n$. Then,
+		\begin{IEEEeqnarray*}{rCl}
+		\myinta{a}{b}{\varphi(x)}{x}
+		& = & \sum_{j=1}^m \myinta{x_{j-1}}{x_j}{\varphi(x)}{x} \\
+		& = & \sum_{j=1}^m \myinta{x_{j-1}}{x_j}{\myinta{c}{d}{F(x,y)}{y}}{x} \\
+		& = & \sum_{j=1}^m \myinta{x_{j-1}}{x_j}{\sum_{k=1}^n
+		\myinta{y_{k-1}}{y_k}{F(x,y)}{y}}{x} \\
+		& = & \sum_{j=1}^m \sum_{k=1}^n \myinta{x_{j-1}}{x_j}
+		{\myinta{y_{k-1}}{y_k}{F(x,y)}{y}}{x} \\
+		& \leq & \sum_{j=1}^m \sum_{k=1}^n M_{jk}(x_j - x_{j-1})(y_k - y_{k-1})
+		\end{IEEEeqnarray*}
+	Where, $M_{jk} = \max \{F(x,y):(x,y) \in [x_{j-1},x_j] \times [y_{k-1},y_k]\}$.
+	Denote this latter sum by $U$.
+		
+	Similarly,
+		\begin{displaymath}
+		\myinta{a}{b}{\varphi(x)}{x}
+		\geq \sum_{j=1}^m \sum_{k=1}^n m_{jk}(x_j - x_{j-1})(y_k - y_{k-1})
+		= L
+		\end{displaymath}
+	where $m_{jk} = \min \{F(x,y):(x,y) \in [x_{j-1},x_j] \times [y_{k-1},y_k]\}$.
+	
+	A similar argument shows that	
+		\begin{displaymath}
+		L \leq \myinta{c}{d}{\psi(y)}{y} \leq U
+		\end{displaymath}
+
+	But, by the choice of the $x_j$'s and $y_k$'s the diameter of $[x_{j-1},x_j]
+	\times [y_{k-1},y_k]$ is less than $\delta$. So $M_{jk} - m_{jk}
+	\leq \epsilon/(b-a)(d-c)$.
+			
+	So we have,
+		\begin{IEEEeqnarray*}{rCl}
+		\modulus{\myinta{a}{b}{\varphi(x)}{x}
+		- \myinta{c}{d}{\psi(y)}{y}}
+		& \leq & U - L \\
+		& = & \sum_{j=1}^m \sum_{k=1}^n 
+		(M_{jk} - m_{jk})(x_j - x_{j-1})(y_k - y_{k-1}) \\
+		& \leq & \sum_{j=1}^m \sum_{k=1}^n 
+		\frac{\epsilon}{(b-a)(d-c)} (x_j - x_{j-1})(y_k - y_{k-1}) \\
+		& = & \epsilon
+		\end{IEEEeqnarray*}
+	
+	Since this is true for all $\epsilon > 0$, 
+		\begin{displaymath}
+		\myinta{a}{b}{\varphi(x)}{x} =
+		\myinta{c}{d}{\psi(y)}{y}
+		\end{displaymath}
+	\end{enumerate}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Version 2 of Fubini's Theorem
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+A natural question to ask is whether Theorem
+\ref{thrm:Fubini1} holds when one or both of the
+intervals $[a,b]$ and $[c,d]$ are replaced with
+unbounded intervals. The next two versions of
+Fubini's theorem deal with that question and generalize
+it further.
+
+\begin{thrm}[Fubini. Version 2]\label{thrm:Fubini2}
+	Suppose that $X \subset \real^m$ and $X$ is either
+	compact or open. Also suppose that $F:X \times \real \to
+	\cmplx$ is continuous and there exists $h \in \absint$
+	such that $\modulus{F(x,t)} \leq \modulus{h(t)}$ for all
+	$(x,t) \in X \times \real$.
+	
+	\begin{enumerate}[i)]
+	\item
+	The function $\varphi:X \to \cmplx$ defined by
+		\begin{displaymath}
+		\varphi(x) = \myintb{F(x,t)}{t}
+		\end{displaymath}
+	is continuous on its domain.
+	
+	\item
+	If $m = 1$ and $[a,b] \subset X$ and we define $\psi:
+	\real \to \cmplx$ by
+		\begin{displaymath}
+		\psi(t) = \myinta{a}{b}{F(x,t)}{x}
+		\end{displaymath}
+	then $\psi$ is continuous and $\psi \in \absint$.
+	
+	\item
+	The functions $\varphi$ and $\psi$ satisfy
+		\begin{displaymath}
+		\myinta{a}{b}{\varphi(x)}{x} =
+		\myintb{\psi(t)}{t}
+		\end{displaymath}
+	\end{enumerate}
+\end{thrm}
+
+\begin{proof}
+		\begin{enumerate}[i)]
+		%%%%%%%%%%%%% Continuity
+		\item
+		Let
+			\begin{displaymath}
+			\varphi_n(x) = \myintb[n]{F(x,t)}{t}
+			\end{displaymath}
+		for $x \in X$ and $n \in \natrl$.
+		
+		To show that $\varphi_n$ is continuous, proceed in
+		a manner similar to that in Theorem \ref{thrm:Fubini1}.
+		Choose a compact set $A \subset X$. Then $A \times
+		[-n,n]$ is compact. Therefore, $F$ is uniformly continuous
+		on $A \times [-n,n]$. So given $\epsilon > 0$ there exists
+		$\delta > 0$ such that $\modulus{F(x,s) - F(y,t)} <
+		\epsilon/2n$ whenever $(x,s), (y,t) \in A \times [-n,n]$ and
+		$\norm[]{(x,s) - (y,t)} < \delta$. Then,
+			
+			\begin{IEEEeqnarray*}{rCl}
+				\modulus{\varphi_n(x) - \varphi_n(y)} & = &
+					\modulus{
+					\myintb[n]{F(x,t)}{t} - \myintb[n]{F(y,t)}{t}} \\
+				& \leq & \myintb[n]{\modulus{
+					F(x,t) - F(y,t)}}{t} \\
+				& \leq & \myintb[n]{\epsilon/2n}{t} \\
+				= \epsilon
+			\end{IEEEeqnarray*}
+		whenever $x, y \in A$ and $\norm[]{x - y} < \delta$. So
+		$\varphi_n$ is continuous on $A$ and hence on its entire
+		domain.
+		
+		To show that $\varphi$ is continuous, 
+			\begin{IEEEeqnarray*}{rCl}
+				\modulus{\varphi(x) - \varphi_n(x)} & = &
+				\modulus{\myintb{F(x,t)}{t}
+				- \myintb[n]{F(x,t)}{t}} \\
+				& = & \modulus{\myinta{-\infty}{-n}{F(x,t)}{t}
+				+ \myinta{n}{\infty}{F(x,t)}{t}} \\
+				& \leq & \myinta{-\infty}{-n}{\modulus{F(x,t)}}{t}
+				+ \myinta{n}{\infty}{\modulus{F(x,t)}}{t} \\
+				& \leq & \myinta{-\infty}{-n}{\modulus{h(t)}}{t}
+				+ \myinta{n}{\infty}{\modulus{h(t)}}{t} \\
+				& = & \myintb{\modulus{h(t)}}{t}
+				- \myintb[n]{\modulus{h(t)}}{t}
+			\end{IEEEeqnarray*}
+		But
+			\begin{displaymath}
+				\myintb{\modulus{h(t)}}{t}
+				= \lim_{n \rightarrow \infty}
+				\myintb[n]{\modulus{h(t)}}{t}
+			\end{displaymath}
+		It follows that $\{\varphi_n\}$ converges uniformly to
+		$\varphi$ on $X$. Therefore $\varphi$ is continuous since
+		each $\varphi_n$ is.
+		
+		%%%%%%%%%%%%% Continuity, absolute integrability
+		\item
+		By Theorem \ref{thrm:Fubini1}, $\psi$ is continuous
+		on bounded intervals. It follows that $\psi$ is 
+		continuous on its entire domain.
+		
+		To show that $\psi \in \absint$, we have
+			\begin{IEEEeqnarray*}{rCl}
+				\myintb[n]{\modulus{\psi(t)}}{t}
+				& = & \myintb[n]{\modulus{\myinta{a}{b}{F(x,t)}{x}}}{t} \\
+				& \leq & \myintb[n]{\left( \myinta{a}{b}{\modulus{F(x,t)}}{x}
+				\right)}{t} \\
+				& = & \myinta{a}{b}{\left( \myintb[n]{\modulus{F(x,t)}}{t}
+				\right)}{x} \\
+				& \leq & \myinta{a}{b}{\left( \myintb[n]{\modulus{h(t)}}{t}
+				\right)}{x} \\
+				& \leq & (b-a) \myintb{\modulus{h(t)}}{t} \\
+				& < & \infty
+			\end{IEEEeqnarray*}
+		since $h \in \absint$.
+		
+		%%%%%%%%%%%%% Equality of iterated integrals
+		\item
+		To show the equality of
+			\begin{displaymath}
+				\myinta{a}{b}{\varphi(x)}{x} = 
+				\myintb{\psi(t)}{t}
+			\end{displaymath}
+			
+		first note that
+			\begin{IEEEeqnarray*}{rCl}
+				\myintb{\psi(t)}{t}
+				& = & \lim_{n \rightarrow +\infty}
+				\myintb[n]{\psi(t)}{t} \\
+				& = & \lim_{n \rightarrow +\infty}
+				\myintb[n]{\left( \myinta{a}{b}{F(x,t)}{x} \right)}{t} \\
+				& = & \lim_{n \rightarrow +\infty}
+				\myinta{a}{b}{\left( \myintb[n]{F(x,t)}{t} \right)}{x}
+			\end{IEEEeqnarray*}
+			
+		Therefore,
+			\begin{IEEEeqnarray*}{l}
+				\modulus{
+					\myinta{a}{b}{\varphi(x)}{x} - 
+					\myintb[n]{\psi(t)}{t}} \\
+				= \modulus{
+					\myinta{a}{b}{\varphi(x)}{x} - 
+					\myinta{a}{b}{\left( \myintb[n]{F(x,t)}{t} \right)}{x}} \\
+				= \modulus{
+					\myinta{a}{b}{\left( \myintb{F(x,t)}{t} \right)}{x}
+					- \myinta{a}{b}{\left( \myintb[n]{F(x,t)}{t} \right)}{x}} \\
+				= \modulus{
+					\myinta{a}{b}{\left( \myintb{F(x,t)}{t} -
+					\myintb[n]{F(x,t)}{t} \right)}{x}} \\
+				\leq \myinta{a}{b}{\modulus{\myintb{F(x,t)}{t} -
+					\myintb[n]{F(x,t)}{t}}}{x} \\
+				= \myinta{a}{b}{\modulus{ \myinta{-\infty}{-n}{F(x,t)}{t} +
+					\myinta{n}{\infty}{F(x,t)}{t}}}{x} \\
+				\leq \myinta{a}{b}{\left( \myinta{-\infty}{-n}{\modulus{F(x,t)}}{t} +
+					\myinta{n}{\infty}{\modulus{F(x,t)}}{t} \right)}{x} \\
+				\leq \myinta{a}{b}{\left( \myinta{-\infty}{-n}{\modulus{h(t)}}{t} +
+					\myinta{n}{\infty}{\modulus{h(t)}}{t} \right)}{x} \\
+				= \myinta{a}{b}{\left( \myintb{\modulus{h(t)}}{t} -
+					\myintb[n]{\modulus{h(t)}}{t} \right)}{x} \\
+				= (b-a) \left( \myintb{\modulus{h(t)}}{t} -
+					\myintb[n]{\modulus{h(t)}}{t} \right)
+			\end{IEEEeqnarray*}
+		$\rightarrow 0$ as $n \rightarrow +\infty$.
+			
+		Thus,
+			\begin{displaymath}
+				\myinta{a}{b}{\varphi(x)}{x} = 
+				\myintb{\psi(t)}{t}
+			\end{displaymath}
+		\end{enumerate}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Version 3 of Fubini's Theorem
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thrm}[Fubini. Version 3]\label{thrm:Fubini3}
+	Suppose $F:\real^2 \to \cmplx$ is continuous and there
+	exist $h, k \in \absint$ such that $\modulus{F(x,t)} \leq
+	h(x)k(t)$ for all $x,t \in \real$. Define
+		
+		\begin{displaymath}
+			\varphi(x) = \myintb{F(x,t)}{t} , \; \isreal
+		\end{displaymath}
+	and	
+		\begin{displaymath}
+			\psi(t) = \myintb{F(x,t)}{x} , \; \isreal[t]
+		\end{displaymath}
+		
+	Then,
+	
+	\begin{enumerate}[i)]
+	
+	\item
+	$\varphi$ and $\psi$ are well-defined.
+	
+	\item
+	$\varphi$ and $\psi$ are absolutely integrable on $\real$.
+
+	\item
+	$\varphi$ and $\psi$ are continuous.
+
+	\item
+		\begin{displaymath}
+			\myintb{\varphi(x)}{x}
+			= \myintb{\psi(t)}{t}
+		\end{displaymath}
+	
+	\end{enumerate}
+\end{thrm}
+
+\begin{proof}
+	
+	\begin{enumerate}[i)]
+	%%%%%%%%%%% Well-defined
+	\item
+	To see that $\varphi$ is well-defined,
+		\begin{IEEEeqnarray*}{rCl}
+			\modulus{\varphi(x)} & = &
+				\modulus{\myintb{F(x,t)}{t}} \\
+			& \leq & \myintb{\modulus{F(x,t)}}{t} \\
+			& \leq & \myintb{\modulus{
+				h(x)}\modulus{k(t)}}{t} \\
+			& = & \modulus{h(x)} \myintb{\modulus{k(t)}}{t} \\
+			& = & \modulus{h(x)} \norm[1]{k}
+		\end{IEEEeqnarray*}
+	Similarly, $\modulus{\psi(t)} \leq \modulus{k(t)}
+	\norm[1]{h}$.
+	
+	%%%%%%%%%%%%%% Absolute integrability
+	\item
+	The above remarks also show that $\varphi$ and $\psi$
+	are absolutely integrable on $\real$ because,
+		\begin{displaymath}
+			\modulus{\myintb{\varphi(x)}{x}}
+				\leq \myintb{\modulus{\varphi(x)}}{x}
+				\leq \myintb{\modulus{h(x)}
+				\norm[1]{k}}{x}
+				= \norm[1]{h} \norm[1]{k}
+		\end{displaymath}
+	and similarly,
+		\begin{displaymath}
+			\modulus{\myintb{\psi(t)}{t}}
+				\leq \myintb{\modulus{\psi(t)}}{t}
+				\leq \myintb{\modulus{k(t)}
+				\norm[1]{h}}{t}
+				= \norm[1]{k} \norm[1]{h}
+		\end{displaymath}
+	
+	%%%%%%%%%%%%%%% Continuity
+	\item
+	To show that $\varphi$ is continuous, let
+		\begin{displaymath}
+			\varphi_n(x) = \myintb[n]{F(x,t)}{t}
+		\end{displaymath}
+	Then, $\varphi_n$ is continuous by Theorem
+	\ref{thrm:Fubini2}.
+	
+	So we have,
+		\begin{IEEEeqnarray*}{rCl}
+			\modulus{\varphi(x) - \varphi_n(x)} & = &
+				\modulus{\myintb{F(x,t)}{t}
+				- \myintb[n]{F(x,t)}{t}} \\
+			& = & \modulus{\myinta{-\infty}{-n}{F(x,t)}{t}
+				+ \myinta{n}{\infty}{F(x,t)}{t}} \\
+			& \leq & \myinta{-\infty}{-n}{\modulus{F(x,t)}}{t}
+				+ \myinta{n}{\infty}{\modulus{F(x,t)}}{t} \\
+			& \leq & \myinta{-\infty}{-n}{\modulus{h(x)}
+				\modulus{k(t)}}{t}
+				+ \myinta{n}{\infty}{\modulus{h(x)}
+				\modulus{k(t)}}{t} \\
+			& = & \modulus{h(x)} \left( \myintb{\modulus{k(t)}}{t}
+				- \myintb[n]{\modulus{k(t)}}{t} \right)
+		\end{IEEEeqnarray*}
+	$\rightarrow 0$ as $n \rightarrow +\infty$ uniformly on bounded
+	intervals. This is because $k \in \absint$ and $h$ is bounded
+	on bounded intervals (because $h \in \absint$). Thus, the sequence of
+	continuous functions $\{\varphi_n\}$ converges uniformly to 
+	$\varphi$ on each bounded interval. Hence $\varphi$ is continuous.
+	
+	A similar argument shows that $\psi$ is continuous.
+	
+	%%%%%%%%%%%%%%%%%%%%% Equality of iterated integrals
+	\item
+	\begin{IEEEeqnarray*}{l}
+		\modulus{
+			\myintb{\varphi(x)}{x}
+			- \myintb[n]{\left(
+			\myintb[n]{F(x,t)}{t} \right)}{x}} \\
+		\leq \modulus{
+			\myintb{\varphi(x)}{x}
+			- \myintb[n]{\left(
+			\myintb{F(x,t)}{t} \right)}{x}} \\
+		+ \; \modulus{
+			\myintb[n]{\left(
+			\myintb{F(x,t)}{t} \right)}{x}
+			- \myintb[n]{\left(
+			\myintb[n]{F(x,t)}{t} \right)}{x}}
+	\end{IEEEeqnarray*}
+	
+	Now,
+		\begin{IEEEeqnarray*}{l}
+			\modulus{\myintb{\varphi(x)}{x}
+				- \myintb[n]{\left(
+				\myintb{F(x,t)}{t} \right)}{x}} \\
+			= \modulus{\myintb{\varphi(x)}{x}
+				- \myintb[n]{\varphi(x)}{x}}
+		\end{IEEEeqnarray*}
+	$\rightarrow 0$ as $n \rightarrow +\infty$.
+	
+	Also,
+		\begin{IEEEeqnarray*}{l}
+			\modulus{
+				\myintb[n]{\left(
+				\myintb{F(x,t)}{t} \right)}{x}
+				- \myintb[n]{\left(
+				\myintb[n]{F(x,t)}{t} \right)}{x}} \\
+			\leq \myintb[n]{\modulus{
+				\myinta{-\infty}{-n}{F(x,t)}{t}
+				+ \myinta{n}{\infty}{F(x,t)}{t}}}{x} \\
+			\leq \myintb[n]{\left( \myinta{-\infty}{-n}
+				{\modulus{F(x,t)}}{t}
+				+ \myinta{n}{\infty}{\modulus{F(x,t)}}{t}
+				\right)}{x} \\
+			\leq \myintb[n]{\left( \myinta{-\infty}{-n}
+				{\modulus{h(x)}\modulus{k(t)}}{t}
+				+ \myinta{n}{\infty}{\modulus{h(x)}\modulus{k(t)}}{t}
+				\right)}{x} \\
+			= \left( \myintb[n]{\modulus{h(x)}}{x} \right)
+				\left(
+				\myintb{\modulus{k(t)}}{t}
+				- \myintb[n]{\modulus{k(t)}}{t} \right) \\
+			\leq \norm[1]{h} \left(
+				\myintb{\modulus{k(t)}}{t}
+				- \myintb[n]{\modulus{k(t)}}{t} \right)
+		\end{IEEEeqnarray*}
+	$\rightarrow 0$ as $n \rightarrow +\infty$.
+	
+	Thus, 
+		\begin{displaymath}
+			\myintb{\varphi(x)}{x}
+				= \lim_{n \rightarrow +\infty}
+				\myintb[n]{\left(
+				\myintb[n]{F(x,t)}{t} \right)}{x}
+		\end{displaymath}
+	and similarly,
+		\begin{displaymath}
+			\myintb{\psi(t)}{t}
+				= \lim_{n \rightarrow +\infty}
+				\myintb[n]{\left(
+				\myintb[n]{F(x,t)}{x} \right)}{t}
+		\end{displaymath}
+	But,
+		\begin{displaymath}
+			\myintb[n]{\left(
+				\myintb[n]{F(x,t)}{t} \right)}{x}
+			= \myintb[n]{\left(
+				\myintb[n]{F(x,t)}{x} \right)}{t}
+		\end{displaymath}
+	so the result follows.
+	\end{enumerate}
+\end{proof}
+
+\end{section}

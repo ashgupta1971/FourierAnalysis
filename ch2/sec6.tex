@@ -1,0 +1,351 @@
+\begin{section}{Dini's Theorem}
+
+Dini's Theorem gives another set of conditions
+for a function $f$ to satisfy under which its
+Fourier series converges. But before proving this
+theorem, we need some preliminary results.
+
+%% 1st preliminary result to prove Dini's theorem
+\begin{thrm}\label{thrm:Dini1}
+	If
+		\begin{displaymath}
+			g(t) =
+				\begin{cases}
+					\displaystyle{
+						\frac{\sin t}{t}} & t > 0 \\
+					1 & t = 0
+				\end{cases}
+		\end{displaymath}
+	then
+		\begin{displaymath}
+			\myinta{0}{\infty}{g(t)}{t}
+				= \lim_{R \rightarrow \infty}
+				\myinta{0}{R}{\frac{\sin t}{t}}{t}
+				= \pi/2
+		\end{displaymath}
+\end{thrm}
+
+\begin{proof}
+	Let $f(z) = e^{iz}/z$ for $z \in \cmplx \diagdown
+	\{0\}$. For $r > 0$ let $\gamma_r(t) = r e^{it},
+	0 \leq t \leq \pi$. We will now divide the proof 
+	into several steps.
+	\begin{enumerate}[{Step} 1.]
+		\item
+			First of all, we have
+				\begin{IEEEeqnarray*}{rCl}
+					\myinta{\epsilon}{R}{f(z)}{z}
+						+ \myinta{-R}{-\epsilon}{f(z)}{z}
+						& = & \myinta{\epsilon}{R}{\frac{e^{it}}{t}}{t}
+						+ \myinta{-R}{-\epsilon}{\frac{e^{it}}{t}}{t} \\
+					& = & \myinta{\epsilon}{R}{\frac{e^{it}}{t}}{t}
+						+ \myinta{R}{\epsilon}{-\frac{e^{-is}}{-s}}{s} \\
+					& = & \myinta{\epsilon}{R}{\frac{e^{it}}{t}}{t}
+						- \myinta{\epsilon}{R}{\frac{e^{-is}}{s}}{s} \\
+					& = & 2i \myinta{\epsilon}{R}{\frac{\sin t}{t}}{t}
+				\end{IEEEeqnarray*}
+		
+		\item
+			Now note that for $\epsilon > 0$,
+				\begin{IEEEeqnarray*}{l}
+					\modulus{\myintc[\gamma_\epsilon]{\frac{e^{iz}}{z}}{z}
+						- \myintc[\gamma_\epsilon]{\frac{1}{z}}{z}} \; (\ast) \\
+					= \modulus{\myintc[\gamma_\epsilon]
+						{\frac{e^{iz}-1}{z}}{z}} \\
+					\leq M \pi \epsilon
+				\end{IEEEeqnarray*}
+			where
+				\begin{displaymath}
+					M = \max \left\{ \modulus{\frac{e^{iz}-1}{z}}:
+						\modulus{z}=\epsilon \right\}
+				\end{displaymath}
+			But
+				\begin{displaymath}
+					\lim_{z \rightarrow 0} \frac{e^{iz}-1}{z} = i
+				\end{displaymath}
+			so the expression in $(\ast)$ goes to zero as
+			$\epsilon \rightarrow 0$. Noting that
+				\begin{displaymath}
+					\myintc[\gamma_\epsilon]{\frac{1}{z}}{z}
+						= \myinta{0}{\pi}{\frac{
+						\epsilon i e^{it}}{\epsilon e^{it}}}{t}
+						= \pi i
+				\end{displaymath}
+			we get
+				\begin{displaymath}
+					\lim_{\epsilon \rightarrow 0+}
+						\myintc[\gamma_\epsilon]{\frac{e^{iz}}{z}}{z}
+						= \pi i
+				\end{displaymath}
+
+		\item
+			The final integral we need to evaluate is
+				\begin{IEEEeqnarray*}{rCl}
+					\modulus{\myintc[\gamma_R]{f(z)}{z}} & = &
+						\modulus{\myinta{0}{\pi}{\frac
+						{e^{i(R\cos t + iR\sin t)}}{R e^{it}}
+						i R e^{it}}{t}} \\
+					& \leq & \myinta{0}{\pi}{e^{-R\sin t}}{t} \\
+					& = & 2 \myinta{0}{\pi/2}{e^{-R\sin t}}{t}
+				\end{IEEEeqnarray*}
+			But $2/\pi \leq (\sin t)/2 \leq 1$ for $0 < t \leq \pi/2$.
+			So $-R\sin t \leq -2Rt/\pi$ for $0 \leq t \leq \pi/2$.
+			Hence
+				\begin{IEEEeqnarray*}{rCl}
+					2 \myinta{0}{\pi/2}{e^{-R\sin t}}{t}
+						& \leq & 2 \myinta{0}{\pi/2}{e^{-2Rt/\pi}}{t} \\
+					& = & \frac{\pi}{R} (1 - e^{-R})
+				\end{IEEEeqnarray*}
+			$\rightarrow 0$ as $R \rightarrow \infty$.
+	
+		\item
+			Since $f$ is analytic on the starlike region	$\cmplx
+			\diagdown \{iy: y \leq 0\}$, Cauchy's Theorem says that
+				\begin{IEEEeqnarray*}{l}
+					0 = \myinta{\epsilon}{R}{f(z)}{z} +
+						\myintc[\gamma_R]{f(z)}{z} \\
+					+ \; \myinta{-R}{-\epsilon}{f(z)}{z}
+						+ \myintc[\gamma_\epsilon]{f(z)}{z}
+				\end{IEEEeqnarray*}
+			So putting the above results together we get
+				\begin{IEEEeqnarray*}{rCl}
+					2i \myinta{\epsilon}{R}{\frac{\sin t}{t}}{t}
+						& = & \myintc[\gamma_\epsilon]{f(z)}{z}
+						- \myintc[\gamma_R]{f(z)}{z} \\
+					& = & \pi i - \myintc[\gamma_R]{f(z)}{z}
+				\end{IEEEeqnarray*}
+			Letting $R \rightarrow \infty$ we see that
+				\begin{displaymath}
+					2i \myinta{\epsilon}{\infty}{\frac{\sin t}{t}}{t}
+						= \pi i
+				\end{displaymath}
+			But from Corollary \ref{thrm:IntegralConv},
+				\begin{displaymath}
+					\myinta{0}{\infty}{\frac{\sin t}{t}}{t}
+						= \lim_{\epsilon \rightarrow 0^+}
+						\myinta{\epsilon}{\infty}{\frac{\sin t}{t}}{t}		
+				\end{displaymath}
+			and so
+				\begin{displaymath}
+					\myinta{0}{\infty}{\frac{\sin t}{t}}{t}
+						= \pi/2
+				\end{displaymath}
+			as required.
+	\end{enumerate}
+\end{proof}
+
+%% Corollary to previous theorem
+\begin{cor}\label{cor:Dini2}
+	\begin{enumerate}[i)]
+		\item
+			For any $a > 0$
+				\begin{displaymath}
+					\lim_{\lambda \rightarrow \infty}
+						\myinta{0}{a}{\frac{\sin \lambda t}{t}}{t}
+						= \pi/2
+				\end{displaymath}
+		\item
+			For any $b > 0$
+				\begin{displaymath}
+					\myinta{0}{\infty}{\frac{\sin bt}{t}}{t}
+						= \pi/2
+				\end{displaymath}
+	\end{enumerate}
+\end{cor}
+
+\begin{proof}
+	\begin{enumerate}[i)]
+		\item
+			\begin{IEEEeqnarray*}{rCl}
+				\myinta{0}{a}{\frac{\sin \lambda t}{t}}{t}
+					& = & \myinta{0}{\lambda a}{\frac
+					{\sin x}{x/\lambda}\frac{1}{\lambda}}{x}
+					\text{ where } x = \lambda t \\
+				& = & \myinta{0}{\lambda a}{\frac{\sin x}{x}}{x}
+			\end{IEEEeqnarray*}
+			$\rightarrow \pi/2$ as $\lambda \rightarrow \infty$
+			by Theorem \ref{thrm:Dini1}.
+		\item
+			This proven similarly to that in part i).
+	\end{enumerate}
+\end{proof}
+
+%% 2nd corollary to Dini's mini theorem
+\begin{cor}\label{cor:Dini3}
+	Suppose $\delta > 0$ and $g:[0,\delta] \to \cmplx$ is Riemann
+	Integrable on its domain. Furthermore, suppose $g(0+) =
+	\lim_{t \rightarrow 0^+} g(t)$ exists and
+		\begin{displaymath}
+			\myinta{0}{\delta}{\frac{g(t)-g(0+)}{t}}{t}
+		\end{displaymath}
+	exists. Then
+		\begin{displaymath}
+			\lim_{\substack{\lambda \rightarrow \infty \\
+				\lambda \in \real}} \myinta{0}{\delta}
+				{\frac{g(t)}{t}\sin \lambda t}{t}
+				= \frac{\pi}{2} g(0+)
+		\end{displaymath}
+\end{cor}
+
+\begin{proof}
+	By Theorem \ref{thrm:RLL}
+		\begin{IEEEeqnarray*}{rCl}
+			0 & = & \lim_{\substack{\lambda \rightarrow \infty \\
+				\lambda \in \real}} \myinta{0}{\delta}
+				{\frac{g(t)-g(0+)}{t}\sin \lambda t}{t} \\
+			& = & \lim_{\substack{\lambda \rightarrow \infty \\
+				\lambda \in \real}} \myinta{0}{\delta}
+				{\frac{g(t)}{t}\sin \lambda t}{t}
+				- \lim_{\substack{\lambda \rightarrow \infty \\
+				\lambda \in \real}} g(0+) \myinta{0}{\delta}
+				{\frac{\sin \lambda t}{t}}{t}
+		\end{IEEEeqnarray*}
+	But, by Corollary \ref{cor:Dini2},
+		\begin{displaymath}
+			\lim_{\substack{\lambda \rightarrow \infty \\
+				\lambda \in \real}} \myinta{0}{\delta}
+				{\frac{\sin \lambda t}{t}}{t}
+				= \pi/2
+		\end{displaymath}
+	and so the result follows.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Dini's Theorem
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thrm}[Dini]\label{thrm:Dini}
+	Suppose $f$ is a $2\pi$-periodic, Riemann Integrable
+	function on $\real$. Furthermore suppose for some $x_0 \in
+	\real$ and $\delta > 0$ the following all exist:
+		\begin{enumerate}[i)]
+			\item
+				$f(x_0+) = \lim_{x \rightarrow x_0^+} f(x)$
+			\item
+				$f(x_0-) = \lim_{x \rightarrow x_0^-} f(x)$
+			\item
+				\begin{displaymath}
+					\myinta{0}{\delta}{\frac{f(x_0+t)-f(x_0+)}{t}}{t}
+				\end{displaymath}
+			\item
+				\begin{displaymath}
+					\myinta{0}{\delta}{\frac{f(x_0-t)-f(x_0-)}{t}}{t}
+				\end{displaymath}
+		\end{enumerate}
+	Then
+		\begin{displaymath}
+			\lim_{n \rightarrow \infty} s_n(x_0)
+				= \frac{f(x_0+)+f(x_0-)}{2}
+		\end{displaymath}
+	where $s_n$ is the $n$th partial sum of the Fourier series
+	of $f$.
+\end{thrm}
+
+\begin{proof}
+	Since $D_n$ is even, Theorem \ref{thrm:Dirch} implies
+	$\myinta{0}{\pi}{D_n(t)}{t} = \pi$. Therefore,
+		\begin{IEEEeqnarray*}{l}
+			\frac{1}{\pi} \myinta{0}{\pi}
+				{f(x_0+t)D_n(t)}{t} - f(x_0+) \\
+			= \frac{1}{\pi} \myinta{0}{\pi}
+				{f(x_0+t)D_n(t)}{t} - \frac{f(x_0+)}{\pi}
+				\myinta{0}{\pi}{D_n(t)}{t} \\
+			= \frac{1}{\pi} \myinta{0}{\pi}
+				{[f(x_0+t)-f(x_0+)]D_n(t)}{t} \\
+			= \frac{1}{\pi} \myinta{0}{\pi}
+				{g(t) \sin (n+1/2)t}{t}
+		\end{IEEEeqnarray*}
+	where
+		\begin{displaymath}
+			g(t) = 2 \left( \frac{f(x_0+t)-f(x_0+)}{t}
+				\right) \frac{t/2}{\sin t/2}
+		\end{displaymath}
+	Now the hypothesis implies $g$ is Riemann Integrable
+	on $[0,\pi]$ so by Theorem \ref{thrm:RLL}
+		\begin{displaymath}
+			\lim_{n \rightarrow \infty}
+				\frac{1}{\pi} \myinta{0}{\pi}
+				{g(t) \sin (n+1/2)t}{t}
+				= 0
+		\end{displaymath}
+	Therefore,
+		\begin{displaymath}
+			\lim_{n \rightarrow \infty}
+				\frac{1}{\pi} \myinta{0}{\pi}
+				{f(x_0+t)D_n(t)}{t} = f(x_0+)
+		\end{displaymath}
+	A similar argument shows that
+		\begin{displaymath}
+			\lim_{n \rightarrow \infty}
+				\frac{1}{\pi} \myinta{0}{\pi}
+				{f(x_0-t)D_n(t)}{t} = f(x_0-)
+		\end{displaymath}
+	To complete the proof,
+		\begin{IEEEeqnarray*}{rCl}
+			s_n(x_0) & = & \frac{1}{2\pi} \left(
+				\myinta{0}{\pi}{f(x_0+t)D_n(t)}{t}
+				+ \myinta{0}{\pi}{f(x_0-t)D_n(t)}{t}
+				\right) \\
+			& = & \frac{1}{2} \left(
+				\frac{1}{\pi} \myinta{0}{\pi}{f(x_0+t)D_n(t)}{t}
+				+ \frac{1}{\pi} \myinta{0}{\pi}{f(x_0-t)D_n(t)}{t}
+				\right)
+		\end{IEEEeqnarray*}
+	$\rightarrow (f(x_0+)+f(x_0-))/2$ as $n \rightarrow \infty$.
+\end{proof}
+
+%% Final corollary to Dini's Theorem
+\begin{cor}
+	\begin{enumerate}[i)]
+		\item
+			Suppose $\delta > 0$ and $g:[0,\delta] \to
+			\cmplx$ is Riemann Integrable on its domain.
+			Furthermore suppose $g(0+) = \lim_{x \rightarrow
+			0^+} g(x)$ exists and $\modulus{g(t)-g(0+)} \leq
+			M \modulus{t}$ for some $M > 0$. Then the conditions
+			of Corollary \ref{cor:Dini3} are satisfied.
+		\item
+			Suppose that $f$ is a $2\pi$-periodic, Riemann Integrable
+			function on $\real$ and for some $x_0 \in \real$ and $M,
+			\delta > 0$ we have $\modulus{f(x_0+t)-f(x_0)} \leq M
+			\modulus{t}, -\delta \leq t \leq \delta$. Then the
+			conditions of Theorem \ref{thrm:Dini} are satisfied.
+		\item
+			If $f$ satisfies the hypothesis of Theorem \ref{thrm:Jordan}
+			then it also satisfies the hypothesis of Theorem
+			\ref{thrm:Dini}.
+	\end{enumerate}
+\end{cor}
+
+\begin{proof}
+	\begin{enumerate}[i)]
+		\item
+			Let $h(t) = (g(t)-g(0+))/t$. Then $\modulus{h(t)} \leq
+			M$ for $t \in [0,\delta]$. Also, $h$ is Riemann Integrable
+			on $[\epsilon,\delta]$ for all $0 < \epsilon < \delta$.
+			Therefore, by Theorem \ref{thrm:IntegralConv} $h$ is
+			Riemann Integrable on $[0,\delta]$ and we have satsified
+			all the conditions of Corollary \ref{cor:Dini3}.
+		\item
+			Since
+				\begin{displaymath}
+					\lim_{t \rightarrow 0} \modulus{f(x_0+t)-f(x_0)}
+						\leq \lim_{t \rightarrow 0} M \modulus{t}
+						= 0
+				\end{displaymath}
+			we have $f(x_0+) = f(x_0-) = f(x_0)$. Futhermore, the
+			function $g:(0,\delta] \to \cmplx$ defined by $g(t)
+			= (f(x_0+t)-f(x_0+))/t$ is bounded on its domain and
+			Riemann Integrable on $[\epsilon,\delta]$ and
+			$[-\delta,-\epsilon]$, for all
+			$0 < \epsilon < \delta$. Therefore, by Theorem
+			\ref{thrm:IntegralConv} $g$ is Riemann Integrable
+			on $[0,\delta]$ and and $[-\delta,0]$ and we have satisfied
+			all the conditions of Theorem \ref{thrm:Dini}.
+		\item
+			This follows from Theorem \ref{thrm:Jordan} and Corollary
+			\ref{cor:IntegralConv}.
+	\end{enumerate}
+\end{proof}
+
+\end{section}

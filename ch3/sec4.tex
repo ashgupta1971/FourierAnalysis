@@ -1,0 +1,526 @@
+\begin{section}{\fejers Theorem}
+
+	In this section we present \fejers Theorem
+	which is concerned with the \cesaro sum of
+	the Fourier series of a given function.
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Approximate Identities
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{defn}
+	Suppose that $\{K_n\}_{n=0}^\infty$ is a sequence
+	of $2\pi$-periodic, Riemann integrable functions
+	with the following properties:
+		\begin{enumerate}[i)]
+			\item
+				\begin{displaymath}
+					0 \leq K_n(x) \in \real
+				\end{displaymath}
+			\item
+				For every $n \geq 0$,
+					\begin{displaymath}
+						\myintb[\pi]{K_n(t)}{t} = 1
+					\end{displaymath}
+			\item
+				For every $0 < \delta < \pi$,
+					\begin{displaymath}
+						\lim_{n \rightarrow \infty}
+							\myintb[\delta]{K_n(t)}{t} = 1
+					\end{displaymath}
+				or equivalently,
+					\begin{displaymath}
+						\lim_{n \rightarrow \infty}
+							\myinta{-\pi}{-\delta}{K_n(t)}{t}
+							= \lim_{n \rightarrow \infty}
+							\myinta{\delta}{\pi}{K_n(t)}{t}
+							= 0
+					\end{displaymath}
+		\end{enumerate}
+	Such a sequence is called an \emph{approximate identity in
+	the space of $2\pi$-periodic, Riemann integrable functions}.
+\end{defn}
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Approximate Identity Theorem
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thrm}\label{thrm:ApproxIdentity}
+	Suppose that $f$ is a $2\pi$-periodic, Riemann integrable
+	function and that $\{K_n\}_{n=0}^\infty$ is an approximate
+	identity. Define $f_n:\real \to \cmplx$ by
+		\begin{displaymath}
+			f_n(x) = \myintb[\pi]{f(t)K_n(x-t)}{t}
+		\end{displaymath}
+	Then
+		\begin{enumerate}[i)]
+			\item
+				If $f$ is continuous at some $x_0 \in \real$, then
+				$f_n(x_0)$ converges to $f(x_0)$ as $n \rightarrow
+				\infty$.
+			\item
+				If $f$ is $2\pi$-periodic and continuous then
+				$f_n$ converges to $f$ uniformly on $\real$ as $n \rightarrow \infty$.
+		\end{enumerate}
+\end{thrm}
+
+	The intuitive idea for the proof is the following,
+		\begin{IEEEeqnarray*}{rCl}
+			f_n(x_0) & = & \myintb[\pi]{f(t)K_n(x_0-t)}{t} \\
+			& = & \myintb[\pi]{f(x_0-t)K_n(t)}{t} \\
+			& = & \myinta{-\pi}{-\delta}{f(x_0-t)K_n(t)}{t}
+				+ \myinta{\delta}{\pi}{f(x_0-t)K_n(t)}{t} \\
+			& & + \myintb[\delta]{f(x_0-t)K_n(t)}{t} \\
+			& \approx & 0 + 0 + \myintb[\delta]{f(x_0)K_n(t)}{t} \\
+			& \approx & f(x_0)
+		\end{IEEEeqnarray*}
+	if $n$ is large and $\delta$ is small.
+			
+\begin{proof}
+	\begin{enumerate}[i)]
+		\item
+			Letting $s = x-t$, we have
+				\begin{IEEEeqnarray*}{rCl}
+					f_n(x) & = & -\myinta{x+\pi}{x-\pi}
+						{f(x-s)K_n(s)}{s} \\
+					& = & \myintb[\pi]{f(x-s)K_n(s)}{s}
+				\end{IEEEeqnarray*}
+			Now, given $\epsilon > 0$, choose $\delta > 0$ such
+			that $\modulus{f(x)-f(x_0)} < \epsilon/2$ whenever
+			$\modulus{x-x_0} < \delta$. Letting $M = \sup\{
+			\modulus{f(t)}:\isreal{t}\}$, choose $N > 0$ such that
+				\begin{displaymath}
+					\myinta{-\pi}{-\delta}{K_n(t)}{t} <
+						\frac{\epsilon}{8M}
+				\end{displaymath}
+			and
+				\begin{displaymath}
+					\myinta{\delta}{\pi}{K_n(t)}{t} <
+						\frac{\epsilon}{8M}
+				\end{displaymath}
+			whenever $n > N$.
+			Then, we have
+				\begin{IEEEeqnarray*}{rCl}
+					\modulus{f_n(x_0)-f(x_0)} & = &
+						\modulus{\myintb[\pi]{f(x_0-t)K_n(t)}{t}
+						- f(x_0)\myintb[\pi]{K_n(t)}{t}} \\
+					& \leq & \myintb[\pi]{\modulus{f(x_0-t)-f(x_0)}
+						K_n(t)}{t} \\
+					& = & \myinta{-\pi}{-\delta}
+						{\modulus{f(x_0-t)-f(x_0)}K_n(t)}{t} +
+						\myinta{\delta}{\pi}
+						{\modulus{f(x_0-t)-f(x_0)}K_n(t)}{t} \\
+					& & + \myintb[\delta]{\modulus{f(x_0-t)-f(x_0)}
+						K_n(t)}{t} \\
+					& < & \myinta{-\pi}{-\delta}{2M K_n(t)}{t} +
+						\myinta{\delta}{\pi}{2M K_n(t)}{t} +
+						+ \myintb[\delta]{\frac{\epsilon}{2}
+						K_n(t)}{t} \\
+					& < & 2M\frac{\epsilon}{8M} + 
+						2M\frac{\epsilon}{8M} + \frac{\epsilon}{2} \\
+					& = & \epsilon
+				\end{IEEEeqnarray*}
+			if $n > N$. This proves pointwise convergence at $x_0$.
+		\item
+			If $f$ is $2\pi$-periodic and continuous on $\real$ then
+			it is uniformly continuous and hence the choice of $\delta$
+			in part i) can be made independently of $x_0$. The result
+			then follows.
+	\end{enumerate}
+\end{proof}
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Fejer's Theorem
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thrm}[\fejers Theorem]\label{thrm:Fejers}
+	Suppose $f$ is a $2\pi$-periodic, Riemann integrable function
+	and let $s_k$ be the $k$th partial sum of the Fourier series of
+	$f$. Define $\sigma_n:\real \to \cmplx$ by
+		\begin{displaymath}
+			\sigma_n(x) = \frac{1}{n+1}\sum_{k=0}^n s_k
+		\end{displaymath}
+	Then,
+		\begin{enumerate}[i)]
+			\item
+				If $f$ is continuous at some $x_0 \in \real$ then
+				$\sigma_n(x_0)$ converges to $f(x_0)$ as $n \rightarrow
+				\infty$.
+			\item
+				If $f$ is continuous on $\real$, then $\sigma_n$
+				converges uniformly to $f$ on $\real$.
+		\end{enumerate}
+\end{thrm}
+
+\begin{proof}
+	Notice that
+		\begin{IEEEeqnarray*}{rCl}
+			\sigma_n(x) & = & \frac{1}{2\pi}
+				\myintb[\pi]{f(x-t)F_n(t)}{t} \\
+			& = & \myintb[\pi]{f(x-t)K_n(t)}{t}
+		\end{IEEEeqnarray*}
+	where
+		\begin{displaymath}
+			K_n(x) = \frac{1}{2\pi}F_n(x)
+		\end{displaymath}
+	is an approximate identity by Theorem \ref{thrm:FejersKernel}.
+	Therefore, both parts of the theorem follow by Theorem
+	\ref{thrm:ApproxIdentity}.
+\end{proof}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 2nd Version of Fejer's Theorem
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thrm}
+	Let $f$, $s_k$ and $\sigma_n$ be as in Theorem \ref{thrm:Fejers}.
+	If both $f(x_0+)$ and $f(x_0-)$ exist for some $x_0 \in \real$,
+	then $\sigma_n(x_0)$ converges to $(f(x_0+)+f(x_0-))/2$ as
+	$n \rightarrow \infty$.
+\end{thrm}
+
+\begin{proof}
+	The proof of this theorem is similar to that of Theorem
+	\ref{thrm:ApproxIdentity}. Given $\epsilon > 0$, choose 
+	$\delta > 0$ such that $\modulus{f(x)-f(x_0+)} < \epsilon/2$
+	whenever $0 < x-x_0 < \delta$. Letting $M = \sup\{
+	\modulus{f(t)}:\isreal[t]\}$, choose $N_1 > 0$ such that
+		\begin{displaymath}
+			\frac{1}{\pi}\myinta{\delta}{\pi}{F_n(t)}{t} 
+				< \frac{\epsilon}{4M}
+		\end{displaymath}
+	whenever $n > N_1$. Then, noting that \fejers kernel is even, 
+	we have
+		\begin{IEEEeqnarray*}{rCl}
+			\modulus{\frac{1}{\pi}\myinta{0}{\pi}{f(x_0+t)F_n(t)}{t} -
+				f(x_0+)} & = &
+				\modulus{\frac{1}{\pi}\left(
+				\myinta{0}{\pi}{f(x_0+t)F_n(t)}{t} - f(x_0+)
+				\myinta{0}{\pi}{F_n(t)}{t}\right)} \\
+			& \leq & \frac{1}{\pi}\myinta{0}{\pi}
+				{\modulus{f(x_0+t)-f(x_0+)}F_n(t)}{t} \\
+			& = & \frac{1}{\pi}\myinta{0}{\delta}
+				{\modulus{f(x_0+t)-f(x_0+)}F_n(t)}{t} \\
+			& & + \frac{1}{\pi}\myinta{\delta}{\pi}
+				{\modulus{f(x_0+t)-f(x_0+)}F_n(t)}{t} \\
+			& < & \frac{1}{\pi}\myinta{0}{\delta}{\frac{\epsilon}{2}
+				F_n(t)}{t} + \frac{1}{\pi}\myinta{\delta}{\pi}
+				{2M F_n(t)}{t} \\
+			& < & \frac{\epsilon}{2} + \frac{2M \epsilon}{4M} \\
+			& = & \epsilon
+		\end{IEEEeqnarray*}
+	if $n > N_1$. Similarly, we can find $N_2$ such
+	that for $n > N_2$, we have
+		\begin{displaymath}
+			\modulus{\frac{1}{\pi}\myinta{-\pi}{0}{f(x_0+t)F_n(t)}{t}
+				- f(x_0-)} < \epsilon		
+		\end{displaymath}
+	Let $N = \max\{N_1,N_2\}$. Then for $n > N$,
+		\begin{IEEEeqnarray*}{rCl}
+			\modulus{\sigma_n(x_0)-\frac{f(x_0+)+f(x_0-)}{2}}
+				& \leq & \frac{1}{2}\modulus{\frac{1}{\pi}
+				\myinta{0}{\pi}{f(x_0+t)F_n(t)}{t} - f(x_0+)} \\
+			& & + \frac{1}{2}\modulus{\frac{1}{\pi}\myinta{-\pi}{0}
+				{f(x_0+t)F_n(t)}{t}	- f(x_0-)} \\
+			& < & \frac{1}{2} \left( \epsilon + \epsilon \right) \\
+			& = & \epsilon
+		\end{IEEEeqnarray*}
+	This proves the theorem.
+\end{proof}	
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Corollary 1 to Fejer's Theorem
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{cor}\label{cor:Fejers1}
+	Given a function $f$ which is continuous and $2\pi$-periodic
+	and $\epsilon > 0$, there exist $n > 0$ and scalars $\gamma_k 
+	\in \cmplx, -n \leq k \leq n$ such that
+		\begin{displaymath}
+			\modulus{f(x)-\sum_{k=-n}^n \gamma_k e^{ikx}}
+				< \epsilon
+		\end{displaymath}
+\end{cor}
+
+\begin{proof}
+	By Theorem \ref{thrm:Fejers}, we can choose $n > 0$ such that
+	$\modulus{f(x)-\sigma_n(x)} < \epsilon$ (where $\sigma_n$ is
+	defined as in the proof of Theorem \ref{thrm:Fejers}). Then
+		\begin{IEEEeqnarray*}{rCl}
+			\sigma_n(x) & = & \frac{1}{n+1}\sum_{j=0}^n s_j \\
+			& = & \frac{1}{n+1}\sum_{j=0}^n \frac{1}{2\pi}
+				\myintb[\pi]{f(x-t)D_j(t)}{t} \\
+			& = & \frac{1}{n+1}\sum_{j=0}^n \frac{1}{2\pi}
+				\myintb[\pi]{f(t)D_j(x-t)}{t} \\
+			& = & \frac{1}{n+1}\sum_{j=0}^n \frac{1}{2\pi}
+				\myintb[\pi]{f(t)\sum_{k=-j}^j e^{ik(x-t)}}{t} \\
+			& = & \frac{1}{n+1}\sum_{j=0}^n \frac{1}{2\pi}
+				\myintb[\pi]{f(t)\sum_{k=-j}^j e^{-ikt}e^{ikx}}{t} \\
+			& = & \sum_{k=-n}^n \gamma_k e^{ikx}
+		\end{IEEEeqnarray*}
+	for some scalars $\gamma_k$.
+\end{proof}
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Corollary 2 to Fejer's Theorem
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{cor}
+	Suppose $T = \{\iscmplx:\modulus{z}=1\}$ and $g:T \to \cmplx$ is
+	continuous. Then given $\epsilon > 0$ there exist $n > 0$ and scalars 
+	$\gamma_k \in \cmplx, -n \leq k \leq n$ such that
+		\begin{displaymath}
+			\modulus{g(z)-\sum_{k=-n}^n \gamma_k z^k} < \epsilon
+		\end{displaymath}
+\end{cor}
+
+\begin{proof}
+	Let $f(x) = g(e^{ix}), \isreal$. Then $f$ satisfies the hypotheses 
+	of Corollary \ref{cor:Fejers1}. Let $n > 0$ and $\gamma_k$ be as
+	in that Corollary. Then
+		\begin{displaymath}
+			\modulus{g(z)-\sum_{k=-n}^n \gamma_k z^k} =
+				\modulus{g(e^{ix})-\sum_{k=-n}^n \gamma_k e^{ikx}} =
+				\modulus{f(x)-\sum_{k=-n}^n \gamma_k e^{ikx}}
+				< \epsilon
+		\end{displaymath}
+\end{proof}
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Corollary 3 to Fejer's Theorem
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{cor}\label{cor:Fejers3}
+	Given $\phi:[0,1] \to \cmplx$ and $\epsilon > 0$ there exist
+	$n > 0$ and scalars $a_0, a_1, \ldots, a_n \in \cmplx$ such
+	that
+		\begin{displaymath}
+			\modulus{\phi(t)-\sum_{k=0}^n a_k t^k} < \epsilon
+		\end{displaymath}
+	for $0 \leq t \leq 1$.
+\end{cor}
+
+\begin{proof}
+	Choose a $2\pi$-periodic, continuous function $f$ which agrees
+	with $\phi$ on $[0,1]$. By Corollary \ref{cor:Fejers1} there exist
+	$m > 0$ and scalars $\gamma_k \in \cmplx, -m \leq k \leq m$ such
+	that
+		\begin{displaymath}
+			\modulus{f(t)-\sum_{k=-m}^m \gamma_k e^{ikt}}
+				< \epsilon/2
+		\end{displaymath}
+	Let
+		\begin{displaymath}
+			g(z) = \sum_{k=-m}^m \gamma_k e^{ikz}
+		\end{displaymath}
+	for $\iscmplx$. Then the Maclaurin series of $g$ converges
+	uniformly to $g$ on bounded sets (since $g$ is entire). Hence
+	there exists $n > 0$ such that
+		\begin{displaymath}
+			\modulus{g(z)-\sum_{k=0}^n \frac{g^{(k)}(0)}{k!}z^k}
+				< \epsilon/2
+		\end{displaymath}
+	provided $\iscmplx$ and $\modulus{z} \leq 1$. Let
+		\begin{displaymath}
+			a_k = \frac{g^{(k)}(0)}{k!}
+		\end{displaymath}
+	Then for $0 \leq t \leq 1$, we have
+		\begin{IEEEeqnarray*}{rCl}
+			\modulus{\phi(t) - \sum_{k=0}^n a_k t^k}
+				& = & \modulus{f(t) - \sum_{k=0}^n a_k t^k} \\
+			& \leq & \modulus{f(t) - g(t)}
+				+ \modulus{g(t) - \sum_{k=0}^n a_k t^k} \\
+			& \leq & \epsilon/2 + \epsilon/2 \\
+			& = & \epsilon
+		\end{IEEEeqnarray*}
+	which proves the assertion.
+\end{proof}
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Corollary 4 to Fejer's Theorem
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thrm}\label{cor:Fejers4}
+	Suppose $f$ is a continuous, complex-valued function which
+	has period 1. Then given $\epsilon > 0$ there exist complex
+	scalars $c_k, -N \leq k \leq N$ such that
+		\begin{displaymath}
+			\modulus{f(x) - \sum_{k=-N}^N c_k e^{2\pi kxi}}
+				< \epsilon
+		\end{displaymath}
+\end{thrm}
+
+\begin{proof}
+	Let $g(x) = f(x/{2\pi}), \isreal$. Then $g$ is a continuous, 
+	$2\pi$-periodic function so by Corollary \ref{cor:Fejers1},
+		\begin{displaymath}
+			\modulus{g(t) - \sum_{k=-N}^N c_k e^{ikt}}
+				< \epsilon
+		\end{displaymath}
+	for some complex scalars $c_k, -N \leq k \leq N$ and all $\isreal[t]$.
+	Therefore,
+		\begin{displaymath}
+			\modulus{f(x) - \sum_{k=-N}^N c_k e^{2\pi kxi}} =
+				\modulus{g(2\pi x) - \sum_{k=-N}^N c_k e^{2\pi kxi}}
+				< \epsilon
+		\end{displaymath}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Weierstrass Approximation Theorem
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thrm}[Weierstrass Approximation Theorem]\label{thrm:WeierApprox}
+	Given $f:[a,b] \rightarrow \cmplx$ and $\epsilon > 0$
+	there exists a polynomial function $P$ such that
+	$\modulus{f(x)-P(x)} < \epsilon$ for all $a \leq x \leq b$.
+\end{thrm}
+
+\begin{proof}
+	Let
+		\begin{displaymath}
+			\phi(t) = f(a+t(b-a))
+		\end{displaymath}
+	for $0 \leq t \leq 1$. By Corollary \ref{cor:Fejers3},
+	there is a polynomial function $Q$ such that
+	$\modulus{\phi(t)-Q(t)} < \epsilon$. But
+		\begin{displaymath}
+			f(x) = \phi \left( \frac{x-a}{b-a} \right)
+		\end{displaymath}
+	so $\modulus{f(x)-P(x)} < \epsilon$, where
+		\begin{displaymath}
+			P(x) = Q \left( \frac{x-a}{b-a} \right)
+		\end{displaymath}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Example 1 of use of Fejer's Theorem
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{ex}
+	Suppose $f,g$ are continuous and $2\pi$-periodic functions
+	which have the same Fourier coefficients. Show that $f = g$.
+\end{ex}
+
+\begin{soln}
+	Let $h = f-g$. Then the Fourier coefficients of $h$ are all zero.
+	Hence $s_k(x) = 0$ for $k \geq 0$ and $\isreal$, where $s_k$ is
+	the $k$th partial sum of the Fourier series of $h$. Therefore
+	$\sigma_n(x) = 0, n \geq 0, \isreal$, where $\sigma_n$ is defined
+	as in Theorem \ref{thrm:Fejers}. By Theorem \ref{thrm:Fejers},
+	$\sigma_n$ converges uniformly to $h$ on $\real$. Thus $h=0$ and
+	so $f=g$.
+\end{soln}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Example 2 of use of Fejer's Theorem
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{ex}
+	Suppose $f:[a,b] \rightarrow \real$ is continuous
+	and
+		\begin{displaymath}
+			\myinta{a}{b}{x^k f(x)}{x} = 0
+		\end{displaymath}
+	for all $0 \leq k \in \intgr$. Show that $f(x) = 0,
+	a \leq x \leq b$.
+\end{ex}
+
+\begin{soln}
+	The hypothesis implies
+		\begin{displaymath}
+			\myinta{a}{b}{g(x)f(x)}{x} = 0
+		\end{displaymath}
+	for all polynomial functions $g$. So by
+	Theorem \ref{thrm:WeierApprox}, we can find
+	a sequence of polynomial functions $f_n, n \geq 0$
+	which converge uniformly to $f$ on $[a,b]$.
+	Then
+		\begin{IEEEeqnarray*}{rCl}
+			0 & = & \lim_{n \rightarrow \infty}
+				\myinta{a}{b}{f_n(x)f(x)}{x} \\
+			& = & \myinta{a}{b}{f^2(x)}{x}
+		\end{IEEEeqnarray*}
+	This implies $f(x) = 0$ for all $a \leq x \leq b$.
+\end{soln}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Example 3 of use of Fejer's Theorem
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{ex}
+	Suppose $f:[a,b] \rightarrow \real$ is continuous
+	and
+		\begin{displaymath}
+			\myinta{a}{b}{f(x)g'(x)}{x} = 0
+		\end{displaymath}
+	for every $g \in \ctsdiff[1][a,b]$ such that $g(a)
+	= g(b) = 0$. Show that $f$ is constant.
+\end{ex}
+
+\begin{soln}
+	First suppose $f$ is a polynomial which satisfies
+	the hypothesis. Let $g(x) = (x-a)(x-b)f'(x)$. Then
+	$g$ also satisfies the conditions stated and hence,
+	using integration by parts, we obtain
+		\begin{IEEEeqnarray*}{rCl}
+			0 & = & \myinta{a}{b}{f(x)g'(x)}{x} \\
+			& = & \evalat{f(x)g(x)}{x}{a}{b} -
+				\myinta{a}{b}{f'(x)g(x)}{x} \\
+			& = & - \myinta{a}{b}{(x-a)(x-b)(f'(x))^2}{x}
+		\end{IEEEeqnarray*}
+	Since $(x-a)(x-b)(f'(x))^2 \leq 0$ for all $a \leq x
+	\leq b$ we must have $f'(x) = 0, a \leq x \leq b$ which
+	means $f$ is constant.
+	
+	For the general case, choose a sequence of polynomials
+	$f_n, n \geq 1$ which satisfy $\modulus{f(x)-f_n(x)} <
+	1/n, a \leq x \leq b$. This can be done by Theorem 
+	\ref{thrm:WeierApprox}.	Then (for arbitrary $g$ which
+	satisfies the hypothesis),
+		\begin{IEEEeqnarray*}{rCl}
+			\modulus{\myinta{a}{b}{f(x)g'(x)}{x}
+				- \myinta{a}{b}{f_n(x)g'(x)}{x}}
+				& \leq & \myinta{a}{b}
+				{\modulus{f(x)-f_n(x)}g'(x)}{x} \\
+			& \leq & \frac{1}{n}\myinta{a}{b}{g'(x)}{x} \\
+			& = & \frac{1}{n}(g(b)-g(a)) \\
+			& = & 0
+		\end{IEEEeqnarray*}
+	So
+		\begin{displaymath}
+			\myinta{a}{b}{f_n(x)g'(x)}{x} = 0
+		\end{displaymath}
+	for all $n \geq 1$ and hence by the remarks above,
+	each $f_n$ is constant. But $f_n$ converges uniformly
+	to $f$ on $[a,b]$ so this means $f$ must be constant
+	as well.
+\end{soln}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Example 4 of use of Fejer's Theorem
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{ex}
+	Suppose $f \in \ctsdiff[1][a,b]$ and $\epsilon > 0$.
+	Show that there is a polynomial $p$ such that
+	$\modulus{f(x)-p(x)} < \epsilon$ and $\modulus{f'(x)-p'(x)}
+	< \epsilon$.
+\end{ex}
+
+\begin{soln}
+	By Theorem \ref{thrm:WeierApprox}, we can find a polynomial
+	$p$ such that $\modulus{f'(x)-p'(x)} < \min(\epsilon,
+	\epsilon/(b-a))$. Then
+		\begin{IEEEeqnarray*}{rCl}
+			\modulus{f(x)-p(x)} & = & \modulus{
+				\myinta{a}{x}{f'(t)}{t} - 
+				\myinta{a}{x}{p'(t)}{t}} \\
+			& \leq & \myinta{a}{x}{\modulus{f'(t)-p'(t)}}{t} \\
+			& \leq & \myinta{a}{x}{\frac{\epsilon}{b-a}}{t} \\
+			& \leq & \epsilon
+		\end{IEEEeqnarray*}
+\end{soln}
+
+\end{section}

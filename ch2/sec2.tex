@@ -1,0 +1,201 @@
+\begin{section}{Maximum Minimum Priniple}
+
+Roughly stated, the Maximum Minimum Principle
+says the maximum (minimum) value of a function
+on a bounded region, under certain conditions,
+occurs along the boundary of the region. This
+result will be used to prove the uniqueness of
+the solution to the heat problem. But we begin
+with a lemma that will be used to prove the
+principle.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% lemma used to prove MM Principle
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{lemma}\label{lemma:maxmin}
+	Suppose $v:[a,b] \times [0,\infty) \to \real$ 
+	is continuous on its domain and $\ctsdiff[2]$
+	on $(a,b) \times (0,\infty)$. Futhermore, suppose
+		\begin{displaymath}
+			\frac{\partial v}{\partial t}(x,t)
+				- \frac{\partial^2 v}{\partial x^2}(x,t)
+				< 0
+		\end{displaymath}
+	for $(x,t) \in (a,b) \times (0,\infty)$.
+	
+	Fix $T > 0$ and define
+		\begin{displaymath}
+			B_T = \{(a,t):0 \leq t \leq T\}
+				\cup \{(b,t):0 \leq t \leq T\}
+				\cup \{(x,0):a \leq x \leq b\}
+		\end{displaymath}
+		
+	Then $\max \{v(x,t):a \leq x \leq b, 0 \leq t \leq T\}
+	= \max \{v(x,t):(x,t) \in B_T\}$.
+\end{lemma}
+
+\begin{proof}
+	Since $[a,b] \times [0,T]$ is compact and $v$ is
+	continuous, $v$ attains an absolute maximum on this
+	region. Say this absolute maximum occurs at the point
+	$(x_0,t_0)$. If $a < x_0 < b$ or $0 < t_0 \leq T$ then
+	by the first derivative test we must have
+		\begin{displaymath}
+			\frac{\partial v}{\partial t}(x_0,t_0)
+				= \frac{\partial v}{\partial x}(x_0,t_0)
+				= 0
+		\end{displaymath}
+				
+	By the second derivative test we must have
+		\begin{displaymath}
+			\frac{\partial^2 v}{\partial x^2}(x_0,t_0) < 0
+		\end{displaymath}
+	
+	But then
+		\begin{displaymath}
+			\frac{\partial v}{\partial t}(x,t)
+				- \frac{\partial^2 v}{\partial x^2}(x,t)
+				> 0
+		\end{displaymath}
+	which is a contradiction.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% MM Principle
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thrm}[Maximum Minimum Principle]\label{thrm:maxmin}	
+	Suppose $u:[a,b] \times [0,\infty) \to \real$ is
+	continous on its domain, $\ctsdiff[2]$ on $(a,b) \times
+	(0,\infty)$ and satisfies
+		\begin{displaymath}
+			\frac{\partial u}{\partial t}(x,t)
+				= \frac{\partial^2 u}{\partial x^2}(x,t)
+		\end{displaymath}
+	for $(x,t) \in (a,b) \times (0,\infty)$.
+	
+	Then for all $T > 0$,
+		\begin{enumerate}[i)]
+			\item
+				\begin{displaymath}
+					\max \{u(x,t):a \leq x \leq b, 0 \leq t \leq T\}
+						= \max \{u(x,t):(x,t) \in B_T\}
+				\end{displaymath}
+
+			\item
+				\begin{displaymath}
+					\min \{u(x,t):a \leq x \leq b, 0 \leq t \leq T\}
+						= \min \{u(x,t):(x,t) \in B_T\}
+				\end{displaymath}
+		\end{enumerate}		
+	where $B_T$ is defined as in Lemma \ref{lemma:maxmin}.
+\end{thrm}
+
+\begin{proof}
+	\begin{enumerate}[i)]
+		\item
+			Given $T > 0$, let $M_T = \max \{u(x,t):(x,t) \in B_T\}$.
+			Fix $\epsilon > 0$ and define
+				\begin{displaymath}
+					v(x,t) = u(x,t) + \epsilon x^2
+				\end{displaymath}
+			for $(x,t) \in [a,b] \times [0,\infty)$. Then $v$ is
+			continuous on its domain, $\ctsdiff[2]$ on $(a,b)
+			\times (0,\infty)$ and satisfies
+				\begin{IEEEeqnarray*}{l}
+					\frac{\partial v}{\partial t}(x,t)
+						- \frac{\partial^2 v}{\partial x^2}(x,t) \\
+					= \frac{\partial u}{\partial t}(x,t)
+						- \frac{\partial^2 u}{\partial x^2}(x,t)
+						- 2 \epsilon \\
+					= -2 \epsilon \\
+					< 0
+				\end{IEEEeqnarray*}
+			for all $(x,t) \in (a,b) \times (0,\infty)$.
+	
+			By Lemma \ref{lemma:maxmin} $v(x,t) \leq M_T$ when
+			$a \leq x \leq b$ and $0 \leq t \leq T$. So
+				\begin{displaymath}
+					u(x,t) + \epsilon x^2 \leq M_T
+				\end{displaymath}
+			on this same region. Since this is true for all
+			$\epsilon > 0$ and $T > 0$, the result follows.
+		
+		\item
+			Apply part i) with $u$ replaced by $-u$.
+	\end{enumerate}
+\end{proof}		
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Corollaries to MM Principle
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{defn}
+	Let $C_0[0,\pi]$ be defined by the set of all
+	continuous, real-valued functions on $[0,\pi]$
+	which satisfy $f(0) = f(\pi) = 0$.
+\end{defn}
+
+\begin{cor}
+	Suppose $f_1, f_2 \in C_0[0,\pi]$ and $u_1, u_2$
+	are the solutions to the heat problem corresponding
+	to $f_1, f_2$, respectively. Furthermore, suppose
+	$f_1(x) \leq f_2(x)$ for all $x \in [0,\pi]$. Then
+	$u_1(x,t) \leq u_2(x,t)$ for all $(x,t) \in [0,\pi]
+	\times [0,\infty)$.
+\end{cor}
+
+\begin{proof}
+	Let $f = f_1 - f_2$. Then $u = u_1 - u_2$ is the
+	solution to the heat problem corresponding to $f$.
+	Now $u$ satisfies the hypotheses of Theorem
+	\ref{thrm:maxmin} so $u(x,t) \leq M_T$ for all
+	$(x,t) \in [0,\pi] \times [0,\infty)$ (where $M_T$
+	is defined as in the proof of Theorem \ref{thrm:maxmin}).
+	But $M_T \leq 0$. So the result follows.
+\end{proof}
+
+\begin{cor}\label{cor:maxmin2}
+	Suppose $f \in C_0[0,\pi]$ and $u$ is the solution to
+	the heat problem corresponding to $f$. If $\modulus{
+	f(x)} \leq M$ for some $M > 0$ and all $x \in [0,\pi]$
+	then $\modulus{u(x,t)} \leq M$ for all $(x,t) \in [0,\pi]
+	\times [0,\infty)$.
+\end{cor}
+
+\begin{proof}
+	Since $-M \leq f(x) \leq M$ for all $x \in [0,\pi]$ the
+	value of $M_T$ in the proof of Theorem \ref{thrm:maxmin}
+	satisfies $-M \leq M_T \leq M$ as well. Therefore, by
+	Theorem \ref{thrm:maxmin}, $-M \leq u(x,t) \leq M$ for
+	all $(x,t) \in [0,\pi] \times [0,\infty)$.
+\end{proof}
+
+\begin{cor}\label{cor:maxmin3}
+	Suppose $f_1, f_2 \in C_0[0,\pi]$, $u_1, u_2$ are the 
+	solutions to the heat problem corresponding to $f_1,
+	f_2$ respectively and for some $\epsilon > 0$ we have
+	$\modulus{f_1(x) - f_2(x)} \leq \epsilon$. Then
+	$\modulus{u_1(x,t) - u_2(x,t)} \leq \epsilon$ for all
+	$(x,t) \in [0,\pi] \times [0,\infty)$.
+\end{cor}
+
+\begin{proof}
+	Let $f = f_1 - f_2$ and $u = u_1 - u_2$. Then $u$ is the
+	solution to the heat problem corresponding to $f$. So the
+	result is an immediate consequence of Corollary \ref{cor:maxmin2}.
+\end{proof}
+
+\begin{thrm}[Uniqueness of the Heat Equation]\label{thrm:HeatUnique}
+	If $f \in C_0[0,\pi]$ then there is at most one
+	solution to the heat problem corresponding to $f$.
+\end{thrm}
+
+\begin{proof}
+	Suppose $u_1$ and $u_2$ are two solutions of the heat
+	problem corresponding to $f$. Apply Corollary \ref{cor:maxmin3}
+	with $f_1 = f_2 = f$.
+\end{proof}
+
+\end{section}

@@ -1,0 +1,238 @@
+\begin{section}{A Topology for the Schwarz Space}
+
+	In this section we introduce a norm on $\schwarz$
+	and also a metric which give a topology on this space.
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Defn of norm on Schwarz Space
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{defn}
+	For $\isnatrl[m]$ and $f \in \schwarz$ let
+		\begin{displaymath}
+			\norm[m]{f} = \sum_{j,k=0}^m \supnorm{M^k f^{(j)}}
+		\end{displaymath}
+\end{defn}
+
+\begin{prop}
+	The function $\norm[m]{\cdot}$ is a norm on $\schwarz$
+	for all $\isnatrl[m]$.
+\end{prop}
+
+\begin{proof}
+	This follows immediately from the linearity of the derivative,
+	the fact that $\supnorm{\cdot}$	is a norm and that the finite 
+	sum of norms is a norm.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Convergence wrt. to this norm
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{prop}
+	Let $\isnatrl[m]$ and $\{f_\nu\}_{\nu=1}^\infty$ be a sequence in $\schwarz$.
+	Then this sequence converges to $f \in \schwarz$ with respect to $\norm[m]{\cdot}$
+	iff, for all $0 \leq j,k \leq m$
+		\begin{displaymath}
+			\lim_{\nu \rightarrow \infty} x^k f_\nu^{(j)}(x)
+				\rightarrow x^k f^{(j)}(x)
+		\end{displaymath}
+	uniformly for $\isreal$.
+\end{prop}
+
+\begin{proof}
+	Fix $0 \leq j,k \leq m$. Then $\{M^k f_\nu^{(j)}\}_{\nu=1}^\infty$
+	converges to $M^k f^{(j)}$ with respect to the supnorm iff this
+	sequence converges uniformly on $\real$ to $M^k f^{(j)}$.
+	Now $\{f_\nu\}_{\nu=1}^\infty$ converges to $f$ with respect to
+	$\norm[m]{\cdot}$ iff this sequence converges to $M^k f^{(j)}$ 
+	with respect to the supnorm for each $0 \leq j,k \leq m$. Hence
+	the result follows.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% A metric induced by the norm above
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{defn}\label{defn:MetricOnSchwarzSpace}
+	For $f,g \in \schwarz$ define
+		\begin{displaymath}
+			d(f,g) = \sum_{m=1}^\infty \frac{1}{2^m} \left(
+				\frac{\norm[m]{f-g}}{1+\norm[m]{f-g}} \right)
+		\end{displaymath}
+\end{defn}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% The metric and norm defined above are complete
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{prop}
+	The function $d$ in Defintion \ref{defn:MetricOnSchwarzSpace} is a bounded
+	metric and $\schwarz$ is complete with respect to $d$. Also, for each $\isnatrl[m]$,
+	$\norm[m]{\cdot}$ is complete as well.
+\end{prop}
+
+\begin{proof}
+	By Proposition \ref{prop:BoundedMetric}, for all $f,g \in \schwarz$ and each $\isnatrl[m]$,
+		\begin{displaymath}
+			\frac{\norm[m]{f-g}}{1+\norm[m]{f-g}}
+		\end{displaymath}
+	is a metric bounded by 1. Therefore, $d$ is a metric bounded above by 1 as well.
+	Now we will prove that $d$ is complete. The completeness of $\norm[m]{\cdot}$ for each
+	$\isnatrl[m]$ will follow from Theorem \ref{thrm:SumOfMetrics}. Let $\{f_\nu\}_{\nu=1}^\infty$
+	be a Cauchy sequence in $\schwarz$ with respect to $d$. This means that
+		\begin{displaymath}
+			\lim_{\nu,\mu \rightarrow \infty} d(f_\nu,f_\mu) = 0
+		\end{displaymath}
+	From the definition of $d$, it is seen that this means
+		\begin{displaymath}
+			\lim_{\nu,\mu \rightarrow \infty} \norm[m]{f_\nu - f_\mu} = 0
+		\end{displaymath}
+	for each $\isnatrl[m]$. Now from the definition of $\norm[m]{\cdot}$, it follows that
+		\begin{displaymath}
+			\lim_{\nu,\mu \rightarrow \infty} \supnorm{f_\nu^{(j)} - f_\mu^{(j)}} = 0
+		\end{displaymath}
+	for each $j \geq 0$. Hence the sequence $\{f_\nu^{(j)}\}_{\nu=1}^\infty$ is Cauchy 
+	with respect to the supnorm for each $j \geq 0$. Since the supnorm is complete, this
+	implies that $f_\nu^{(j)} \rightarrow f_j$ uniformly on $\real$ for some functions
+	$f_j, j \geq 0$. Let $f = f_0$. By Theorem \ref{thrm:derivative}, $f^{(j)} = f_j
+	= \lim_{\nu \rightarrow \infty} f_\nu^{(j)}$ for all $j \geq 0$. So we have proven
+	that $\{f_\nu\}_{\nu=1}^\infty$ converges to a $\ctsdiff$ function $f$. To show that
+	$f \in \schwarz$ we only have to prove that
+		\begin{displaymath}
+			\lim_{\modulus{x} \rightarrow \infty} x^m f^{(k)}(x) = 0
+		\end{displaymath}
+	for all $m,k \geq 0$. Fix $\epsilon > 0$, $m \geq 0$ and $k \geq 0$. Then by the remarks above
+	$x^m f_\nu^{(k)}(x)$ converges uniformly on $\real$ to $x^m f^{(k)}(x)$. Therefore
+	we can choose $\nu > 0$ such that
+		\begin{displaymath}
+			\modulus{x^m f^{(k)}(x) - x^m f_\nu^{(k)}(x)} < \frac{\epsilon}{2}
+		\end{displaymath}
+	for all $\isreal$. Now since $f_\nu \in \schwarz$,
+		\begin{displaymath}
+			\lim_{\modulus{x} \rightarrow \infty} x^m f_\nu^{(k)}(x) = 0
+		\end{displaymath}
+	so we can choose $A > 0$ such that
+		\begin{displaymath}
+			\modulus{x^m f_\nu^{(k)}(x)} < \frac{\epsilon}{2}
+		\end{displaymath}
+	whenever $\modulus{x} > A$. Hence, with this choice of $A, \nu$ and $x$ we have
+		\begin{IEEEeqnarray*}{rCl}
+			\modulus{x^m f^{(k)}(x)} & \leq & \modulus{x^m f^{(k)}(x) - x^m f_\nu^{(k)}(x)}
+				+ \modulus{x^m f_\nu^{(k)}(x)} \\
+			& < & \frac{\epsilon}{2} + \frac{\epsilon}{2} \\
+			& = & \epsilon
+		\end{IEEEeqnarray*}
+	which completes the proof.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Continuity Theorem
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thrm}
+	Let $d$ be as in Defintion \ref{defn:MetricOnSchwarzSpace}. Then
+	$D$ and $F$ are continuous with respect to $d$. Also, if $P$ is
+	any polynomial then the map $f \mapsto Pf$ is continuous with
+	respect to $d$ as well.
+\end{thrm}
+
+\begin{proof}
+	Let $\{f_\nu\}_{\nu=1}^\infty$ be a sequence in $\schwarz$ converging
+	to some $f \in \schwarz$ with respect to $d$. To show that $D, F$ and 
+	the the map $f \mapsto Pf$ are continuous with respect to $d$, we have 
+	to show that $d(Df_\nu,Df) \rightarrow 0$, $d(Ff_\nu,Ff) \rightarrow 0$
+	and $d(Pf_\nu,Pf) \rightarrow 0$. We will do so now.
+		\begin{enumerate}[i)]
+		
+			%% D is cts
+			\item
+				Since $d(f_\nu,f) \rightarrow 0$, this implies that
+					\begin{displaymath}
+						\supnorm{M^k f_\nu^{(j)} - M^k f^{(j)}} \rightarrow 0
+					\end{displaymath}
+				as $\nu \rightarrow 0$ for all $j,k \geq 0$. Hence for each $\isnatrl[m]$
+					\begin{IEEEeqnarray*}{rCl}
+						\norm[m]{Df_\nu - Df} & = & \sum_{j,k=0}^m
+							\supnorm{M^k (Df_\nu)^{(j)} - M^k (Df)^{(j)}} \\
+						& = & \sum_{j,k=0}^m \supnorm{M^k f_\nu^{(j+1)} - M^k f^{(j+1)}} \\
+						& \rightarrow & 0
+					\end{IEEEeqnarray*}
+				Thus $\{Df_\nu\}_{\nu=1}^\infty$ converges to $Df$ with respect to
+				$\norm[m]{\cdot}$ for each $\isnatrl[m]$. So by Theorem \ref{thrm:SumOfMetrics}
+				$\{Df_\nu\}_{\nu=1}^\infty$ converges to $Df$ with respect to $d$.
+				
+			%% F is cts
+			\item
+				Fix $0 \leq j,k \in \intgr$. Then
+					\begin{displaymath}
+						(F f_\nu)^{(j)} - (F f)^{(j)}
+							= D^j Ff_\nu - D^j Ff
+							= F M^j f_\nu - F M^j f
+							= F g_\nu
+					\end{displaymath}
+				by Corollary \ref{cor:S2} (where $g_\nu = M^j(f_\nu-f) \in \schwarz$.
+				By Theorem \ref{thrm:S1}, $F g_\nu \in \schwarz$ for all $\nu \geq 1$.
+				This means that
+					\begin{displaymath}
+						\lim_{\modulus{x} \rightarrow \infty} \modulus{x^k F g_\nu(x)}
+							= \lim_{\modulus{x} \rightarrow \infty} \modulus{M^k F g_\nu}
+							= 0
+					\end{displaymath}
+				Therefore, given $\epsilon > 0$ we can find $0 < A \in \real$ such that
+					\begin{displaymath}
+						\modulus{M^k F g_\nu} = \modulus{x^k F g_\nu(x)} < \epsilon 
+							\; \; (\ast)
+					\end{displaymath}
+				whenever $\modulus{x} > A$. Now, for $\modulus{x} \leq A$ we have
+					\begin{IEEEeqnarray*}{rCl}
+						\modulus{M^k F g_\nu} & = & \modulus{x^k 
+							\myintb{(-it)^j [f_\nu(t)-f(t)] e^{-ixt}}{t}} \\
+						& \leq & A^k \myintb{\modulus{t^j [f_\nu(t)-f(t)]}}{t} \\
+						& \leq & A^k \myintb{\modulus{t^j[f_\nu(t)-f(t)]}}{t} \\
+						& \rightarrow & 0 \; \; (\dag)
+					\end{IEEEeqnarray*}
+				as $\nu \rightarrow \infty$ since $t^j f_\nu(t)$ converges uniformly 
+				to $t^j f(t)$ on $\real$. By $(\ast)$ and	$(\dag)$ it follows that
+					\begin{displaymath}
+						\supnorm{M^k (Ff_\nu)^{(j)} - M^k (Ff)^{(j)}} < \epsilon
+					\end{displaymath}
+				for all $\epsilon > 0$ and hence this quantity equals zero. Thus for 
+				each $\isnatrl[m]$,
+					\begin{IEEEeqnarray*}{rCl}
+						\norm[m]{Ff_\nu - Ff} & = & \sum_{j,k=0}^m
+							\supnorm{M^k (Ff_\nu)^{(j)} - M^k (Ff)^{(j)}} \\
+						& \rightarrow & 0
+					\end{IEEEeqnarray*}
+				as $\nu \rightarrow \infty$. Therefore $\{Ff_\nu\}_{\nu=1}^\infty$ converges
+				to $Ff$ with respect to $\norm[m]{\cdot}$ for each $\isnatrl[m]$.
+				So by Theorem \ref{thrm:SumOfMetrics} $\{Ff_\nu\}_{\nu=1}^\infty$ 
+				converges to $Ff$ with respect to $d$.
+
+			%% f > PF is cts
+			\item
+				Let
+					\begin{displaymath}
+						P(x) = \sum_{l=0}^n c_l x^l
+					\end{displaymath}
+				for $\isreal$. Then
+					\begin{IEEEeqnarray*}{rCl}
+						\norm[m]{Pf_\nu - Pf} & = & \sum_{j,k=0}^m
+							\supnorm{M^k (Pf_\nu)^{(j)} - M^k (Pf)^{(j)}} \\
+						& = & \sum_{j,k=0}^m \supnorm{M^k 
+							\left( \sum_{l=j}^n k_l x^{l-j} f_\nu^{(j)}(x) \right)
+							- M^k \left( \sum_{l=j}^n k_l x^{l-j} f^{(j)}(x) \right)} \\
+						& & \text{(for some constants } k_l \text{)} \\
+						& \leq & \sum_{j,k=0}^m \sum_{l=j}^n \modulus{k_l}
+							\supnorm{M^k x^{l-j} (f_\nu^{(j)}-f^{(j)})} \\
+						& = & \sum_{j,k=0}^m \sum_{l=j}^n \modulus{k_l}
+							\supnorm{M^{k+l-j} (f_\nu^{(j)}-f^{(j)})} \\
+						& \rightarrow & 0 \; \; \text{(by the remarks above)}
+					\end{IEEEeqnarray*}
+				Again, by Theorem \ref{thrm:SumOfMetrics}, this implies 
+				$\{Pf_\nu\}_{\nu=1}^\infty$ converges to $Pf$ with respect to $d$.
+					
+		\end{enumerate}
+\end{proof}
+
+\end{section}

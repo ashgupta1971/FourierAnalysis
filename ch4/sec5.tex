@@ -1,0 +1,510 @@
+\begin{section}{The Fourier Transform}
+
+	In this section we present the Fourier Transform
+	of a function and its properties.
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Defn of Fourier Transform
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{defn}
+	Suppose $f \in \absint$. Then since $\modulus{f(t)e^{-ixt}}
+	= \modulus{f}$ for all $\isreal$, the map $t \mapsto f(t)e^{-ixt}$
+	belongs to $\absint$. We define
+		\begin{displaymath}
+			\f(x)=\myintb{f(t)e^{-ixt}}{t}
+		\end{displaymath}
+	for all $\isreal$ and call $\f$ the \emph{Fourier Transform} of $f$.
+\end{defn}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Properties of Fourier Transform
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thrm}
+	If $f \in \absint$ then
+		\begin{enumerate}[i)]
+			\item
+				$\lim_{\modulus{x} \rightarrow \infty} \f(x)=0$
+			\item
+				$\f$ is continuous.
+		\end{enumerate}
+\end{thrm}
+
+\begin{proof}
+	\begin{enumerate}[i)]
+	
+		\item
+			Given $\epsilon > 0$ choose $A > 0$ such that
+				\begin{displaymath}
+					\myinta{-\infty}{-A}{\modulus{f(t)}}{t}
+						+ \myinta{A}{\infty}{\modulus{f(t)}}{t}
+						< \epsilon/2
+				\end{displaymath}
+			Then for all $\isreal$,
+				\begin{IEEEeqnarray*}{rCl}
+					\modulus{\myintb{f(t)e^{-ixt}}{t}} & \leq &
+						\myinta{-\infty}{-A}{\modulus{f(t)e^{-ixt}}}{t}
+						+ \modulus{\myintb[A]{f(t)e^{-ixt}}{t}}
+						+ \myinta{A}{\infty}{\modulus{f(t)e^{-ixt}}}{t} \\
+					& = & \myinta{-\infty}{-A}{\modulus{f(t)}}{t}
+						+ \modulus{\myintb[A]{f(t)e^{-ixt}}{t}}
+						+ \myinta{A}{\infty}{\modulus{f(t)}}{t} \\
+					& < & \epsilon/2 + \modulus{\myintb[A]{f(t)e^{-ixt}}{t}}
+						\; (\ast)
+				\end{IEEEeqnarray*}
+			By Theorem \ref{thrm:RLL},
+				\begin{displaymath}
+					\lim_{\modulus{x} \rightarrow \infty}
+						\myintb[A]{f(t)e^{-ixt}}{t} = 0
+				\end{displaymath}
+			Therefore, from $(\ast)$ we get
+				\begin{displaymath}
+					\limsup_{\modulus{x} \rightarrow \infty}
+						\modulus{\f(x)} < \epsilon
+				\end{displaymath}
+			Since this is true for all $\epsilon > 0$ we have
+				\begin{displaymath}
+					\lim_{\modulus{x} \rightarrow \infty}
+						\f(x) = 0
+				\end{displaymath}
+				
+		\item
+			Fix $\isreal$ and choose a real sequence $h_k$ converging
+			to zero as $k \rightarrow \infty$. Let $\epsilon > 0$ and
+			choose $A > 0$ such that
+				\begin{displaymath}
+					\myinta{-\infty}{-A}{\modulus{f(t)}}{t}
+						+ \myinta{A}{\infty}{\modulus{f(t)}}{t}
+						< \epsilon/2
+				\end{displaymath}
+			Then for all $k \geq 1$,
+				\begin{IEEEeqnarray*}{rCl}
+					\modulus{\f(x+h_k)-\f(x)} & = & \modulus{
+						\myintb{f(t)[e^{-i(x+h_k)t}-e^{-ixt}]}{t}} \\
+					& \leq & \myinta{-\infty}{-A}{2\modulus{f(t)}}{t}
+						+ \modulus{\myintb[A]
+							{f(t)e^{-ixt}(e^{-i h_k t}-1)}{t}} \\
+					& & + \; \myinta{A}{\infty}{2\modulus{f(t)}}{t} \\
+					& < & \epsilon + \myintb[A]{\modulus{f(t)}
+						\modulus{e^{-i h_k t}-1}}{t}
+				\end{IEEEeqnarray*}
+			But $\modulus{e^{-i h_k t}-1} \rightarrow 0$ uniformly on $[-A,A]$ as $k \rightarrow
+			\infty$.
+			So
+				\begin{displaymath}
+					\lim_{k \rightarrow \infty}\modulus{\f(x+h_k)-\f(x)}
+						\leq 2\epsilon
+				\end{displaymath}
+			from which it follows that
+				\begin{displaymath}
+					\lim_{k \rightarrow \infty}\f(x+h_k)=f(x)
+				\end{displaymath}
+			Thus $\f$ is continuous at $x$.
+			
+	\end{enumerate}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Some useless definitions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{defn}
+	Let
+		\begin{enumerate}[i)]
+			\item
+				$\ctsr = \{f:\real \to \cmplx \; | \; 
+					f \text{ is continuous} \}$
+			\item
+				$\ctszeror = \{g \in \ctsr \; | \;
+					\lim_{\modulus{x} \rightarrow \infty} g(x) = 0 \}$
+			\item
+				$\ctscompact = \{g \in \ctsr \; | \; \text{there exists }
+					A > 0 \text{ such that } g(x)=0 \text{ if }
+					\modulus{x} > A \}$
+		\end{enumerate}
+\end{defn}
+
+	The following Proposition will be stated without proof.
+	
+\begin{prop}
+	\begin{enumerate}[i)]
+		\item
+			$\ctscompact \subset \ctszeror \subset \ctsr$
+		\item
+			$\ctscompact \subset \absint$
+		\item
+			$\ctszeror \not \subset \absint$
+		\item
+			$\absint \cap \ctsr \not \subset \ctszeror$
+		\item
+			$\ctszeror$ is a Banach space with respect to the
+			sup norm.
+		\item
+			$\ctscompact$ forms a dense subspace of $\ctszeror$.
+		\item
+			If $f \in \absint$ then $\f \in \ctszeror$.
+	\end{enumerate}
+\end{prop}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Second proposition on Fourier Transforms
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{defn}
+	Given $f \in \absint$ let $\ftransform=\f$. Then
+	$\ftransform[]$ is a linear transformation from $\absint$
+	to $\ctszeror$.
+\end{defn}
+
+\begin{prop}\label{prop:FTransform}
+	If $f \in \absint$ then $\supnorm{\ftransform}
+	\leq \norm[1]{f}$ and $\ftransform[]$ is uniformly
+	continuous from $\absint$ to $\ctszeror$.
+\end{prop}
+
+\begin{proof}
+	If $f \in \absint$ and $\isreal$ then
+		\begin{displaymath}
+			\modulus{\f(x)} = \modulus{
+				\myintb{f(t)e^{-ixt}}{t}}
+				\leq \myintb{\modulus{f(t)}}{t}
+				= \norm[1]{f}
+		\end{displaymath}
+	which means $\supnorm{\f} \leq \norm[1]{f}$.
+	This also implies for all $f,g \in \absint$
+		\begin{displaymath}
+			\supnorm{\ftransform-\ftransform{g}}
+			= \supnorm{\ftransform[(f-g)]}
+			\leq \norm[1]{f-g}
+		\end{displaymath}
+	so that $\ftransform[]$ is uniformly continuous from
+	$\absint$ to $\ctszeror$.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Example of Fourier transform bound
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{ex}
+	Let $f(t) = e^{-\modulus{t}}$ for $\isreal[t]$. Show
+	that $\supnorm{\ftransform} \leq \norm[1]{f}$.
+\end{ex}
+
+\begin{soln}
+	For any $A > 0$ we have
+		\begin{displaymath}
+			\myinta{0}{A}{\modulus{f(t)}}{t}
+				= \myinta{0}{A}{e^{-t}}{t}
+				= 1 - e^{-A}
+		\end{displaymath}
+	$\rightarrow 1$ as $A \rightarrow \infty$. Similarly
+		\begin{displaymath}
+			\myinta{-A}{0}{\modulus{f(t)}}{t}
+		\end{displaymath}
+	$\rightarrow 1$ as $A \rightarrow \infty$. Thus
+	$f \in \absint$ and
+		\begin{displaymath}
+			\norm[1]{f} = \myintb{\modulus{f(t)}}{t}
+				= 2
+		\end{displaymath}
+	Now let $\isreal$. Then for $A > 0$
+		\begin{IEEEeqnarray*}{rCl}
+			\myinta{0}{A}{f(t)e^{-ixt}}{t} & = &
+				\myinta{0}{A}{e^{-(1+ix)t}}{t} \\
+			& = & \evalat{-\frac{e^{-(1+ix)t}}{1+ix}}
+				{t}{0}{A} \\
+			& = & \frac{1}{1+ix}\left(1-e^{-A}e^{-ixA}
+				\right) \\
+			& \rightarrow & \frac{1}{1+ix}
+		\end{IEEEeqnarray*}
+	as $A \rightarrow \infty$. Similarly,
+		\begin{displaymath}
+			\myinta{-\infty}{0}{f(t)e^{-ixt}}{t}
+				= \frac{1}{1-ix}
+		\end{displaymath}
+	Thus
+		\begin{displaymath}
+			\ftransform = \frac{1}{1+ix} + \frac{1}{1-ix}
+				= \frac{2}{1+x^2}
+				\leq 2
+				= \norm[1]{f}
+		\end{displaymath}
+	as required.
+\end{soln}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% First example of Fourier transform of a fn
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{ex}\label{ex:GaussianDist}
+	Let
+		\begin{displaymath}
+			G(t) = \frac{e^{-t^2/2}}{\sqrt{2\pi}}
+		\end{displaymath}
+	for $\isreal[t]$. (This is called the \emph{Gaussian Distribution}.)
+	Find $\f[G]$.
+\end{ex}
+
+\begin{soln}
+	It is easily checked that $G \in \absint \cap \ctszero^\infty(\real)$.
+	Therefore, by Theorem \ref{thrm:Leibniz2} and using Integration by
+	Parts, we get
+		\begin{IEEEeqnarray*}{rCl}
+			\f[G]'(x) & = & \frac{d}{dx}\myintb{G(t)e^{-ixt}}{t} \\
+			& = & \myintb{\frac{\partial}{\partial x}\left(
+				\frac{e^{-t^2/2}}{\sqrt{2\pi}}e^{-ixt}\right)}{t} \\
+			& = & \frac{-i}{\sqrt{2\pi}}\myintb{te^{-t^2/2}e^{-ixt}}{t} \\
+			& = & \evalat{\frac{i}{\sqrt{2\pi}}e^{-t^2/2}e^{-ixt}}{t}
+				{-\infty}{\infty} - x\myintb{\frac{e^{-t^2/2}}{\sqrt{2\pi}}
+				e^{-ixt}}{t} \\
+			& = & -x \f[G](x)
+		\end{IEEEeqnarray*}
+	Thus
+		\begin{displaymath}
+			\f[G](x) = C e^{-x^2/2}
+		\end{displaymath}
+	But
+		\begin{displaymath}
+			\f[G](0) = \myintb{\frac{e^{-t^2/2}}{\sqrt{2\pi}}}{t}
+				= 1
+		\end{displaymath}
+	So $C = 1$ and $\f[G](x)=\sqrt{2\pi}G(x), \isreal$.
+\end{soln}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% A trivial proposition
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{prop}
+	Suppose $f \in \absint$ and $0 < \lambda \in \real$. Define
+	$f_\lambda(t)=\lambda f(\lambda t), \isreal[t]$. Then
+	$f_\lambda \in \absint$ and $\f_\lambda(x)=\f(\frac{x}{\lambda}),
+	\isreal$.
+\end{prop}
+
+\begin{proof}
+	For the first part of the proof, note that
+		\begin{IEEEeqnarray*}{rCl}
+			\myintb{\modulus{f_\lambda(t)}}{t} & = & \lim_{A \rightarrow
+				\infty}\myintb[A]{\lambda \modulus{f(\lambda t)}}{t} \\
+			& = & \lim_{A \rightarrow \infty}\myintb[A/\lambda]
+				{\modulus{f(s)}}{s} \; \; (s = \lambda t) \\
+			& = & \myintb{\modulus{f(s)}}{s} \\
+			& < & \infty
+		\end{IEEEeqnarray*}
+	So $f_\lambda \in \absint$. Next,
+		\begin{IEEEeqnarray*}{rCl}
+			\f_\lambda(x) & = & \myintb{f_\lambda(t)e^{-ixt}}{t} \\
+			& = & \lim_{A \rightarrow \infty}\myintb[A]
+				{\lambda f(\lambda t)e^{-ixt}}{t} \\
+			& = & \lim_{A \rightarrow \infty}\myintb[A/\lambda]
+				{f(s)e^{-ixs/\lambda}}{s} \; \; (s = \lambda t) \\
+			& = & \myintb{f(s)e^{-ixs/\lambda}}{s} \\
+			& = & \f(x/\lambda)
+		\end{IEEEeqnarray*}
+	This completes the proof.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Another trivial proposition
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{prop}
+	Suppose $f:\real \rightarrow \real$ is even. Then $\f$ is
+	real valued and
+		\begin{displaymath}
+			\f(x) = \myintb{f(t)\cos xt}{t}
+		\end{displaymath}
+	for $\isreal$.
+\end{prop}
+
+\begin{proof}
+	By definition,
+		\begin{IEEEeqnarray*}{rCl}
+			\f(x) & = & \myintb{f(t)e^{-ixt}}{t} \\
+			& = & \myintb{f(t)\cos(-xt)}{t}
+				+ i\myintb{f(t)\sin(-xt)}{t} \\
+			& = & \myintb{f(t)\cos(xt)}{t}
+		\end{IEEEeqnarray*}
+	(since $f$ is even).
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Another example calculating F Transform of a fn
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{ex}
+	Let
+		\begin{displaymath}
+			f(t) =
+				\begin{cases}
+					1/2 & -1 \leq t \leq 1 \\
+					0 & \text{otherwise}
+				\end{cases}
+		\end{displaymath}
+	Find $\f$ and show that it does not belong to $\absint$.
+\end{ex}
+
+\begin{soln}
+	If $x=0$ then clearly $\f(x)=1$. Otherwise,
+		\begin{IEEEeqnarray*}{rCl}
+			\f(x) & = & \myintb{f(t)e^{-ixt}}{t} \\
+			& = & \frac{1}{2}\myintb[1]{e^{-ixt}}{t} \\
+			& = & \evalat{\frac{1}{-2ix}e^{-ixt}}{t}{-1}{1} \\
+			& = & \frac{1}{2ix}\left(e^{ix}-e^{-ix}\right) \\
+			& = & \frac{1}{2ix}\left(2i\sin x\right) \\
+			& = & \frac{\sin x}{x}
+		\end{IEEEeqnarray*}
+	This function is not in $\absint$ as was shown in Example
+	\ref{ex:SinTOverT}.
+\end{soln}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Second example of Fourier transform of a fn
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{ex}
+	Let
+		\begin{displaymath}
+			f(t) = t e^{-\modulus{t}}
+		\end{displaymath}
+	for $\isreal[t]$. Show that $f \in \absint$ and find $\f$.
+\end{ex}
+
+\begin{soln}
+	We will divide the solution into steps.
+		\begin{enumerate}[{Step} 1]
+		
+			%% f is in absint
+			\item
+				To show that $f \in \absint$ proceed as follows. First, if
+				$t > 0$ then
+					\begin{displaymath}
+						f'(t) = \frac{e^t - t e^t}{e^{2t}}
+					\end{displaymath}
+				So $f$ is decreasing along the positive real axis when $t > 1$.
+				Now let $a_n = n e^{-n}, \isnatrl$. Then
+					\begin{displaymath}
+						\lim_{n \rightarrow \infty}\frac{\modulus{a_{n+1}}}
+							{\modulus{a_n}} = \frac{1}{e} < 1
+					\end{displaymath}
+				Hence, by the ratio test,
+					\begin{displaymath}
+						\sum_{n=1}^\infty n e^{-n}
+					\end{displaymath}
+				converges. But since $f(t)$ is decreasing when $t > 1$, this implies
+				by the integral test,
+					\begin{displaymath}
+						\myinta{1}{\infty}{t e^{-t}}{t} < \infty
+					\end{displaymath}
+				Also,
+					\begin{IEEEeqnarray*}{rCl}
+						\myinta{-\infty}{-1}{\modulus{f(t)}}{t} & = &
+							\myinta{-\infty}{-1}{(-t)e^t}{t} \\
+						& = & \myinta{1}{\infty}{s e^{-s}}{s} \; \; (s = -t) \\
+						& < & \infty
+					\end{IEEEeqnarray*}
+				Therefore $f \in \absint$.
+	
+			%% Calculation of f transform
+			\item
+				Let
+					\begin{displaymath}
+						f_1(x) = \myinta{0}{\infty}{f(t)e^{-ixt}}{t}
+					\end{displaymath}
+				Then using integration by parts, we get
+					\begin{IEEEeqnarray*}{rCl}
+						f_1(x) & = & \myinta{0}{\infty}{t e^{-t}e^{-ixt}}{t} \\
+						& = & \myinta{0}{\infty}{t e^{(-1-ix)t}}{t} \\
+						& = & \evalat{-t \frac{e^{-(1-ix)t}}{1+ix}}{t}{0}{\infty}
+							+ \myinta{0}{\infty}{e^{(-1-ix)t}}{t} \\
+						& = & \evalat{- \frac{e^{(-1-ix)t}}{1+ix}}{t}{0}{\infty} \\
+						& = & \frac{1}{1+ix}
+					\end{IEEEeqnarray*}
+				Similarly, if
+					\begin{displaymath}
+						f_2(x) = \myinta{-\infty}{0}{f(t)e^{-ixt}}{t}
+					\end{displaymath}
+				then
+					\begin{displaymath}
+						f_2(x) = - \frac{1}{1-ix}
+					\end{displaymath}
+				Therefore,
+					\begin{IEEEeqnarray*}{rCl}
+						\f(x) & = & f_1(x) + f_2(x) \\
+						& = & \frac{1}{1+ix} - \frac{1}{1-ix} \\
+						& = & - \frac{2ix}{1+x^2}
+					\end{IEEEeqnarray*}
+				
+		\end{enumerate}
+\end{soln}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Third example of Fourier transform of a fn
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{ex}
+	For $\isnatrl[k]$ let $G_k(t) = t^k G(t), \isreal[t]$ (where
+	$G(t) = \exp(-t^2/2)/\sqrt{2\pi}$). Show that $G_k \in \absint
+	\cap \ctsdiff(\real)$ and find $\f[G]_k$ for each $\isnatrl[k]$.
+\end{ex}
+
+\begin{soln}
+	\begin{enumerate}[{Step} 1]
+	
+		%% Show that G_k is in absint
+		\item
+			For $t > 0$ it is easily checked that
+				\begin{displaymath}
+					G_k'(t) = \sqrt{2\pi}
+						\frac{k t^{k-1}e^{t^2/2}-t^{k+1}e^{t^2/2}}
+						{e^{t^2}}
+				\end{displaymath}
+			Hence, along the positive real axis, $G_k$ is decreasing when
+			$t > \sqrt{k}$. Now for $\isnatrl[k]$ let $a_n = n^k G(n)$.
+			Then
+				\begin{IEEEeqnarray*}{rCl}
+					\lim_{n \rightarrow \infty}\frac{\modulus{a_{n+1}}}
+						{\modulus{a_n}} & = &
+						\lim_{n \rightarrow \infty}\frac{(n+1)^k \exp(n^2/2)}
+						{n^k \exp((n+1)^2/2)} \\
+					& = & \lim_{n \rightarrow \infty}\frac{1}{\exp((2n+1)/2)} \\
+					& = & e^{-1/2} \\
+					& < & 1
+				\end{IEEEeqnarray*}
+			Therefore, by the ratio test,
+				\begin{displaymath}
+					\sum_{n=\ceil{\sqrt{k}}}^\infty a_n
+						= \sum_{n=\ceil{\sqrt{k}}}^\infty n^k e^{-n^2/2}/\sqrt{2\pi}
+				\end{displaymath}
+			converges. But then, by the integral test (since $G_k(t)$ is decreasing when
+			$t > \sqrt{k}$),
+				\begin{displaymath}
+					\myinta{\sqrt{k}}{\infty}{\modulus{G_k(t)}}{t}
+						= \myinta{\sqrt{k}}{\infty}{\frac{t^k e^{-t^2/2}}{\sqrt{2\pi}}}{t}
+				\end{displaymath}
+			converges as well. Thus, if $k$ is even,
+				\begin{IEEEeqnarray*}{rCl}
+					\myinta{-\infty}{-\sqrt{k}}{\modulus{G_k(t)}}{t}
+						& = & \myinta{-\infty}{-\sqrt{k}}{\frac{t^k e^{-t^2/2}}{\sqrt{2\pi}}}{t} \\
+						& = & \myinta{\sqrt{k}}{\infty}{\frac{s^k e^{-s^2/2}}{\sqrt{2\pi}}}{s} \; \; (s=-t) \\
+						& < & \infty
+				\end{IEEEeqnarray*}
+			If $k$ is odd,	
+				\begin{IEEEeqnarray*}{rCl}
+					\myinta{-\infty}{-\sqrt{k}}{\modulus{G_k(t)}}{t}
+						& = & \myinta{-\infty}{-\sqrt{k}}{\frac{-t^k e^{-t^2/2}}{\sqrt{2\pi}}}{t} \\
+						& = & \myinta{\sqrt{k}}{\infty}{\frac{s^k e^{-s^2/2}}{\sqrt{2\pi}}}{s} \; \; (s=-t) \\
+						& < & \infty
+				\end{IEEEeqnarray*}
+			as well. Therefore, in all cases, we have $G_k \in \absint$. Clearly, $G_k$ belongs
+			to $\ctsdiff(\real)$. So we have proved the first assertion.
+			
+		%% Calculation of the F transform of G_k
+		\item
+	
+	\end{enumerate}
+\end{soln}
+
+\end{section}

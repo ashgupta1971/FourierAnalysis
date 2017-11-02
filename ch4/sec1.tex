@@ -1,0 +1,502 @@
+\begin{section}{Inner Product Spaces}
+
+	In this section we define inner product spaces
+	and normed spaces as well as 
+	present some relevant results and examples.
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Definition of inner product and inner product space
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{defn}\label{defn:InnerProdSp}
+	Let $V$ be a real or complex vector space. An \emph{inner product}
+	$\innrprod{\cdot}{\cdot}$ on $V$ is a function from $V \times V$
+	into $\real$ or $\cmplx$ which satisfies,
+		\begin{enumerate}[i)]
+			\item
+				For all $x \in V$, $\innrprod{x}{x} \geq 0$,
+				with equality when $x = 0$.
+			\item
+				For all $x,y \in V$, $\innrprod{x}{y} =
+				\conj{\innrprod{y}{x}}$.
+			\item
+				For all $x,y,z \in V$ and $\isreal[\lambda]$ or
+				$\iscmplx[\lambda]$,
+				$\innrprod{\lambda x + y}{z} = \lambda
+				\innrprod{x+y}{z}$.
+		\end{enumerate}
+	A vector space $V$ equipped with an inner product 
+	$\innrprod{\cdot}{\cdot}$ is called an \emph{inner product space}.
+\end{defn}
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Definition of a norm and normed space
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{defn}\label{defn:NormSp}
+	Let $V$ be a real or complex vector space. A \emph{norm} on $V$
+	is a function from $V$ into $\real$ or $\cmplx$ which satisfies
+		\begin{enumerate}[i)]
+			\item
+				For all $x \in V$, $\norm[]{x} \geq 0$ with
+				equality iff $x=0$.
+			\item
+				For all $x \in V$ and $\isreal[\lambda]$ or
+				$\iscmplx[\lambda]$, $\norm[]
+				{\lambda x} = \modulus{\lambda}\norm[]{x}$.
+			\item
+				For all $x,y \in V$, $\norm[]{x+y} \leq \norm[]{x} +
+				\norm[]{y}$. This inequality is called the \emph{
+				Triangle Inequality}.
+		\end{enumerate}
+	A vector space $V$ equipped with a norm is called a \emph{normed
+	space}.
+\end{defn}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Definition of norm on an inner product space
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{defn}
+	If $V$ is an inner product space with inner product $\innrprod
+	{\cdot}{\cdot}$ and $x \in V$, we define the
+	\emph{norm} of $x$ as $\norm[]{x} = \sqrt{\innrprod{x}{x}}$. This
+	norm is well defined since $\innrprod{x}{x} \geq 0$ and is called the
+	\emph{norm induced from the inner product} $\innrprod
+	{\cdot}{\cdot}$.
+\end{defn}
+
+	We will prove shortly that a norm induced from an inner product does indeed
+	satisfy the properties of a norm stated in Definition \ref{defn:NormSp}.
+	However, we first need the following result.
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Cauchy Schwarz inequality
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{prop}[Cauchy Schwarz Inequality]\label{prop:CauchySchwarz}
+	If $V$ is an inner product space with inner product $\innrprod
+	{\cdot}{\cdot}$, $\norm[]{\cdot}$ the norm induced from this
+	inner product and $x,y \in V$, then
+	$\modulus{\innrprod{x}{y}} \leq \norm[]{x} \norm[]{y}$.
+\end{prop}
+
+\begin{proof}
+	First assume $\norm[]{y} = 1$. Then
+		\begin{IEEEeqnarray*}{rCl}
+			0 & \leq & \norm[]{x-\innrprod{x}{y}y} \\
+			& = & \innrprod{x-\innrprod{x}{y}y}
+				{x-\innrprod{x}{y}y} \\
+			& = & \norm[]{x}^2 - \modulus{\innrprod{x}{y}}^2
+				- \modulus{\innrprod{x}{y}}^2
+				+ \modulus{\innrprod{x}{y}}^2 \\
+			& = & \norm[]{x}^2 - \modulus{\innrprod{x}{y}}^2
+		\end{IEEEeqnarray*}
+	which implies $\modulus{\innrprod{x}{y}} \leq \norm[]{x}
+	= \norm[]{x} \norm[]{y}$. Now, if $y = 0$ then the
+	result is clearly true so assume $y \neq 0$.
+	Then replacing $y$ with $y/ \norm[]{y}$ in the above
+	argument, we see that $\modulus{\innrprod{x}{y/ \norm[]{y}}}
+	\leq \norm[]{x}$ which implies
+		\begin{displaymath}
+			\modulus{\innrprod{x}{y}} = \norm[]{y}
+				\modulus{\innrprod{x}{y/ \norm[]{y}}}
+				\leq \norm[]{x} \norm[]{y}
+		\end{displaymath}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Norm induced from inner prod. is indeed a norm
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{prop}
+	Let $V$ be an inner product space with inner product $\innrprod
+	{\cdot}{\cdot}$ and $\norm[]{\cdot}$ the norm induced from this
+	inner product. Then this norm satisfies all the properties of a
+	norm stated in Defintion \ref{defn:NormSp}.
+\end{prop}
+
+\begin{proof}
+	Properties i) and ii) are trivial. So we will only prove the Triangle
+	Inequality.	For all $x,y \in V$,
+		\begin{IEEEeqnarray*}{rCl}
+			\norm[]{x+y}^2 & = & \innrprod{x+y}{x+y} \\
+			& = & \norm[]{x}^2 + \innrprod{x}{y} +
+				\innrprod{y}{x} + \norm[]{y}^2 \\
+			& = & \norm[]{x}^2 + \innrprod{x}{y} +
+				\conj{\innrprod{x}{y}} + \norm[]{y}^2 \\
+			& = & \norm[]{x}^2 + 2\text{Re}\innrprod{x}{y}
+				+ \norm[]{y}^2 \\
+			& \leq & \norm[]{x}^2 + 2\modulus{\innrprod{x}{y}}
+				+ \norm[]{y}^2 \\
+			& \leq & \norm[]{x}^2 + 2\norm[]{x}\norm[]{y}
+				+ \norm[]{y}^2 \; \text{ by Proposition }
+				\ref{prop:CauchySchwarz} \\
+			& = & (\norm[]{x}+\norm[]{y})^2
+		\end{IEEEeqnarray*}
+	from which the result follows.
+\end{proof}
+				
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Further properties of normed spaces
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{prop}\label{prop:NormSpProperties}
+	Let $V$ be a normed space.
+		\begin{enumerate}[i)]
+			\item
+				For all $x,y \in V$, $\modulus{\norm[]{x}
+				-\norm[]{y}} \leq \norm[]{x-y}$.
+			\item
+				The norm function $\norm[]{\cdot}$ is
+				uniformly continuous from $V$ to $[0,\infty)$.
+			\item
+				If $V$ is a real inner product space with inner
+				product $\innrprod{\cdot}{\cdot}$ and $\norm[]{\cdot}$
+				is the norm induced from this innner product then
+					\begin{displaymath}
+						\norm[]{x+y}^2+\norm[]{x-y}^2 =
+							2\norm[]{x}^2+2\norm[]{y}^2
+					\end{displaymath}
+				and
+					\begin{displaymath}
+						\innrprod{x}{y} = \frac{1}{4}\left(
+							\norm[]{x+y}^2-\norm[]{x-y}^2\right)
+					\end{displaymath}
+			\item
+				Suppose $\{x_k\}_{k=1}^\infty$ and 
+				$\{y_k\}_{k=1}^\infty$ are convergent sequences
+				in $V$ with limits $a$ and $b$, respectively. Also
+				suppose $\{\lambda_k\}_{k=1}^\infty$
+				and $\{\mu_k\}_{k=1}^\infty$ are real or complex
+				sequences converging to $\alpha$ and
+				$\beta$, respectively. Let $z_k = \lambda_k x_k +
+				\mu_k y_k, k \geq 1$. Then
+					\begin{displaymath}
+						\lim_{k \rightarrow \infty} z_k =
+							\alpha a + \beta b
+					\end{displaymath}
+		\end{enumerate}
+\end{prop}
+
+\begin{proof}
+	\begin{enumerate}[i)]
+	
+		\item
+			By the Triangle Inequality,
+				\begin{displaymath}
+					\norm[]{x} = \norm[]{x-y+y}
+						\leq \norm[]{x-y}+\norm[]{y}
+				\end{displaymath}
+			which implies
+				\begin{displaymath}
+					\norm[]{x}-\norm[]{y} \leq \norm[]{x-y}
+				\end{displaymath}
+			A similar argument shows that
+				\begin{displaymath}
+					\norm[]{y}-\norm[]{x} \leq \norm[]{y-x}
+						= \norm[]{x-y}
+				\end{displaymath}
+			Therefore,
+				\begin{displaymath}
+					-\norm[]{x-y} \leq \norm[]{x}-\norm[]{y} 
+						\leq \norm[]{x-y}
+				\end{displaymath}
+			from which the result follows.
+			
+		\item
+			Given $\epsilon > 0$ let $\delta = \epsilon$.
+			By part i) if $\norm[]{x-y} < \delta$ then
+			$\modulus{\norm[]{x}-\norm[]{y}} \leq \norm[]{x-y}
+			< \delta = \epsilon$.
+			
+		\item
+			For all $x,y \in V$ we have
+				\begin{IEEEeqnarray*}{rCl}
+					\norm[]{x+y}^2+\norm[]{x-y}^2 & = &
+						\innrprod{x+y}{x+y}+\innrprod{x-y}{x-y} \\
+					& = & \norm[]{x}^2+\innrprod{x}{y}+\innrprod{y}{x}
+						+\norm[]{y}^2 \\
+					& & + \; \norm[]{x}^2+\innrprod{x}{-y}+
+						\innrprod{-y}{x}+\norm[]{y}^2 \\
+					& = & 2\norm[]{x}^2+2\norm[]{y}^2
+				\end{IEEEeqnarray*}
+			and also
+				\begin{IEEEeqnarray*}{rCl}
+					\norm[]{x+y}^2-\norm[]{x-y}^2 & = & \norm[]{x}^2+
+						\innrprod{x}{y}+\innrprod{y}{x}+\norm[]{y}^2 \\
+					& & - \; \left(\norm[]{x}^2+\innrprod{x}{-y}
+						+\innrprod{-y}{x}+\norm[]{y}^2\right) \\
+					& = & 2\innrprod{x}{y}+2\innrprod{y}{x} \\
+					& = & 4\innrprod{x}{y}
+				\end{IEEEeqnarray*}
+			from which the second result follows.
+			
+		\item
+			Given $\epsilon > 0$, choose $N_1 > 0$ such 
+			that if $k > N_1$,
+				\begin{displaymath}
+					\modulus{\lambda_k-\alpha} <
+						\min \left(\frac{\epsilon}{4(\norm[]{a}+1)},1
+						\right)
+				\end{displaymath}
+			Choose $N_2 > 0$ such that if $k > N_2$,
+				\begin{displaymath}
+					\norm[]{x_k-a} < \frac{\epsilon}{4(\modulus{\alpha}+1)}
+				\end{displaymath}
+			Choose $N_3 > 0$ such that if $k > N_3$,	
+				\begin{displaymath}
+					\modulus{\mu_k-\beta} <
+						\min \left(\frac{\epsilon}{4(\norm[]{b}+1)},1
+						\right)
+				\end{displaymath}
+			Finally, choose $N_4 > 0$ such that if $k > N_4$,
+				\begin{displaymath}
+					\norm[]{y_k-b} < \frac{\epsilon}{4(\modulus{\beta}+1)}
+				\end{displaymath}
+			Let $N = \max(N_1,N_2,N_3,N_4)$. Then if $k > N$ we have
+				\begin{IEEEeqnarray*}{rCl}
+					\norm[]{z_k - (\alpha a + \beta b)} & \leq &
+						\norm[]{\lambda_k x_k - \alpha a}
+						+ \norm[]{\mu_k y_k - \beta b} \\
+					& = & \norm[]{\lambda_k x_k - \lambda_k a + \lambda_k a
+						- \alpha a} +
+						\norm[]{\mu_k y_k - \mu_k b + \mu_k b - \beta b} \\
+					& \leq & \norm[]{\lambda_k x_k - \lambda_k a} +
+						\norm[]{\lambda_k a - \alpha a} + \norm[]{\mu_k y_k
+						- \mu_k b} + \norm[]{\mu_k b - \beta b} \\
+					& = & \modulus{\lambda_k}\norm[]{x_k-a} +
+						\modulus{\lambda_k-\alpha}\norm[]{a} +
+						\modulus{\mu_k}\norm[]{y_k-b} +
+						\modulus{\mu_k-\beta}\norm[]{b} \\
+					& < & (\modulus{\alpha}+1)\left(\frac{\epsilon}{4(\modulus{\alpha}+1)}
+						\right) + \left(\frac{\epsilon}{4(\norm[]{a}+1)}\right)\norm[]{a} \\
+					& & + \,(\modulus{\beta}+1)\left(\frac{\epsilon}{4(\modulus{\beta}+1)}
+						\right) + \left(\frac{\epsilon}{4(\norm[]{b}+1)}\right)\norm[]{b} \\
+					& < & \frac{\epsilon}{4} + \frac{\epsilon}{4} + \frac{\epsilon}{4} +
+						\frac{\epsilon}{4} \\
+					& = & \epsilon
+				\end{IEEEeqnarray*}
+			From which it follows that
+				\begin{displaymath}
+						\lim_{k \rightarrow \infty} z_k =
+							\alpha a + \beta b
+					\end{displaymath}
+	
+	\end{enumerate}
+\end{proof}		
+			
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Example of innr prod on C[a,b] and sup norm
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{ex}
+	Suppose $f,g \in \ctsab{a}{b}$. Define
+		\begin{displaymath}
+			\innerprod{f}{g} = \myinta{a}{b}{f(t)\conj{g(t)}}{t}
+		\end{displaymath}
+	Show that this function is an inner product on $\ctsab{a}{b}$.
+	Also, let $\norm{f} = \sqrt{\innerprod{f}{f}}$ be the
+	norm induced from this inner product and define the \emph{maximum
+	norm} on $\ctsab{a}{b}$ as
+		\begin{displaymath}
+			\supnorm{f} = \max\{\modulus{f(t)}:a \leq t \leq b\}
+		\end{displaymath}
+	Show that the maximum norm is indeed a norm on $\ctsab{a}{b}$
+	and that there exists $M > 0$ such that $\norm{f} \leq M
+	\supnorm{f}$ for all $f \in \ctsab{a}{b}$ but there is no
+	$\mu > 0$ such that $\supnorm{f} \leq \mu \norm{f}$ for all
+	$f \in \ctsab{a}{b}$. Find a sequence $\{f_k\}_{k=1}^\infty$
+	in $\ctsab{a}{b}$ such that
+		\begin{displaymath}
+			\lim_{k \rightarrow \infty} \norm{f_k} = 0
+		\end{displaymath}
+	and
+		\begin{displaymath}
+			\lim_{k \rightarrow \infty} \supnorm{f_k} = \infty
+		\end{displaymath}
+	Finally, show that the maximum norm is not induced from any
+	inner product on $\ctsab{a}{b}$.
+\end{ex}
+
+\begin{soln}
+	We will divide the solution into parts.
+		\begin{enumerate}[i)]
+		
+			\item
+				If $f \in \ctsab{a}{b}$ then $\modulus{f}^2$ is
+				zero almost everywhere iff $f$ is identically zero.
+				So
+					\begin{displaymath}
+						\innerprod{f}{f} = \myinta{a}{b}
+							{\modulus{f(t)}^2}{t}
+					\end{displaymath}
+				is non-negative and zero iff $f$ is zero on $[a,b]$.
+				Next, for $f,g \in \ctsab{a}{b}$,
+					\begin{IEEEeqnarray*}{rCl}
+						\conj{\innerprod{f}{g}} & = & \conj{
+							\myinta{a}{b}{f(t)\conj{g(t)}}{t}} \\
+						& = & \myinta{a}{b}{\conj{f(t)\conj{g(t)}}}{t} \\
+						& = & \myinta{a}{b}{g(t)\conj{f(t)}}{t} \\
+						& = & \innerprod{g}{f}
+					\end{IEEEeqnarray*}
+				Finally, if $f,g,h \in \ctsab{a}{b}$ and $\isreal[\lambda]$ then
+					\begin{IEEEeqnarray*}{rCl}
+						\innerprod{\lambda f + g}{h} & = & \myinta{a}{b}
+							{(\lambda f(t)+g(t))\conj{h(t)}}{t} \\
+						& = & \lambda \myinta{a}{b}{f(t)\conj{h(t)}}{t} +
+							\myinta{a}{b}{g(t)\conj{h(t)}}{t} \\
+						& = & \lambda \innerprod{f}{h}+\innerprod{g}{h}
+					\end{IEEEeqnarray*}
+					
+			\item
+				If $f \in \ctsab{a}{b}$ then $\supnorm{f} \geq 0$ with
+				equality iff $f$ is identically zero. Also, if $\isreal[\lambda]$
+				then
+					\begin{IEEEeqnarray*}{rCl}
+						\supnorm{\lambda f} & = & \max\{\modulus
+							{\lambda f(t)}:a \leq t \leq b\} \\
+						& = & \max\{\modulus{\lambda}\modulus{f(t)}
+							:a \leq t \leq b\} \\
+						& = & \modulus{\lambda} \max\{\modulus{f(t)}
+							:a \leq t \leq b\} \\
+						& = & \modulus{\lambda} \supnorm{f}
+					\end{IEEEeqnarray*}
+				Finally, for the Triangle Inequality, if $f,g \in \ctsab{a}{b}$
+				then $\modulus{f(t)+g(t)} \leq \modulus{f(t)}+\modulus{g(t)}$ for
+				all $t \in [a,b]$. Hence,
+					\begin{IEEEeqnarray*}{rCl}
+						\supnorm{f+g} & = & \max\{\modulus
+							{f(t)+g(t)}:a \leq t \leq b\} \\
+						& \leq & \max\{\modulus{f(t)}+\modulus{g(t)}
+							:a \leq t \leq b\} \\
+						& \leq & \max\{\modulus{f(t)}:a \leq t \leq b\} 
+							+ \max\{\modulus{g(t)}:a \leq t \leq b\} \\
+						& = & \supnorm{f}+\supnorm{g}
+					\end{IEEEeqnarray*}
+					
+			\item
+				For all $f \in \ctsab{a}{b}$ and $t \in [a,b]$ we have $\modulus{f(t)}
+				\leq \supnorm{f}$. Therefore
+					\begin{IEEEeqnarray*}{rCl}
+						\norm{f}^2 & = & \myinta{a}{b}{\modulus{f(t)}^2}{t} \\
+						& \leq & \myinta{a}{b}{\supnorm{f}^2}{t} \\
+						& = & (b-a) \supnorm{f}^2
+					\end{IEEEeqnarray*}
+				which implies $\norm{f} \leq M \supnorm{f}$ where $M = \sqrt{b-a}$.
+				In the next part of this solution, we will present a sequence
+				$\{f_k\}_{k=1}^\infty$ in $\ctsab{a}{b}$ such that
+					\begin{displaymath}
+						\lim_{k \rightarrow \infty} \norm{f_k} = 0
+					\end{displaymath}
+				and
+					\begin{displaymath}
+						\lim_{k \rightarrow \infty} \supnorm{f_k} = \infty
+					\end{displaymath}
+				from which it will follow that there is no $\mu > 0$ such that 
+				$\supnorm{f} \leq \mu \norm{f}$ for all $f \in \ctsab{a}{b}$. 
+			
+			\item
+				Let
+					\begin{displaymath}
+						f_k(t) = k \left(\frac{t-a}{b-a}\right)^{k^3}
+					\end{displaymath}
+				for $t \in [a,b]$. Then $\supnorm{f_k} = k$ so 
+				$\lim_{k \rightarrow \infty} \supnorm{f_k} = \infty$ and
+					\begin{IEEEeqnarray*}{rCl}
+						\norm{f_k}^2 & = & \myinta{a}{b}
+							{\modulus{f_k(t)}^2}{t} \\
+						& = & \frac{k^2}{(b-a)^{2k^3}} \myinta{a}{b}
+							{(t-a)^{2k^3}}{t} \\
+						& = & \frac{k^2}{(b-a)^{2k^3}} \evalat{
+							\frac{(t-a)^{2k^3+1}}{2k^3+1}}{t}{a}{b} \\
+						& = & \frac{k^2(b-a)}{2k^3+1}
+					\end{IEEEeqnarray*}
+				$\rightarrow 0$ as $k \rightarrow \infty$.
+				
+			\item
+				Let $f(t) = (t-a)/(b-a)$ and $g(t) = 1 - f(t)$. Then 
+				$\supnorm{f} = \supnorm{g} = \supnorm{f+g} = \supnorm{f-g} = 1$.
+				So $\supnorm{f+g}^2+\supnorm{f-g}^2 \neq 2\supnorm{f}^2+
+				2\supnorm{g}^2$. This contradicts property iii) of Proposition
+				\ref{prop:NormSpProperties}. Therefore the maximum norm is not
+				induced from any inner product on $\ctsab{a}{b}$.
+				
+		\end{enumerate}
+\end{soln}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Definition of inner product on Riemann integrable fns
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{ex}
+	Suppose $f,g \in \riemmint$. If we define
+		\begin{displaymath}
+			\innrprod{f}{g} = \myintb[\pi]{f(t)\conj{g(t)}}{t}
+		\end{displaymath}
+	then properties ii) and iii) of Definition \ref{defn:InnerProdSp}
+	hold. Also, if we define
+		\begin{displaymath}
+			\norm{f} = \sqrt{\myintb[\pi]{\modulus{f(t)}^2}{t}}
+		\end{displaymath}
+	then conditions ii) and iii) of an Definition \ref{defn:NormSp}
+	are satisfied as well. However, if $f$ is non-zero	on a set of
+	measure zero, then $\norm{f} = 0$ even though $f \neq 0$. 
+	
+	To remedy this situation, let 
+	$\eta = \{f \in \riemmint | \norm{f} = 0\}$. Then $\eta$ is
+	a subspace of $\riemmint$.
+		\begin{enumerate}[i)]
+			\item
+				If $\norm{f} = \norm{g} = 0$ then $0 \leq \norm{f+g} 
+				\leq \norm{f} + \norm{g} = 0$ so $\norm{f+g}=0$
+				and hence $f+g \in \eta$.
+			\item
+				If $\iscmplx[\lambda]$ then $\norm{\lambda f}
+				= \modulus{\lambda}\norm{f} = 0$ so $\lambda f \in
+				\eta$.
+		\end{enumerate}
+	
+	Now let $\tilde{\mathcal{R}}_{2\pi} = \riemmint/\eta$ and denote
+	its elements by $[f]$ where $f \in \riemmint$. Then for $[f],[g]
+	\in \tilde{\mathcal{R}}_{2\pi}$, $[f]=[g]$ iff $f-g \in \eta$ iff
+	$\norm{f-g} = 0$ iff $f-g$ is zero almost everywhere. Notice the
+	following.
+		\begin{enumerate}[i)]
+			\item
+				If $h \in \eta$ and $f \in \riemmint$ then $\modulus
+				{\innrprod{h}{f}} \leq \norm{h}\norm{f} = 0$ which
+				implies $\innrprod{h}{f}=0$.
+			\item
+				If $h_1, h_2 \in \eta$ and $f_1, f_2 \in \riemmint$
+				then
+					\begin{displaymath}
+						\innrprod{f_1+h_1}{f_2+h_2} = \innrprod{f_1}{f_2}
+							+ \innrprod{f_1}{h_2} + \innrprod{h_1}{f_2}
+							+ \innrprod{h_1}{h_2}
+							= \innrprod{f_1}{f_2}
+					\end{displaymath}
+			\item
+				If $h \in \eta$ and $f \in \riemmint$ then by
+				part ii),
+					\begin{displaymath}
+						\norm{f+h}^2 = \innrprod{f+h}{f+h}
+							= \innrprod{f}{f} = \norm{f}^2
+					\end{displaymath}
+		\end{enumerate}
+	It follows that for $[f],[g] \in \tilde{\mathcal{R}}_{2\pi}$, 
+	the functions
+		\begin{displaymath}
+			\innerprod{[f]}{[g]} = \innrprod{f}{g}
+		\end{displaymath}
+	and
+		\begin{displaymath}
+			\norm[]{[f]} = \norm{f}
+		\end{displaymath}
+	are well defined and define an inner product and norm,
+	respectively. In the remainder of this text, we will simply
+	write $f$ for $[f]$ and $\riemmint$ for
+	$\tilde{\mathcal{R}}_{2\pi}$.
+\end{ex}
+
+\end{section}

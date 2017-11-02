@@ -1,0 +1,413 @@
+\begin{section}{Inner Product Space Isomorphisms}
+
+	This section deals with unitary transformations
+	and inner product space isomorphisms. It concludes
+	with a discussion of $\ltwo$ spaces.
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Defn of inner product space isomorphism
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{defn}
+	Let $V$ and $W$ be real or complex inner product spaces. A
+	linear map $T:V \rightarrow W$ is called an inner
+	product space \emph{isomorphism} from $V$ to $W$ if it is
+	one-to-one, onto and preserves inner products (that is,
+	$\innrprod{x}{y}=\innrprod{Tx}{Ty}$ for all $x,y \in V$).
+	Here it is understood that the inner product on left is
+	the one in $V$ and the one on the right is the one in $W$.
+	A map $T:V \rightarrow W$ which satisfies all the properties
+	of an inner product space isomorphism except for being
+	onto is called an \emph{embedding} of $V$ into $W$.
+\end{defn}
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Defn of unitary transformation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{defn}
+	Let $V$ and $W$ be real or complex inner product spaces. A
+	linear map $T:V \rightarrow W$ is called a \emph{unitary
+	transformation} from $V$ to $W$ provided it preserves norms
+	(that is, $\norm[]{x}=\norm[]{Tx}$ for all $x \in V$). Here
+	the norm on the left is the one induced from the inner product
+	in $V$ and the one on the right is the one induced from the
+	inner product in $W$.
+\end{defn}
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Main theorem on unitary operators
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thrm}\label{thrm:Unitary}
+	Let $V$ and $W$ be real or complex inner product spaces
+	and $T$ a linear map from $V$ to $W$. Then $T$ is an 
+	inner product space isomorphism
+	iff it is an onto unitary transformation from $V$ to $W$.
+\end{thrm}
+
+\begin{proof}
+	If $T$ preserves inner products then it clearly preserves norms
+	because $\norm[]{x}^2 = \innrprod{x}{x} = \innrprod{Tx}{Tx}
+	= \norm[]{Tx}^2$ for all $x \in V$. Also, $T$ is onto by the very
+	definition of isomorphism. So $T$ is unitary and onto. Conversely, 
+	if $T$ preserves
+	norms and if $V$ and $W$ are real inner product spaces then it
+	is easily seen that $T$ preserves inner products because
+	of the identity
+		\begin{displaymath}
+			\innrprod{x}{y} = \frac{1}{4} \left(\norm[]{x+y}^2
+				- \norm[]{x-y}^2 \right)
+		\end{displaymath}
+	Now, to show that $T$ preserves inner products when $V$ and
+	$W$ are complex inner product spaces, first note that
+		\begin{IEEEeqnarray*}{rCl}
+			\norm[]{x-iy}^2 & = & \norm[]{x}^2+i\innrprod{x}{y}
+				-i\innrprod{y}{x}+\norm[]{y}^2 \\
+			& = & \norm[]{x}^2+i\innrprod{x}{y}-i\conj{\innrprod{x}{y}}
+				+ \norm[]{y}^2 \\
+			& = & \norm[]{x}^2 + 2i \text{Im}(\innrprod{x}{y})
+				+ \norm[]{y}^2 \; (\ast)
+		\end{IEEEeqnarray*}
+	and similarly,
+		\begin{displaymath}
+			\norm[]{T(x-iy)}^2 = \norm[]{Tx-iTy}^2
+				= \norm[]{Tx}^2 + 2i \text{Im}(\innrprod{Tx}{Ty})
+				+ \norm[]{Ty}^2 \; (\dagger)
+		\end{displaymath}
+	Since $T$ preserves norms, by assumption, comparing $(\ast)$ to
+	$(\dagger)$, we see that Im$(\innrprod{x}{y})=$ Im$(\innrprod{Tx}{Ty})$.
+	In a similar fashion,
+		\begin{displaymath}
+			\norm[]{x+y}^2 = \norm[]{x}^2+\innrprod{x}{y}
+				+\innrprod{y}{x}+\norm[]{y}^2
+				= \norm[]{x}^2+2\text{Re}(\innrprod{x}{y})
+				+\norm[]{y}^2 \; (\ast \ast)
+		\end{displaymath}
+	and
+		\begin{displaymath}
+			\norm[]{T(x+y)}^2 = \norm[]{Tx+Ty}^2 = \norm[]{Tx}^2
+				+ 2\text{Re}(\innrprod{Tx}{Ty})+\norm[]{Ty}^2
+				\; (\ddagger)
+		\end{displaymath}
+	Comparing $(\ast \ast)$ to $(\ddagger)$ we see that Re$(
+	\innrprod{x}{y})$=Re$(\innrprod{Tx}{Ty})$. Thus $T$ preserves
+	inner products. Finally note that $T$ is onto by assumption
+	and clearly one-to-one since $\norm[]{Tx}=\norm[]{x} \neq 0$
+	if $x \neq 0$. So $T$ is an inner product space isomorphism
+	from $V$ to $W$.
+\end{proof}
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Inner product space Iso. maps basis to basis
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{prop}
+	If $T:V \rightarrow W$ is an inner product space isomorphism then
+	it maps each basis of $V$ to a basis of $W$.
+\end{prop}
+
+\begin{proof}
+	Let $\{b_k\}_{k=1}^\infty$ be a basis for $V$. Then $\innrprod
+	{Tb_j}{Tb_k}=\innrprod{b_j}{b_k}=\delta_{jk}$ so $\{Tb_k\}_{k=1}
+	^\infty$ is orthonormal. To see that it is a basis, given
+	$x \in V$ and $\epsilon > 0$ choose $N > 0$ such that if $n > N$
+		\begin{displaymath}
+			\norm[]{x-\sum_{k=1}^n \innrprod{x}{b_k}b_k} < \epsilon
+		\end{displaymath}
+	Then, by Theorem \ref{thrm:Unitary}, since $T$ preserves inner 
+	products it preserves norms, so
+		\begin{IEEEeqnarray*}{rCl}
+			\norm[]{Tx-\sum_{k=1}^n \innrprod{Tx}{Tb_k}Tb_k} & = &
+				\norm[]{T(x-\sum_{k=1}^n \innrprod{Tx}{Tb_k}b_k)} \\
+			& = & \norm[]{x-\sum_{k=1}^n \innrprod{Tx}{Tb_k}b_k} \\
+			& = & \norm[]{x-\sum_{k=1}^n \innrprod{x}{b_k}b_k} \\
+			& < & \epsilon
+		\end{IEEEeqnarray*}
+	So $\{Tb_k\}_{k=1}^\infty$ is a basis for $W$ as required.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% First example of inner product space isomorphism
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{ex}
+	Let $T = \{\iscmplx \; | \; \modulus{z}=1\}$. Then given $f:T \rightarrow \cmplx$, 
+	define $\tilde{f}:\real \rightarrow \cmplx$ by $\tilde{f}(t)=f(e^{it})$.
+	Let $\mathcal{R}_T = \{f:T \rightarrow \cmplx \; | \; \tilde{f} \in \riemmint\}$
+	and define $\innerprod{f}{g}=\innerprod{\tilde{f}}{\tilde{g}}$ for $f,g
+	\in \mathcal{R}_T$. It is easily verified that this defines an inner
+	product on $\mathcal{R}_T$ and that the map $f \mapsto \tilde{f}$ is
+	an inner product space isomorphism from $\mathcal{R}_T$ to $\riemmint$.
+\end{ex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% l2 spaces
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	We conclude this section with a brief discussion of $\ltwo$ spaces.
+	
+\begin{defn}
+	Denote the set of all complex sequences (or equivalently complex
+	valued functions) $\{c_k\}_{k=-\infty}^\infty$ which satisfy
+		\begin{displaymath}
+			\sum_{k=-\infty}^\infty \modulus{c_k}^2 < \infty
+		\end{displaymath}
+	by $\ltwo$.
+\end{defn}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% l2 is a vector space
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{prop}
+	$\ltwo$ is a vector space under pointwise addition and scalar
+	multiplication.
+\end{prop}
+
+\begin{proof}
+	Suppose $c=\{c_k\}_{k=-\infty}^\infty$ and $d=\{d_k\}_{k=-\infty}^\infty$
+	are sequences in $\ltwo$ and $\iscmplx[\lambda]$. Then, using the
+	identity
+		\begin{displaymath}
+			2\modulus{c_k\conj{d_k}} = 2\modulus{c_k d_k} \leq \modulus{c_k}^2
+				+ \modulus{d_k}^2
+		\end{displaymath}
+	we get
+		\begin{IEEEeqnarray*}{rCl}
+			\modulus{\sum_{k=-\infty}^\infty \modulus{\lambda c_k+d_k}^2}
+				& \leq & \modulus{\modulus{\lambda}^2 \sum_{k=-\infty}^\infty
+				\modulus{c_k}^2} + \modulus{\sum_{k=-\infty}^\infty
+				\modulus{d_k}^2} + \modulus{\lambda \sum_{k=-\infty}^\infty
+				c_k \conj{d_k}} + \modulus{\conj{\lambda} \sum_{k=-\infty}^\infty
+				\conj{c_k}d_k} \\
+			& \leq & \modulus{\modulus{\lambda}^2 \sum_{k=-\infty}^\infty
+				\modulus{c_k}^2} + \modulus{\sum_{k=-\infty}^\infty
+				\modulus{d_k}^2} + \modulus{\lambda \sum_{k=-\infty}^\infty
+				\left(\frac{\modulus{c_k}^2}{2}+\frac{\modulus{d_k}^2}{2}\right)} \\
+			& & + \; \modulus{\conj{\lambda} \sum_{k=-\infty}^\infty
+				\left(\frac{\modulus{c_k}^2}{2}+\frac{\modulus{d_k}^2}{2}\right)} \\
+			& < & \infty
+		\end{IEEEeqnarray*}
+	since $\sum_{k=-\infty}^\infty \modulus{c_k}^2 < \infty$ and $\sum_{k=-\infty}^\infty
+	\modulus{d_k}^2 < \infty$. Thus, if $c,d \in \ltwo$ and $\iscmplx[\lambda]$, then
+	$\lambda c + d \in \ltwo$. So $\ltwo$ is a complex vector space.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% l2 is an inner product space
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{prop}
+	For $c=\{c_k\}_{k=-\infty}^\infty$ and $d=\{d_k\}_{k=-\infty}^\infty$ in
+	$\ltwo$, define
+		\begin{displaymath}
+			\innrprod{c}{d} = \sum_{k=-\infty}^\infty c_k \conj{d_k}
+		\end{displaymath}
+	Then this function is well-defined and is, in fact, an inner product
+	on $\ltwo$.
+\end{prop}
+
+\begin{proof}
+	We will divide the proof into steps.
+		\begin{enumerate}[{Step} 1.]
+		
+			%% The inner product is absolutely convergent.
+			\item
+				Again, using the identity
+					\begin{displaymath}
+						2\modulus{c_k\conj{d_k}} = 2\modulus{c_k d_k} 
+							\leq \modulus{c_k}^2 + \modulus{d_k}^2
+					\end{displaymath}
+				we see that $\innrprod{c}{d}$ converges absolutely
+				and hence is well-defined.
+				
+			%% It is non-negative
+			\item
+				If $c \in \ltwo$ then
+					\begin{displaymath}
+						\innrprod{c}{c} = \sum_{k=\infty}^\infty \modulus{c_k}^2
+							\geq 0
+					\end{displaymath}
+				with equality iff $c_k = 0$ for all $\isintgr[k]$.
+				
+			%% It is linear
+			\item
+				If $a,b,c \in \ltwo$ and $\iscmplx[\lambda]$ then
+					\begin{IEEEeqnarray*}{rCl}
+						\innrprod{\lambda a+b}{c} & = & \sum_{k=-\infty}^\infty
+							(\lambda a_k+b_k)\conj{c_k} \\
+						& = & \lambda \sum_{k=-\infty}^\infty a_k\conj{c_k}
+							+ \sum_{k=-\infty}^\infty b_k\conj{c_k} \\
+						& = & \lambda \innrprod{a}{c}+\innrprod{b}{c}
+					\end{IEEEeqnarray*}
+				
+			%% Conjugation
+			\item
+				Suppose $c,d \in \ltwo$. Then since the conjugation function
+				is continuous, we have
+					\begin{displaymath}
+						\conj{\sum_{k=-n}^n c_k\conj{d_k}} \rightarrow
+							\conj{\innrprod{c}{d}}
+					\end{displaymath}
+				as $n \rightarrow \infty$. But
+					\begin{displaymath}
+						\conj{\sum_{k=-n}^n c_k\conj{d_k}} = \sum_{k=-n}^n
+							\conj{c_k\conj{d_k}} = \sum_{k=-n}^n d_k \conj{c_k}
+							\rightarrow \innrprod{d}{c}
+					\end{displaymath}
+				as $n \rightarrow \infty$. Thus $\conj{\innrprod{c}{d}} = 
+				\innrprod{d}{c}$.
+		
+		\end{enumerate}
+\end{proof}
+
+	As usual, we will denote $\sqrt{\innrprod{c}{c}}$ by $\norm[]{c}$.
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% The map f to f hat is an embedding and the image is dense
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+				
+\begin{prop}
+	The map $f \mapsto \f$ is an embedding from $\riemmint$ into
+	$\ltwo$ and the set $\{\f \; | \; f \in \riemmint\}$ is dense
+	in $\ltwo$.
+\end{prop}
+
+\begin{proof}
+	By Corollary \ref{cor:OrthoBasis}, this map is linear and preserves
+	inner products. Moreover, if $\f(k)=0$ for all $\isintgr[k]$ then
+	$f=0$. So this map is one-to-one. Therefore it is an embedding from
+	$\riemmint$ into $\ltwo$.
+	
+	To show that the image of this map is dense in $\ltwo$, define
+	$b_k(j)=\delta_{jk}$ for $j,k \in \intgr$. If
+	$c=\{c_k\}_{k=-\infty}^\infty$ is in $\ltwo$ then $c =
+	\sum_{k=-\infty}^\infty c_k b_k$. Hence $\{b_k\}_{k=-\infty}
+	^\infty$ is a basis for $\ltwo$. Moreover, if $\{e_k\}
+	_{k=-\infty}^\infty$ is the basis for $\riemmint$ described
+	in the previous section, then $\f[e]_k=b_k$ for all $\isintgr[k]$.
+	So given $c \in \ltwo$, let $f_n = \sum_{k=-n}^n c_k e_k$. Then
+	$f_n \in \riemmint$ and
+		\begin{IEEEeqnarray*}{rCl}
+			\norm[]{c-\f_n}^2 & = & \norm[]{\sum_{k=-\infty}^\infty c_k b_k
+				- \sum_{k=-n}^n c_k \f[e]_k}^2 \\
+			& = & \norm[]{\sum_{k=-\infty}^\infty c_k b_k 
+				- \sum_{k=-n}^n c_k b_k}^2 \\
+			& = & \norm[]{\sum_{\substack{\modulus{k}>n}} c_k b_k}^2 \\
+			& = & \sum_{\substack{\modulus{k}>n}} \modulus{c_k}^2
+		\end{IEEEeqnarray*}
+	$\rightarrow 0$ as $n \rightarrow \infty$. Hence the set 
+	$\{\f \; | \; f \in \riemmint\}$ is dense in $\ltwo$.
+\end{proof}
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% l2 is complete
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	The final property of $\ltwo$ we will prove is that it is complete
+	with respect to the norm induced from its inner product. To prove
+	this result, we will need the following inequality, which will be
+	presented without proof.
+
+%% Minkowski's Inequality
+\begin{prop}[Minkowski's Inequality]\label{prop:Minkowski}
+	Suppose $\{A_{kn}\}$ is an array of complex numbers
+	which satisfy
+		\begin{displaymath}
+			\sum_{k=-\infty}^\infty \modulus{A_{kn}} < \infty
+		\end{displaymath}
+	for all $\isintgr[n]$. Then
+		\begin{displaymath}
+			\left(\sum_{n=-\infty}^\infty \modulus{
+				\sum_{k=-\infty}^\infty A_{kn}}^2 \right)^{1/2}
+				= \sum_{k=-\infty}^\infty \left(
+				\sum_{n=-\infty}^\infty \modulus{A_{kn}}^2 \right)^{1/2}
+		\end{displaymath}
+\end{prop}
+
+%% l2 is complete
+\begin{thrm}
+	$\ltwo$ is complete with respect to the norm induced from its inner
+	product.
+\end{thrm}
+
+\begin{proof}
+	We will divide the proof into steps.
+		\begin{enumerate}[{Step} 1]
+		
+			%% Find candidate for limit of the sequence
+			\item
+				Let $\{c_k\}_{k=1}^\infty$ be an infinite Cauchy 
+				sequence in $\ltwo$ and	for each $k$ denote the 
+				terms of $c_k$ by $\{c_{k,n}\}_{n=-\infty}^\infty$.
+				Then given $\epsilon > 0$ there exists $K > 0$ 
+				such that if $j,k > K$ and $\isintgr[n]$ is fixed 
+				we have
+					\begin{displaymath}
+						\modulus{c_{k,n}-c_{j,n}} 
+							\leq \sum_{m=-\infty}^\infty
+							\modulus{c_{k,m}-c_{j,m}}^2 
+							= \norm[]{c_k-c_j}^2
+							< \epsilon
+					\end{displaymath}
+				Hence for each $\isintgr[n]$, $\{c_{k,n}\}_{k=1}^\infty$ 
+				is a complex Cauchy sequence. Therefore this sequence 
+				converges to some $d_n$. Let $d=\{d_n\}_{n=-\infty}^\infty$. 
+			
+			%% Show that the candidate has finite norm
+			\item	
+				We will now show that $d \in \ltwo$. Since $\{c_k\}_{k=1}^\infty$
+				is Cauchy it is bounded and hence there exists $M > 0$ 
+				such that $\norm[]{c_k} < M$ for all $k \geq 1$. Then
+					\begin{IEEEeqnarray*}{rCl}
+						\norm[]{d}^2 & = & \lim_{N \rightarrow \infty}
+							\sum_{\substack{\modulus{n}<N}} \modulus{d_n}^2 \\
+						& = & \lim_{k,N \rightarrow \infty}
+							\sum_{\substack{\modulus{n}<N}} \modulus{c_{k,n}}^2 \\
+						& = & \lim_{k \rightarrow \infty} \norm[]{c_k}^2 \\
+						& < & M^2
+					\end{IEEEeqnarray*}
+			
+			%% This step and next show that the sequence in l2 does indeed
+			%% converge to the desired limit
+			\item
+				Choose a strictly increasing sequence of positive integers
+				$\{m_k\}_{k=1}^\infty$ such that
+				if $m > m_k$ then $\norm[]{c_m-c_{m_k}} < 2^{-k-1}$. Again, this can 
+				be done since the sequence $\{c_k\}_{k=1}^\infty$ is Cauchy. Then for
+				fixed $\isintgr[n]$ and fixed $K > 0$,
+					\begin{displaymath}
+						d_n = c_{m_K,n} + \sum_{k=K}^\infty (c_{m_{k+1},n}-c_{m_k,n})
+					\end{displaymath}
+				Therefore,
+					\begin{IEEEeqnarray*}{rCl}
+						\norm[]{d-c_{m_K}} & = & \left( \sum_{n=-\infty}^\infty
+							\modulus{d_n-c_{m_K,n}}^2 \right)^{1/2} \\
+						& = & \left( \sum_{n=-\infty}^\infty \modulus{
+							\sum_{k=K}^\infty (c_{m_{k+1},n}-c_{m_k,n})}^2 
+							\right)^{1/2} \\
+						& = & \sum_{k=K}^\infty \left( \sum_{n=-\infty}^\infty
+							\modulus{c_{m_{k+1},n}-c_{m_k,n}}^2 \right)^{1/2} 
+							\; \text{by Proposition \ref{prop:Minkowski}} \\
+						& = & \sum_{k=K}^\infty \norm[]{c_{m_{k+1}}-c_{m_k}} \\
+						& < & \sum_{k=K}^\infty 2^{-k-1} \; \text{by the choice
+							of } m_k \\
+						& = & 2^{-K}
+					\end{IEEEeqnarray*}
+			
+			\item
+				For the final step, given $\epsilon > 0$ choose $K > 0$ such
+				that $2^{-K} < \epsilon/2$. Then if $m > m_K$ we have
+					\begin{displaymath}
+						\norm[]{d-c_m} \leq \norm[]{d-c_{m_K}}
+							+ \norm[]{c_m-c_{m_K}}
+							< 2^{-K} + 2^{-K-1}
+							< \frac{\epsilon}{2}+\frac{\epsilon}{2}
+							= \epsilon
+					\end{displaymath}
+		
+		\end{enumerate}
+\end{proof}
+
+\end{section}

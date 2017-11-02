@@ -1,0 +1,359 @@
+\begin{section}{Applications of \fejers Theorem}
+
+	Here we revisit the heat problem and also present
+	the H. Weyl Equidistribution Theorem, both of which
+	depend on \fejers Theorem which was proved
+	in the last section.
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Theorem of H. Weyl
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thrm}[H. Weyl]\label{thrm:HWeyl}
+	Suppose $f$ is a complex-valued, Riemann integrable
+	function on $[0,1]$ and $\gamma$ is an irrational real
+	number. Let $[\gamma]$ be the largest integer less than
+	or equal to $\gamma$ and $<\gamma> = \gamma - [\gamma]$
+	(so that $<\gamma>$ is the fractional part of $\gamma$).
+	Then
+		\begin{displaymath}
+			\myinta{0}{1}{f(x)}{x} = \lim_{n \rightarrow \infty}
+				\frac{1}{n}\sum_{k=1}^n f(<k \gamma>)
+		\end{displaymath}
+\end{thrm}
+
+\begin{proof}
+	\begin{enumerate}[{Case} 1.]
+		
+		%% Case 1
+		\item
+			If $f$ is constant the result is trivially true.
+		
+		%% Case 2
+		\item
+			If $f(x) = e^{2\pi mxi}$ for some $0 \neq m \in \intgr$
+			then, letting $t = 2\pi x$, we get
+				\begin{displaymath}
+					\myinta{0}{1}{f(x)}{x} =
+						\frac{1}{2\pi}\myinta{0}{2\pi}{e^{mti}}{t} \\
+					= 0
+				\end{displaymath}
+			Also, for $0 < n \in \intgr$,
+				\begin{IEEEeqnarray*}{rCl}
+					\frac{1}{n}\sum_{k=1}^n f(<k \gamma>) & = &
+						\frac{1}{n}\sum_{k=1}^n e^{2\pi m<k \gamma>i} \\
+					& = & \frac{1}{n}\sum_{k=1}^n
+						e^{(2\pi m<k \gamma>i) + (2\pi m[k \gamma]i)} \\
+					& = & \frac{1}{n}\sum_{k=1}^n e^{2\pi mk\gamma i} \\
+					& = & \frac{1}{n}\sum_{k=1}^n 
+						(e^{2\pi m\gamma i})^k \\
+					& = & \frac{e^{2\pi m\gamma i}}{n} \left(
+						\frac{1 - e^{2\pi mn\gamma i}}
+						{1 - e^{2\pi m\gamma i}} \right)
+				\end{IEEEeqnarray*}
+			So
+				\begin{displaymath}
+					\modulus{\frac{1}{n}\sum_{k=1}^n f(<k \gamma>)}
+						\leq \frac{2}{n(1-e^{2\pi m\gamma i})}
+				\end{displaymath}
+			$\rightarrow 0$ as $n \rightarrow \infty$. This proves
+			the result.
+		
+		%% Case 3		
+		\item
+			Suppose there exist scalars $c_k, -N \leq k \leq N$ such
+			that
+				\begin{displaymath}
+					f(x) = \sum_{k=-N}^N c_k e^{2\pi k\gamma xi}
+				\end{displaymath}
+			(ie. $f$ is a trigonometric polynomial). Then the result
+			follows from cases 1 and 2.
+		
+		%% Case 4	
+		\item
+			Suppose $f$ is continuous and $f(0)=f(1)$. By Corollary
+			\ref{cor:Fejers4}, given $\epsilon > 0$, there exist
+			scalars $c_k, -N \leq k \leq N$ such that $\modulus{
+			f(x)-g(x)} < \epsilon/2$, where
+				\begin{displaymath}
+					g(x) = \sum_{k=-N}^N c_k e^{2\pi kxi}
+				\end{displaymath}
+			This implies
+				\begin{IEEEeqnarray*}{l}
+					\modulus{\myinta{0}{1}{f(x)}{x}
+						- \myinta{0}{1}{g(x)}{x}} \\
+					\leq \myinta{0}{1}{\modulus{f(x)-g(x)}}{x} \\
+					\leq \epsilon/2
+				\end{IEEEeqnarray*}
+			and for all $0 < n \in \intgr$,
+				\begin{displaymath}
+					\modulus{\frac{1}{n}\sum_{k=1}^n f(<k \gamma>)
+						- \frac{1}{n}\sum_{k=1}^n g(<k \gamma>)}
+						\leq \frac{1}{n}\sum_{k=1}^n
+							\modulus{f(<k \gamma>)-g(<k \gamma>)}
+						\leq \epsilon/2
+				\end{displaymath}
+			Therefore,
+				\begin{IEEEeqnarray*}{rCl}
+					\modulus{\frac{1}{n}\sum_{k=1}^n f(<k \gamma>)
+						- \myinta{0}{1}{f(x)}{x}} & \leq &
+						\modulus{\frac{1}{n}\sum_{k=1}^n f(<k \gamma>)
+						- \frac{1}{n}\sum_{k=1}^n g(<k \gamma>)} \\
+					& & + \modulus{\frac{1}{n}\sum_{k=1}^n g(<k \gamma>)
+						- \myinta{0}{1}{g(x)}{x}} \\
+					& & + \modulus{\myinta{0}{1}{f(x)}{x} -
+						\myinta{0}{1}{g(x)}{x}} \\
+					& \leq & \epsilon/2 + \epsilon/2 \\
+					& & + \modulus{\frac{1}{n}\sum_{k=1}^n g(<k \gamma>)
+						- \myinta{0}{1}{g(x)}{x}} \\
+					& = & \epsilon + \modulus{\frac{1}{n}\sum_{k=1}^n
+						g(<k \gamma>) - \myinta{0}{1}{g(x)}{x}}
+				\end{IEEEeqnarray*}
+			But, by case 3,
+				\begin{displaymath}
+					\myinta{0}{1}{g(x)}{x} = 
+						\lim_{n \rightarrow \infty}\frac{1}{n}\sum_{k=1}^n
+						g(<k \gamma>)
+				\end{displaymath}
+			Therefore,
+				\begin{displaymath}
+					\limsup_{n \rightarrow \infty}
+						\modulus{\frac{1}{n}\sum_{k=1}^n f(<k \gamma>)
+						- \myinta{0}{1}{f(x)}{x}} \leq 2\epsilon
+				\end{displaymath}
+			from which the result follows.
+		
+		%% Case 5	
+		\item
+			Suppose $f$ is a real-valued, Riemann integrable function
+			on $[0,1]$. Then given $\epsilon > 0$
+			we can find real-valued functions $f_-$ and $f_+$ in $\cts_1$
+			such that $f_-(x) \leq f(x) \leq f_+(x)$ for all $0 \leq x \leq 1$
+			and
+				\begin{displaymath}
+					\myinta{0}{1}{f_+(x)}{x} - \myinta{0}{1}{f_-(x)}{x} < 
+						\epsilon \; (\ast)
+				\end{displaymath}
+			Then
+				\begin{displaymath}
+					\frac{1}{n}\sum_{k=1}^n f_-(<k \gamma>)
+						\leq \frac{1}{n}\sum_{k=1}^n f(<k \gamma>)
+						\leq \frac{1}{n}\sum_{k=1}^n f_+(<k \gamma>)
+						\; (\dagger)
+				\end{displaymath}
+			But by case 4,
+				\begin{displaymath}
+					\myinta{0}{1}{f_-(x)}{x} =
+						\lim_{n \rightarrow \infty}
+						\frac{1}{n}\sum_{k=1}^n f_-(<k \gamma>)
+				\end{displaymath}
+			and
+				\begin{displaymath}
+					\myinta{0}{1}{f_+(x)}{x} =
+						\lim_{n \rightarrow \infty}
+						\frac{1}{n}\sum_{k=1}^n f_+(<k \gamma>)
+				\end{displaymath}
+			Substituting into $(\dagger)$ we obtain
+				\begin{IEEEeqnarray*}{rCl}
+					\myinta{0}{1}{f_-(x)}{x} & \leq & 
+						\liminf_{n \rightarrow \infty}
+						\frac{1}{n}\sum_{k=1}^n f(<k \gamma>) \\
+					& \leq & \limsup_{n \rightarrow \infty}
+						\frac{1}{n}\sum_{k=1}^n f(<k \gamma>) \\
+					& \leq & \myinta{0}{1}{f_+(x)}{x}
+				\end{IEEEeqnarray*}
+			Now using $(\ast)$, we see that
+				\begin{IEEEeqnarray*}{l}
+					\limsup_{n \rightarrow \infty}
+						\frac{1}{n}\sum_{k=1}^n f(<k \gamma>)
+						- \liminf_{n \rightarrow \infty}
+						\frac{1}{n}\sum_{k=1}^n f(<k \gamma>) \\
+					\leq \myinta{0}{1}{f_+(x)}{x}
+						- \myinta{0}{1}{f_-(x)}{x} \\
+					< \epsilon
+				\end{IEEEeqnarray*}
+			Therefore,
+				\begin{displaymath}
+					\lim_{n \rightarrow \infty}
+						\frac{1}{n}\sum_{k=1}^n f(<k \gamma>)
+				\end{displaymath}
+			exists and satisfies
+				\begin{displaymath}
+					\myinta{0}{1}{f_-(x)}{x} \leq
+						\lim_{n \rightarrow \infty}
+						\frac{1}{n}\sum_{k=1}^n f(<k \gamma>)
+						\leq \myinta{0}{1}{f_+(x)}{x}
+				\end{displaymath}
+			But since $f_-(x) \leq f(x) \leq f_+(x)$, we also have
+				\begin{displaymath}
+					\myinta{0}{1}{f_-(x)}{x} \leq
+						\myinta{0}{1}{f(x)}{x}
+						\leq \myinta{0}{1}{f_+(x)}{x}
+				\end{displaymath}
+			Therefore, by $(\ast)$
+				\begin{displaymath}
+					\modulus{\myinta{0}{1}{f(x)}{x}
+						- \lim_{n \rightarrow \infty}
+						\frac{1}{n}\sum_{k=1}^n f(<k \gamma>)}
+						< \epsilon
+				\end{displaymath}
+			which proves the result.
+		
+		%% Case 6 (Final case)	
+		\item
+			For the general case, when $f$ is complex-valued,
+			simply apply case 5 to the real and imaginary parts
+			of $f$.
+	
+	\end{enumerate}
+\end{proof}
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% H. Weyl Equidistribution Theorem
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thrm}[H. Weyl's Equidistribution Theorem]
+	If $\gamma$ is an irrational real number and
+	$0 \leq a \leq b \leq 1$ then
+		\begin{displaymath}
+			\lim_{n \rightarrow \infty}\frac{1}{n}
+				\text{card}(\{<k\gamma> \in [a,b]:
+				1 \leq k \leq n\}) = b - a
+		\end{displaymath}
+\end{thrm}
+
+\begin{proof}
+	Define $f:[0,1] \rightarrow \real$ by
+		\begin{displaymath}
+			f(x) =
+				\begin{cases}
+					1 & a \leq x \leq b \\
+					0 & \text{otherwise}
+				\end{cases}
+		\end{displaymath}
+	Then $f$ satisfies the hypotheses of Theorem \ref{thrm:HWeyl}
+	and so
+		\begin{IEEEeqnarray*}{rCl}
+			b-a & = & \myinta{0}{1}{f(x)}{x} \\
+			& = & \lim_{n \rightarrow \infty}
+				\frac{1}{n}\sum_{k=1}^n f(<k\gamma>) \\
+			& = & \lim_{n \rightarrow \infty}\frac{1}{n}
+				\text{card}(\{<k\gamma> \in [a,b]:
+				1 \leq k \leq n\})
+		\end{IEEEeqnarray*}
+\end{proof}
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Application to Heat Problem
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thrm}
+	Given a continuous function $f$ on $[0,\pi]$ which
+	satisfies $f(0)=f(\pi)=0$, there exists a unique
+	solution to the heat problem.
+\end{thrm}
+
+\begin{proof}
+	Extend $f$ to an odd, continuous $2\pi$-periodic function
+	on $\real$ and, for $\isreal, 0 \leq t \in \real$, make
+	the following definitions.
+		\begin{enumerate}[i)]
+			\item
+				\begin{displaymath}
+					b_j = \frac{1}{\pi}\myintb[\pi]
+						{f(x)\sin jx}{x}
+				\end{displaymath}
+			\item
+				\begin{displaymath}
+					s_k(x) = \sum_{j=1}^k b_j \sin jx
+				\end{displaymath}
+			\item
+				\begin{displaymath}
+					u_k(x,t) = \sum_{j=1}^k b_j e^{-j^2t}
+						\sin jx
+				\end{displaymath}
+			\item
+				\begin{displaymath}
+					\sigma_n(x) = \frac{1}{n}(s_1(x)+s_2(x)+\ldots
+						+s_n(x))
+				\end{displaymath}
+			\item
+				\begin{displaymath}
+					v_n(x,t) = \frac{1}{n}(u_1(x,t)+u_2(x,t)+\ldots
+						+u_n(x,t))
+				\end{displaymath}
+		\end{enumerate}
+	By Theorem \ref{thrm:Fejers},
+		\begin{displaymath}
+			\lim_{n \rightarrow \infty} \sigma_n(x)
+				= \lim_{n \rightarrow \infty} s_n(x) = f(x)
+		\end{displaymath}
+	and, moreover, this convergence is uniform on $\real$.
+	Therefore, given $\epsilon > 0$, there exists $N > 0$
+	such that
+		\begin{displaymath}
+			\modulus{\sigma_n(x)-\sigma_m(x)} < \epsilon
+		\end{displaymath}
+	whenever $m,n > N$. But $v_n(x,t)$ is the solution to
+	the heat problem corresponding to $\sigma_n(x)$. Hence,
+	by Theorem \ref{thrm:maxmin},
+		\begin{displaymath}
+			\modulus{v_n(x,t)-v_m(x,t)} < \epsilon
+		\end{displaymath}
+	whenever $m,n > N$. So $\{v_n(x,t)\}_{n=1}^\infty$
+	satisfies the uniform Cauchy criterion and thus 
+	converges uniformly to some $u(x,t):\real \times [0,\infty)
+	\rightarrow \real$. We claim that $u(x,t)$ is the solution
+	to the heat problem corresponding to $f$. We will divide
+	our argument into steps.
+		\begin{enumerate}[{Step} 1.]
+		
+			\item
+				First, we have,
+					\begin{displaymath}
+						u(x,0) = \lim_{n \rightarrow \infty}v_n(x,0)
+							= \lim_{n \rightarrow \infty}\sigma_n(x)
+							= f(x)
+					\end{displaymath}
+				by Theorem \ref{thrm:Fejers}.
+	
+			\item
+				Again, because each $v_n$ is the solution to the 
+				heat problem corresponding the $\sigma_n$,
+					\begin{displaymath}
+						u(0,t) = \lim_{n \rightarrow \infty}v_n(0,t)
+							= 0
+					\end{displaymath}
+				and
+					\begin{displaymath}
+						u(\pi,t) = \lim_{n \rightarrow \infty}v_n(\pi,t) 
+							= 0
+					\end{displaymath}
+
+			\item
+				To see that $u$ is continous on its domain, notice that it is the
+				uniform limit of the $v_n$'s, each of which are continuous.
+	
+			\item
+				By Theorem \ref{thrm:HeatSolnIsCInfty}, $u$ is $\ctsdiff$ on its
+				domain.
+				
+			\item
+				Finally, because of uniform convergence, we have
+					\begin{IEEEeqnarray*}{rCl}
+						\frac{\partial u}{\partial t}(x,t) & = &
+							\frac{\partial}{\partial t}
+							\lim_{n \rightarrow \infty}v_n(x,t) \\
+						& = & \lim_{n \rightarrow \infty}
+							\frac{\partial v_n}{\partial t}(x,t) \\
+						& = & \lim_{n \rightarrow \infty}
+							\frac{\partial^2 v_n}{\partial x^2}(x,t) \\
+						& = & \frac{\partial^2}{\partial x^2}
+							\lim_{n \rightarrow \infty}v_n(x,t) \\
+						& = & \frac{\partial^2 u}{\partial x^2}(x,t)
+					\end{IEEEeqnarray*}
+			
+		\end{enumerate}
+\end{proof}
+
+\end{section}

@@ -1,0 +1,175 @@
+\begin{section}{Dirichlet's Kernel}
+
+	Suppose $a_0, a_1, b_1, \ldots$ are the
+	trigonometric Fourier coefficients of a
+	given function $f$ and $\ldots, c_{-1},
+	c_0, c_1, \ldots$ its exponential Fourier
+	coefficients. The \emph{Fourier Series of
+	f} is the series with partial sums
+		\begin{IEEEeqnarray*}{rCl}
+			s_n(x) & = & \frac{a_0}{2} + 
+				\sum_{k=1}^n a_k\cos kx + b_k\sin kx \\
+			& = & c_0 + \sum_{k=1}^n (c_k e^{ikx}
+				+ c_{-k} e^{-ikx})
+		\end{IEEEeqnarray*}
+	In this section, we will derive some properties
+	of this series.
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Derivation of Dirichlet Kernel
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	Let $s_n$ be the $n$th partial sum of the Fourier
+	series of $f$. Then
+		\begin{IEEEeqnarray*}{rCl}
+			s_n(x) & = & \sum_{k=-n}^n c_k e^{ikx} \\
+			& = & \sum_{k=-n}^n \left( \frac{1}{2\pi}
+				\myintb[\pi]{f(t)e^{-ikt}}{t} \right)
+				e^{ikx} \\
+			& = & \frac{1}{2\pi} \myintb[\pi]{ \left(
+				\sum_{k=-n}^n f(t)e^{-ikt}e^{ikx} \right)}{t} \\
+			& = & \frac{1}{2\pi} \myintb[\pi]{\left( f(t)
+				\sum_{k=-n}^n e^{ik(x-t)} \right)}{t} \\
+			& = & \frac{1}{2\pi} \myintb[\pi]{f(t) D_n(x-t)}{t}
+		\end{IEEEeqnarray*}
+	where $D_n(u) = \sum_{k=-n}^n e^{iku}$ for all $u \in \real$.
+	We call $\{D_n\}_{n=0}^\infty$ the \emph{Dirichlet Kernel}.
+		
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Properties of Dirichlet Kernel
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+\begin{prop}\label{prop:Dirch}
+	For each $n \in \intgr$, $n \geq 0$, we have
+		\begin{displaymath}
+			D_n(x) =
+				\begin{cases}
+					2n + 1 & \text{if } x = 2\pi l, l \in \intgr \\
+					\displaystyle{
+						\frac{\sin(n+1/2)x}{\sin x/2}}
+						& \text{otherwise}
+				\end{cases}
+		\end{displaymath}
+\end{prop}
+
+\begin{proof}
+	Clearly, if $x = 2 \pi l$ for $l \in \intgr$ then
+	$e^{ikx} = 1$ so $\sum_{k=-n}^n e^{ikx} = 2n + 1$.
+	Otherwise, we have
+		\begin{IEEEeqnarray*}{rCl}
+			D_n(x) & = & \sum_{k=-n}^n e^{ikx} \\
+			& = & \sum_{k=-n}^n (e^{ix})^k \\
+			& = & e^{-inx} \sum_{k=0}^{2n} (e^{ix})^k \\
+			& = & e^{-inx} \left( \frac{1 - (e^{ix})^{2n+1}}
+				{1 - e^{ix}} \right) \\
+			& = & \frac{e^{-inx}}{e^{ix/2}} \left( \frac
+				{1 - (e^{ix})^{2n+1}}{e^{-ix/2} - 
+				e^{ix/2}} \right) \\
+			& = & e^{-i(n+1/2)x} \left( \frac{1 - (e^{ix})^{2n+1}}
+				{-2i\sin x/2} \right) \\
+			& = & \frac{e^{-i(n+1/2)x} - e^{i(n+1/2)x}}
+				{-2i\sin x/2} \\
+			& = & \frac{-2i \sin (n+1/2)x}{-2i \sin x/2} \\
+			& = & \frac{\sin (n+1/2)x}{\sin x/2}
+		\end{IEEEeqnarray*}
+\end{proof}
+
+\begin{thrm}\label{thrm:Dirch}
+	For all $n \in \natrl$,
+		\begin{enumerate}[i)]
+			\item
+				$D_n$ is real-valued, $\ctsdiff$, $2\pi$-periodic,
+				even and satisfies $\modulus{D_n(x)} \leq 2n+1$.
+			\item
+				$\myintb[\pi]{D_n(t)}{t} = 2\pi$
+			\item
+				For all $\delta \in (0,\pi)$,
+					\begin{displaymath}
+						\lim_{n \rightarrow \infty}
+							\myinta{\delta}{\pi}{D_n(t)}{t}
+							= \myinta{-\pi}{-\delta}{D_n(t)}{t}
+							= 0
+					\end{displaymath}
+		\end{enumerate}
+\end{thrm}
+
+\begin{proof}
+	\begin{enumerate}[i)]
+		\item
+			That $D_n$ is real-valued, $\ctsdiff$, $2\pi$-periodic, even
+			and satisfies $\modulus{D_n(x)} \leq 2n+1$ follows
+			from its definition.
+		\item
+			\begin{IEEEeqnarray*}{rCl}
+				\myintb[\pi]{D_n(t)}{t} & = &
+					\myintb[\pi]{\sum_{k=-n}^n e^{ikt}}{t} \\
+				& = & \myintb[\pi]{1}{t} + \sum_{\substack{
+					k=-n \\ k \neq 0}}^n \myintb[\pi]{e^{ikt}}{t} \\
+				& = & 2\pi
+			\end{IEEEeqnarray*}
+		\item
+			If $0 < \delta < \pi$ then
+				\begin{displaymath}
+					\myinta{\delta}{\pi}{D_n(t)}{t}
+						= \myinta{\delta}{\pi}{g(t)
+						\sin (n+1/2)t}{t}
+				\end{displaymath}
+			where $g(t) = 1 / (\sin t/2)$. Since $g$ is
+			continuous on $[\delta, \pi]$, it is Riemann
+			Integrable on this interval and hence this
+			integral goes to zero as $n \rightarrow \infty$
+			by Theorem \ref{thrm:RLL}. The other integral can
+			be deduced by noting that $D_n$ is even.
+	\end{enumerate}
+\end{proof}
+
+%% More properties
+\begin{prop}
+	Let $f$ be a $2\pi$-periodic, Riemann Integrable function
+	and $s_n$ the $n$th partial sum of its Fourier series.
+	Then
+		\begin{enumerate}[i)]
+			\item
+				\begin{displaymath}
+					s_n(x) = \frac{1}{2\pi}\myintb[\pi]
+						{f(x-t) D_n(t)}{t}
+				\end{displaymath}
+			\item
+				\begin{displaymath}
+					s_n(x) = \frac{1}{2\pi}\myintb[\pi]
+						{f(x+t) D_n(t)}{t}
+				\end{displaymath}
+		\end{enumerate}
+\end{prop}
+
+\begin{proof}
+	\begin{enumerate}[i)]
+		\item
+			\begin{IEEEeqnarray*}{rCl}
+				s_n(x) & = & \frac{1}{2\pi} \myintb[\pi]
+					{f(t) D_n(x-t)}{t} \\
+				& = & - \frac{1}{2\pi} \myinta{x+\pi}
+					{x-\pi}{f(x-s) D_n(s)}{s}
+					\text{ where } s = x - t \\
+				& = & \frac{1}{2\pi} \myinta{x-\pi}
+					{x+\pi}{f(x-s) D_n(s)}{s} \\
+				& = & \frac{1}{2\pi} \myintb[\pi]
+					{f(x-s) D_n(s)}{s}
+			\end{IEEEeqnarray*}
+		by Proposition \ref{prop:periodic} and the fact
+		that $f$ is $2\pi$-periodic.
+		\item
+			By part i) we have
+				\begin{IEEEeqnarray*}{rCl}
+					s_n(x) & = & \frac{1}{2\pi} \myintb[\pi]
+						{f(x-t) D_n(t)}{t} \\
+					& = & - \frac{1}{2\pi} \myinta{\pi}{-\pi}
+						{f(x+s) D_n(-s)}{s} \text{ where } s = -t \\
+					& = & \frac{1}{2\pi} \myintb[\pi]
+						{f(x+s) D_n(s)}{s} \text{ since } D_n
+						\text{ is even}
+				\end{IEEEeqnarray*}
+	\end{enumerate}
+\end{proof}
+
+\end{section}

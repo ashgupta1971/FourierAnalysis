@@ -1,0 +1,461 @@
+\begin{section}{Parseval's Theorem}
+
+	In this section we define orthogonal sets,
+	orthonormal sets and orthonormal bases. 
+	We also present Bessel's Inequality and 
+	Parseval's Theorem.
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Defn of orthogonal/orthonormal sets
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{defn}
+	Let $V$ be an inner product space and $\{v_1,v_2,
+	\ldots,v_n\}$ a subset of $V$. We call this set
+	of vectors \emph{orthogonal} if $\innrprod{v_j}{v_k}
+	= 0$ whenever $j \neq k$. If in addition,
+	$\innrprod{v_j}{v_k} = \delta_{jk}$ then we call this
+	set of vectors \emph{othornormal}.
+\end{defn}
+
+\begin{prop}
+	If $\{v_1,v_2,\ldots,v_n\}$ is an orthogonal set of vectors
+	in a complex vector space and $\lambda_1,\lambda_2,\ldots,
+	\lambda_n$ are complex scalars, then
+		\begin{displaymath}
+			\norm[]{\sum_{k=1}^n \lambda_k v_k}^2
+				= \sum_{k=1}^n \modulus{\lambda_k}^2 \norm[]{v_k}^2
+		\end{displaymath}
+\end{prop}
+
+\begin{proof}
+	Let $v_k$ and $\lambda_k$ be as in the hypothesis. Then
+		\begin{IEEEeqnarray*}{rCl}
+			\norm[]{\sum_{k=1}^n \lambda_k v_k}^2 & = &
+				\innrprod{\sum_{j=1}^n \lambda_j v_j}
+				{\sum_{k=1}^n \lambda_k v_k} \\
+			& = & \sum_{j=1}^n \sum_{k=1}^n \innrprod
+				{\lambda_j v_j}{\lambda_k v_k} \\
+			& = & \sum_{j=1}^n \sum_{k=1}^n \lambda_j \conj{\lambda_k}
+				\innrprod{v_j}{v_k} \\
+			& = & \sum_{k=1}^n \modulus{\lambda_k}^2 \norm[]{v_k}^2
+		\end{IEEEeqnarray*}
+\end{proof}
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Bessel's Inequality
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thrm}[Bessel's Inequality]\label{thrm:Bessels}
+	Suppose that $\{b_1,\ldots,b_n\}$ is an othonormal subset
+	of an inner product space $V$ and $x \in V$. Then
+		\begin{enumerate}[i)]
+			\item
+				For all $\lambda_1,\ldots,\lambda_n \in \cmplx$,
+					\begin{displaymath}
+						\norm[]{x-\sum_{k=1}^n \innrprod{x}{b_k}b_k}
+							\leq \norm[]{x-\sum_{k=1}^n \lambda_k b_k}
+					\end{displaymath}
+				and equality holds iff $\lambda_k = \innrprod{x}{b_k}$
+				for all $k$.
+			\item
+				(Bessel's Inequality)
+					\begin{displaymath}
+						\sum_{k=1}^n \modulus{\innrprod{x}{b_k}}^2
+							\leq \norm[]{x}^2
+					\end{displaymath}
+		\end{enumerate}
+\end{thrm}
+
+\begin{proof}
+	Let $x$, $b_k$ and $\lambda_k$ be as in the hypothesis and define
+		\begin{displaymath}
+			\varphi(\lambda_1,\ldots,\lambda_n) =
+				\norm[]{x-\sum_{k=1}^n \lambda_k b_k}^2
+		\end{displaymath}
+	Then
+		\begin{IEEEeqnarray*}{rCl}
+			\varphi(\lambda_1,\ldots,\lambda_n) & = &
+				\innrprod{x-\sum_{j=1}^n \lambda_j b_j}
+				{x-\sum_{k=1}^n \lambda_k b_k} \\
+			& = & \norm[]{x}^2 - \innrprod{x}{\sum_{k=1}^n \lambda_k b_k}
+				- \innrprod{\sum_{j=1}^n \lambda_j b_j}{x}
+				+ \innrprod{\sum_{j=1}^n \lambda_j b_j}
+				{\sum_{k=1}^n \lambda_k b_k} \\
+			& = & \norm[]{x}^2 - \sum_{k=1}^n \conj{\lambda_k}
+				\innrprod{x}{b_k} - \sum_{j=1}^n \lambda_j
+				\innrprod{b_j}{x} + \sum_{k=1}^n \modulus{\lambda_k}^2 \\
+			& = & \norm[]{x}^2 + \sum_{k=1}^n \left(\modulus{\innrprod{x}{b_k}}^2
+				- \conj{\lambda_k}\innrprod{x}{b_k} - \lambda_k
+				\conj{\innrprod{x}{b_k}} + \modulus{\lambda_k}^2\right)
+				- \sum_{k=1}^n \modulus{\innrprod{x}{b_k}}^2 \\
+			& = & \norm[]{x}^2 + \sum_{k=1}^n \modulus{\innrprod{x}{b_k}-\lambda_k}^2
+				- \sum_{k=1}^n \modulus{\innrprod{x}{b_k}}^2
+		\end{IEEEeqnarray*}
+	Obviously, this quantity is minimized by the unique choice
+		\begin{displaymath}
+			\lambda_k = \innrprod{x}{b_k}
+		\end{displaymath}
+	This proves the first assertion. For the second, simply note that
+		\begin{displaymath}
+			0 \leq \varphi(\innrprod{x}{b_1},\ldots,\innrprod{x}{b_n})
+				= \norm[]{x}^2 - \sum_{k=1}^n \modulus{\innrprod{x}{b_k}}^2
+		\end{displaymath}
+\end{proof}
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Defn of e_k and preliminary version of Fourier Transform
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{prop}\label{prop:DefnOfEk}
+	In the inner product space $\riemmint$ (with the inner
+	product defined in the previous section), let
+		\begin{displaymath}
+			e_k(t) = \frac{e^{ikt}}{\sqrt{2\pi}}
+		\end{displaymath}
+	for $\isintgr[k]$. Also, for $f \in \riemmint$ define
+		\begin{displaymath}
+			\f(k) = \innerprod{f}{e_k}
+		\end{displaymath}
+	(this is sometimes called the \emph{Fourier Transform of $f$}
+	but we will reserve this terminology for a different function).
+	Then
+		\begin{enumerate}[i)]
+			\item
+				The set $\{e_k\}_{k=-\infty}^\infty$ is orthonormal.
+			\item
+				$\f(k) = \sqrt{2\pi}c_k$ where $c_k, \isintgr[k]$ are
+				the exponential Fourier coefficients of $f$.
+			\item
+				If $s_n, n \geq 1$ is the $n$th partial sum of the
+				Fourier series of $f$, then
+					\begin{displaymath}
+						s_n = \sum_{k=-n}^n \f(k)e_k
+					\end{displaymath}
+			\item
+				The series $\sum_{k=0}^\infty \modulus{\f(k)}^2$ and
+				$\sum_{k=1}^\infty \modulus{\f(-k)}^2$ both converge.
+				Also, if we define
+					\begin{displaymath}
+						\sum_{k=-\infty}^\infty \modulus{\f(k)}^2
+							= \sum_{k=0}^\infty \modulus{\f(k)}^2
+							+ \sum_{k=1}^\infty \modulus{\f(-k)}^2
+					\end{displaymath}
+				then this series converges as well.
+			\item
+				If $f \in \riemmint$ then
+					\begin{displaymath}
+						\sum_{k=1}^\infty \modulus{\frac{\f(k)}{k}}
+					\end{displaymath}
+				and
+					\begin{displaymath}
+						\sum_{k=1}^\infty \modulus{\frac{\f(-k)}{k}}
+					\end{displaymath}
+				both converge.
+		\end{enumerate}
+\end{prop}
+
+\begin{proof}
+	Let $f$, $\f$ and the $e_k$ be as in the hypothesis.
+		\begin{enumerate}[i)]
+		
+			\item
+				By Lemma \ref{lemma:trigidentities} we have
+					\begin{IEEEeqnarray*}{rCl}
+						\innerprod{e_j(t)}{e_k(t)} & = & \myintb[\pi]
+							{\frac{e^{ijt}}{\sqrt{2\pi}}
+							\conj{\frac{e^{ikt}}{\sqrt{2\pi}}}}{t} \\
+						& = & \frac{1}{2\pi}\myintb[\pi]{e^{i(j-k)t}}{t} \\
+						& = & \delta_{jk}
+					\end{IEEEeqnarray*}
+			
+			\item
+				\begin{displaymath}
+					\f(k) = \innerprod{f}{e_k} = \frac{1}{\sqrt{2\pi}}
+						\myintb[\pi]{f(t)e^{-ikt}}{t} = \sqrt{2\pi}c_k
+				\end{displaymath}
+				
+			\item
+				For $\isnatrl$ and $\isreal$,
+					\begin{IEEEeqnarray*}{rCl}
+						s_n(x) & = & \sum_{k=-n}^n \left( \frac{1}{2\pi}
+							\myintb[\pi]{f(t)e^{-ikt}}{t} \right)
+							e^{ikx} \\
+						& = & \sum_{k=-n}^n \left( \myintb[\pi]{f(t)\frac
+							{e^{-ikt}}{\sqrt{2\pi}}}{t} \right) \frac
+							{e^{ikx}}{\sqrt{2\pi}} \\
+						& = & \sum_{k=-n}^n \innerprod{f}{e_k}e_k(x) \\
+						& = & \sum_{k=-n}^n \f(k)e_k(x)
+					\end{IEEEeqnarray*}
+					
+			\item
+				By Theorem \ref{thrm:Bessels}, for all $\isnatrl$,
+					\begin{displaymath}
+						\sum_{k=-n}^n \modulus{\f(k)}^2
+							= \sum_{k=-n}^n \modulus{\innerprod{f}{e_k}}^2
+							\leq \norm[]{f}^2 = \myintb[\pi]{\modulus{f(t)}^2}{t}
+							< \infty
+					\end{displaymath}
+				since $f \in \riemmint$. Therefore $\sum_{k=0}^\infty \modulus{\f(k)}^2$
+				and $\sum_{k=1}^\infty \modulus{\f(-k)}^2$ are both convergent and
+					\begin{displaymath}
+						\sum_{k=-\infty}^\infty \modulus{\f(k)}^2 = 
+							\sum_{k=0}^\infty \modulus{\f(k)}^2 +
+							\sum_{k=1}^\infty \modulus{\f(-k)}^2
+							\leq \myintb[\pi]{\modulus{f(t)}^2}{t}
+							< \infty
+					\end{displaymath}
+			
+			\item
+				Let
+					\begin{displaymath}
+						S = \{\isnatrl[k] \; | \; \modulus{\f(k)} \leq \frac{1}{k} \}
+					\end{displaymath}
+				and
+					\begin{displaymath}
+						T = \{\isnatrl[k] \; | \; \modulus{\f(k)} > \frac{1}{k} \}
+					\end{displaymath}
+				Then
+					\begin{IEEEeqnarray*}{rCl}
+						\sum_{k=1}^\infty \modulus{\frac{\f(k)}{k}} & = &
+							\sum_{{\substack {k \in S}}} \modulus{\frac{\f(k)}{k}}
+							+ \sum_{{\substack {k \in T}}} \modulus{\frac{\f(k)}{k}} \\
+						& < & \sum_{{\substack {k \in S}}} \frac{1}{k^2}
+							+ \sum_{{\substack {k \in T}}} \modulus{\f(k)}^2 \\
+						& < & \sum_{k=1}^\infty \frac{1}{k^2} + \sum_{k=-\infty}^\infty
+							\modulus{\innerprod{f}{e_k}}^2
+					\end{IEEEeqnarray*}
+				Now the first sum in the above expression converges and by Theorem
+				\ref{thrm:Bessels},
+					\begin{displaymath}
+						\sum_{k=-\infty}^\infty \modulus{\innerprod{f}{e_k}}^2
+							\leq \norm[]{f}^2 < \infty
+					\end{displaymath}
+				since $f \in \riemmint$. Therefore
+					\begin{displaymath}
+						\sum_{k=1}^\infty \modulus{\frac{\f(k)}{k}} < \infty
+					\end{displaymath}
+				A similar argument shows that
+					\begin{displaymath}
+						\sum_{k=1}^\infty \modulus{\frac{\f(-k)}{k}} < \infty
+					\end{displaymath}
+				as well.
+				
+		\end{enumerate}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Parseval's Theorem
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thrm}[Parseval's Theorem]\label{thrm:Parsevals}
+	If $f \in \riemmint$ then
+		\begin{displaymath}
+			\lim_{n \rightarrow \infty} \norm[]
+				{f-\sum_{k=-n}^n \f(k)e_k} = 0
+		\end{displaymath}
+	and
+		\begin{displaymath}
+			\sum_{k=-\infty}^\infty \modulus{\f(k)}^2
+				= \norm[]{f}^2 = \myintb[\pi]
+				{\modulus{f(t)}^2}{t}
+		\end{displaymath}
+\end{thrm}
+
+\begin{proof}
+	\begin{enumerate}[{Case} i)]
+	
+		%% Case 1: f is cts
+		\item
+			First suppose $f \in \cts_{2\pi}$. For $n \geq 0$,
+			let $s_n$ be the $n$th partial sum of the Fourier
+			series of $f$ and define
+				\begin{displaymath}
+					\sigma_n = \frac{1}{n+1}\sum_{k=0}^n s_k
+				\end{displaymath}
+			By Theorem \ref{thrm:Fejers}, given $\epsilon > 0$
+			there exists $N > 0$ such that for $n > N$,
+			$\modulus{f(t)-\sigma_n(t)} < \sqrt{\epsilon/{2\pi}}$.
+			Hence for this choice of $n$,
+				\begin{displaymath}
+					\norm[]{f-\sigma_n}^2 = \myintb[\pi]
+						{\modulus{f(t)-\sigma_n(t)}^2}{t}
+						< \myintb[\pi]{\frac{\epsilon}{2\pi}}{t}
+						= \epsilon
+				\end{displaymath}
+			But by Proposition \ref{prop:DefnOfEk},
+				\begin{displaymath}
+					s_n = \sum_{k=-n}^n \f(k)e_k
+				\end{displaymath}
+			which means $\sigma_n$ is a linear combination of
+			the $e_k$'s. Therefore, by Theorem \ref{thrm:Bessels},
+				\begin{IEEEeqnarray*}{rCl}
+					\norm[]{f-s_n}^2 & = &
+						\norm[]{f-\sum_{k=-n}^n \innerprod{f}{e_k}e_k}^2 \\
+					& \leq & \norm[]{f-\sigma_n}^2 \\
+					& < & \epsilon
+				\end{IEEEeqnarray*}
+			if $n > N$. Thus $\lim_{n \rightarrow \infty} \norm[]{f-s_n}=0$.
+			The second assertion follows by noting that $\modulus
+			{\norm[]{f}-\norm[]{s_n}} \leq \norm[]{f-s_n} \rightarrow 0$
+			as $n \rightarrow \infty$.
+			
+		%% Case 2: f is in R2pi
+		\item
+			Suppose $f \in \riemmint$ and $\epsilon > 0$. Choose $g \in
+			\cts_{2\pi}$ such that $\norm[]{f-g} < \epsilon/2$. Also,
+			by the first case, we can choose $N > 0$ such that
+				\begin{displaymath}
+					\norm[]{g-\sum_{k=-N}^N \f[g](k)e_k}
+						< \epsilon/2
+				\end{displaymath}
+			Then if $n > N$, by Theorem \ref{thrm:Bessels}, we have
+				\begin{IEEEeqnarray*}{rCl}
+					\norm[]{f-\sum_{k=-n}^n \f(k)e_k}
+						& \leq & \norm[]{f-\sum_{k=-N}^N
+						\f[g](k)e_k} \\
+					& \leq & \norm[]{f-g}
+						+ \norm[]{g-\sum_{k=-N}^N \f[g](k)e_k} \\
+					& < & \epsilon
+				\end{IEEEeqnarray*}
+			Thus
+				\begin{displaymath}
+					\lim_{n \rightarrow \infty} \norm[]
+						{f-\sum_{k=-n}^n \f(k)e_k} = 0
+				\end{displaymath}
+			The second assertion follows as in Case i).
+	
+	\end{enumerate}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Defn of orthonormal basis
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{defn}
+	An orthonormal sequence $\{b_k\}_{k=1}^\infty$ in an
+	inner product space $V$ is said to be an \emph{orthonormal
+	basis for $V$} provided that for all $x \in V$,
+		\begin{displaymath}
+			x = \lim_{n \rightarrow \infty} \sum_{k=1}^n
+				\innrprod{x}{b_k}b_k
+		\end{displaymath}
+	In other words,
+		\begin{displaymath}
+			\lim_{n \rightarrow \infty} \norm[]
+				{x-\sum_{k=1}^n \innrprod{x}{b_k}b_k}
+				= 0
+		\end{displaymath}
+\end{defn}
+
+\begin{ex}
+	By Theorem \ref{thrm:Parsevals}, $\{e_0,e_{-1},e_1,\ldots\}$
+	is an orthonormal basis for $\riemmint$.
+\end{ex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Theorem of orthonormal basis
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thrm}\label{thrm:OrthoBasis}
+	If $\{b_k\}_{k=1}^\infty$ is an orthonormal basis for
+	an inner product space $V$, then for all $x,y \in V$
+	and $\iscmplx[\lambda]$
+		\begin{enumerate}[i)]
+			\item
+				\begin{displaymath}
+					\lambda x + y = \sum_{k=1}^\infty \left(
+						\lambda \innrprod{x}{b_k} + \innrprod{y}{b_k}
+						\right) b_k
+				\end{displaymath}
+			\item
+				\begin{displaymath}
+					\innrprod{x}{y} = \sum_{k=1}^\infty \innrprod{x}{b_k}
+						\conj{\innrprod{y}{b_k}}
+				\end{displaymath}
+			\item
+				\begin{displaymath}
+					\norm[]{x}^2 = \sum_{k=1}^\infty \modulus{\innrprod{x}{b_k}}^2
+				\end{displaymath}
+		\end{enumerate}
+\end{thrm}
+
+\begin{proof}
+	\begin{enumerate}[i)]
+	
+		\item
+			Trivial.
+			
+		\item
+			Given $\epsilon > 0$ choose $N > 0$ such that if $n > N$
+			then
+				\begin{displaymath}
+					\norm[]{x-\sum_{k=1}^n \innrprod{x}{b_k}b_k}
+						< \frac{\epsilon}{2(\norm[]{y}+1)}
+				\end{displaymath}
+			and also
+				\begin{displaymath}
+					\norm[]{y-\sum_{k=1}^n \innrprod{y}{b_k}b_k}
+						< \frac{\epsilon}{2(\norm[]{x}+1)}
+				\end{displaymath}
+			(This can be done because $\{b_k\}_{k=1}^\infty$ is a basis
+			for $V$.) Then for this choice of $n$,
+				\begin{IEEEeqnarray*}{rCl}
+					\modulus{\innrprod{x}{y}-\sum_{k=1}^n \innrprod{x}{b_k}
+						\conj{\innrprod{y}{b_k}}} & = & \modulus{\innrprod{x}{y}
+						- \innrprod{\sum_{k=1}^n \innrprod{x}{b_k}b_k}
+						{\sum_{k=1}^n \innrprod{y}{b_k}b_k}} \\
+%%					& = & \modulus{\innrprod{x}{y} - 
+%%						\innrprod{\sum_{k=1}^n \innrprod{x}{b_k}b_k}{y} +
+%%						\innrprod{\sum_{k=1}^n \innrprod{x}{b_k}b_k}{y} \\
+%%					& & \; - \innrprod{\sum_{k=1}^n \innrprod{x}{b_k}b_k}
+%%						{\sum_{k=1}^n \innrprod{y}{b_k}b_k}} \\
+					& \leq & \modulus{\innrprod{x}{y} - 
+						\innrprod{\sum_{k=1}^n \innrprod{x}{b_k}b_k}{y}} \\
+					& &	+ \; \modulus{\innrprod{\sum_{k=1}^n \innrprod{x}{b_k}b_k}{y}
+						- \innrprod{\sum_{k=1}^n \innrprod{x}{b_k}b_k}
+						{\sum_{k=1}^n \innrprod{y}{b_k}b_k}} \\
+					& = & \modulus{\innrprod{x-\sum_{k=1}^n \innrprod{x}{b_k}b_k}{y}} \\
+					& & + \; \modulus{\innrprod{\sum_{k=1}^n \innrprod{x}{b_k}b_k}
+						{y-\sum_{k=1}^n \innrprod{y}{b_k}b_k}} \\
+					& \leq & \norm[]{x-\sum_{k=1}^n \innrprod{x}{b_k}b_k}\norm[]{y} \\
+					& & + \; \norm[]{\sum_{k=1}^n \innrprod{x}{b_k}b_k}\norm[]
+						{y-\sum_{k=1}^n \innrprod{y}{b_k}b_k} \; \text{by Proposition } \ref{prop:CauchySchwarz} \\
+					& < & \frac{\epsilon}{2(\norm[]{y}+1)}\norm[]{y}
+						+ \norm[]{x}\frac{\epsilon}{2(\norm[]{x}+1)} 
+						\; \text{by Theorem } \ref{thrm:Bessels} \\
+					& < & \frac{\epsilon}{2} + \frac{\epsilon}{2} \\
+					& = & \epsilon
+				\end{IEEEeqnarray*}
+			which proves the result.
+		
+		\item
+			This follows immediately from part ii).
+	
+	\end{enumerate}
+\end{proof}
+
+\begin{cor}\label{cor:OrthoBasis}
+	If $f,g \in \riemmint$ and $\iscmplx[\lambda]$ then
+		\begin{enumerate}[i)]
+			\item
+				$\F[(\lambda f + g)](k) = \lambda (\f(k)+\f[g](k))
+				= (\lambda \f + \f[g])(k)$ for all $\isintgr[k]$.
+			\item
+				\begin{displaymath}
+					\myintb[\pi]{f(t)\conj{g(t)}}{t}
+						= \sum_{k=-\infty}^\infty \f(k)\conj{\f[g](k)}
+				\end{displaymath}
+			\item
+				\begin{displaymath}
+					\myintb[\pi]{\modulus{f(t)}^2}{t}
+						= \sum_{k=-\infty}^\infty \modulus{\f(k)}^2
+				\end{displaymath}
+		\end{enumerate}
+\end{cor}
+
+\begin{proof}
+	All parts of this corollary follow from Theorem \ref{thrm:OrthoBasis}.
+\end{proof}
+
+\end{section}

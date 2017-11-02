@@ -1,0 +1,483 @@
+\begin{section}{Theorems of Abel and Dirichlet}
+
+	In this section we present some results due
+	to Abel and Dirichlet concerning infinite series.
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Abel's Partial Summation Formula
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thrm}[Abel's Partial Summation Formula]
+	\label{thrm:AbelsSumFormula}
+	Suppose $\{a_k\}_{k=0}^\infty$ and 
+	$\{b_k\}_{k=0}^\infty$ are complex sequences
+	and we define $A_n = \sum_{k=0}^n a_k$ for
+	$n \geq 0$, $A_{-1} = 0$. Then, if $0 \leq p
+	< q$, we have
+		\begin{displaymath}
+			\sum_{k=p}^q a_k b_k = A_q b_q -
+				A_{p-1} b_p +
+				\sum_{k=p}^{q-1} A_k (b_k - b_{k+1})
+		\end{displaymath}
+\end{thrm}
+
+\begin{proof}
+	For $0 \leq p < q$, we have
+		\begin{IEEEeqnarray*}{rCl}
+			\sum_{k=p}^q a_k b_k & = & 
+				\sum_{k=p}^q (A_k - A_{k-1}) b_k \\
+			& = & \sum_{k=p}^q A_k b_k - \sum_{k=p}^q A_{k-1} b_k \\
+			& = & \sum_{k=p}^q A_k b_k - 
+				\sum_{k=p-1}^{q-1} A_k b_{k+1} \\
+			& = & A_q b_q - A_{p-1} b_p + 
+				\sum_{k=p}^{q-1} A_k (b_k - b_{k+1})
+		\end{IEEEeqnarray*}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Abel's Lemma
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thrm}[Abel's Lemma]\label{thrm:AbelsLemma}
+	Suppose, in addition to the hypothesis of Theorem
+	\ref{thrm:AbelsSumFormula}, there exists $M > 0$
+	such that $\modulus{A_n} \leq M$ for all $n \geq 0$
+	and $b_k \geq b_{k+1} \geq 0$ for all $k \geq 0$.
+	Then
+		\begin{displaymath}
+			\modulus{\sum_{k=p}^q a_k b_k} \leq 2M b_p
+		\end{displaymath}
+	whenever $0 \leq p < q$.
+\end{thrm}
+
+\begin{proof}
+	By Theorem \ref{thrm:AbelsSumFormula},
+		\begin{IEEEeqnarray*}{rCl}
+			\modulus{\sum_{k=p}^q a_k b_k} & = &
+				\modulus{A_q b_q - A_{p-1} b_p + 
+				\sum_{k=p}^{q-1} A_k (b_k - b_{k+1})} \\
+			& \leq & \modulus{A_q}b_q + \modulus{A_{p-1}}b_p
+				+ \sum_{k=p}^{q-1} \modulus{A_k} (b_k - b_{k+1}) \\
+			& \leq & M b_q + M b_p + 
+				\sum_{k=p}^{q-1} M (b_k - b_{k+1}) \\
+			& = & 2M b_p
+		\end{IEEEeqnarray*}
+	(provided $0 \leq p < q$).
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Dirichlet's Test
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thrm}[Dirichlet's Test]\label{thrm:DirTest}
+	Suppose $\{a_k\}_{k=0}^\infty$ is a complex sequence such that
+	for some $M > 0$ and all $n \geq 0$,
+		\begin{displaymath}
+			\modulus{\sum_{k=0}^\infty a_k} \leq M
+		\end{displaymath}
+	Also suppose that $\{b_k\}_{k=0}^\infty$ is a real sequence
+	which decreases to zero as $k \rightarrow \infty$. Then
+	the series $\sum_{k=0}^\infty a_k b_k$ is convergent.
+\end{thrm}
+
+\begin{proof}
+	Given $\epsilon > 0$ choose $N > 0$ such that $b_p < 
+	\epsilon/{2M}$ if $p > N$. Let $S_n = \sum_{k=0}^n a_k b_k$
+	for $n \geq 0$. Then by Theorem \ref{thrm:AbelsLemma}, if
+	$q > p > N$,
+		\begin{displaymath}
+			\modulus{S_q - S_{p-1}} \leq 2M b_p
+				\leq 2M \frac{\epsilon}{2M} = \epsilon
+		\end{displaymath}
+	Therefore the series $\sum_{k=0}^\infty a_k b_k$ is Cauchy
+	and hence converges.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Dirichlet's Test for Uniform Convergence
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thrm}[Dirichlet's Test for Uniform Convergence]
+	\label{thrm:DirTestUniConv}
+	Suppose $X$ is a non-empty set, $u_k:X \rightarrow \cmplx$
+	for $k \geq 0$ and
+		\begin{displaymath}
+			\modulus{\sum_{k=0}^n u_k(x)} \leq M
+		\end{displaymath}
+	for some $M > 0$ and all $n \geq 0, x \in X$. Also suppose that
+	$\{b_k\}_{k=0}^\infty$ is a real sequence which decreases
+	to zero as $k \rightarrow \infty$. Then	the series 
+	$\sum_{k=0}^\infty b_k u_k(x)$ is uniformly convergent on X.
+\end{thrm}
+
+\begin{proof}
+	This result follows immediately from Theorem \ref{thrm:DirTest}
+	by noting that the given series is uniformly Cauchy.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Corollary to Dirichlet's Test for Uniform 
+%% Convergence
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{cor}
+	Let $\{b_k\}_{k=0}^\infty$ be a real sequence which decreases
+	to zero as $k \rightarrow \infty$. Then the series 
+	$\sum_{k=0}^\infty b_k z^k$ converges if $\iscmplx$ and 
+	$\modulus{z} \leq 1$. In fact, if $0 < \delta < 2$, then
+	$\sum_{k=0}^\infty b_k z^k$ converges uniformly on
+	$\{\iscmplx : \modulus{z} \leq 1 \text{ and } \modulus{z-1}
+	\geq \delta\}$.
+\end{cor}
+
+\begin{proof}
+	Suppose the hypotheses of the theorem hold. Then for all $n \geq 0$,
+		\begin{displaymath}
+			\modulus{\sum_{k=0}^n z^k} = 
+				\modulus{\frac{1 - z^{n+1}}{1-z}} \leq \frac{2}{\delta}
+		\end{displaymath}
+	Hence the hypotheses of Theorem \ref{thrm:DirTestUniConv} hold
+	and the result follows.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Abel's Theorem
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thrm}[Abel's Theorem]\label{thrm:Abel}
+	If $\sum_{k=0}^\infty c_k$ is a convergent complex series,
+	so that $\sum_{k=0}^\infty c_k z^k$ has radius of convergence
+	at least 1, then $\sum_{k=0}^\infty c_k x^k$ converges uniformly
+	for $0 \leq x \leq 1$.
+\end{thrm}
+
+\begin{proof}
+	Since $\sum_{k=0}^\infty c_k$ converges it is Cauchy. So given
+	$\epsilon > 0$ there exists $N > 0$ such that for $q > p > N$
+	we have
+		\begin{displaymath}
+			\modulus{\sum_{k=p+1}^q c_k} \leq \frac{\epsilon}{3}
+		\end{displaymath}
+	Now, if $0 \leq x \leq 1$ then $1 \geq x^k \geq x^{k+1} \geq 0$
+	for all $k \geq 0$. So by a slight modification of Theorem
+	\ref{thrm:AbelsLemma}, we have for $q > p > N$,
+		\begin{displaymath}
+			\modulus{\sum_{k=p+1}^q c_k x^k} \leq
+				2(\frac{\epsilon}{3})x^{p+1} \leq
+				\frac{2\epsilon}{3} < \epsilon
+		\end{displaymath}
+	Therefore the series $\sum_{k=0}^\infty c_k x^k$ is uniformly
+	Cauchy and hence converges uniformly on $0 \leq x \leq 1$.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Corollary to Abel's Theorem (OMITTED!!!)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{cor}
+\end{cor}
+
+\begin{proof}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Example of power series
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{ex}
+	For $\isreal[\alpha]$ and $0 \leq k \in \intgr$, define
+		\begin{displaymath}
+			{\alpha \choose k} =
+				\begin{cases}
+					1 & k = 0 \\
+					\displaystyle{
+						\frac{\alpha(\alpha-1)\cdots(\alpha-k+1)}
+						{k!}} & k > 0
+				\end{cases}
+		\end{displaymath}
+	Notice that this definition coincides with the usual one
+	when $0 \leq \isintgr[\alpha]$.
+	
+	\begin{enumerate}[i)]
+	
+		\item
+			Show that the radius of convergence of the power
+			series
+				\begin{displaymath}
+					\sum_{k=1}^\infty {\alpha \choose k} x^k
+				\end{displaymath}
+			is at least 1.
+			
+		\item
+			If
+				\begin{displaymath}
+					f(x) = 1 + \sum_{k=1}^\infty 
+						{\alpha \choose k} x^k
+				\end{displaymath}
+			for $-1 < x < 1$, use the theory of power series to
+			deduce that $(1+x)f'(x) = \alpha f(x)$ and therefore
+			that
+				\begin{displaymath}
+					f(x) = (1+x)^\alpha
+				\end{displaymath}
+				
+		\item
+			If $\alpha > -1$, show that
+				\begin{displaymath}
+					\sum_{k=1}^\infty {\alpha \choose k}
+				\end{displaymath}
+			is convergent and that
+				\begin{displaymath}
+					1 + \sum_{k=1}^\infty {\alpha \choose k} x^k
+				\end{displaymath}
+			converges uniformly on $[0,1]$ to $(1+x)^\alpha$.
+			
+		\item
+			Show that for all $\epsilon > 0$, there exist real
+			scalars $c_0, c_1, \ldots, c_n$ such that
+				\begin{displaymath}
+					\modulus{\modulus{x}-\sum_{k=0}^n c_k x^k}
+						< \epsilon
+				\end{displaymath}
+			for $-1 \leq x \leq 1$.
+			
+	\end{enumerate}
+\end{ex}
+
+\begin{soln}
+	\begin{enumerate}[i)]
+		
+		% Part i).	
+		\item
+			The radius of convergence of the given power series
+			is
+				\begin{IEEEeqnarray*}{rCl}
+					\lim_{k \rightarrow \infty} \modulus{
+						{\alpha \choose k}/{\alpha \choose k+1}}
+						& = & \lim_{k \rightarrow \infty} \modulus{
+							\frac{k+1}{\alpha - k}} \\
+					& = & 1
+				\end{IEEEeqnarray*}
+		
+		% Part ii).		
+		\item
+			If we let $f_k(x) = {\alpha \choose k} x^k$ for $k > 0$
+			then $f_k'(x) = (\alpha - k){\alpha \choose k} x^k$.
+			By a similar argument as that used in part i), the
+			radius of convergence of
+				\begin{displaymath}
+					\sum_{k=1}^\infty f_k'(x)
+				\end{displaymath}
+			is also 1. Hence by Theorem \ref{thrm:DerivUniConv},
+			we can differentiate $f$ term-by-term to obtain
+				\begin{IEEEeqnarray*}{rCl}
+					(1+x)f'(x) & = & f'(x) + xf'(x) \\
+					& = & \alpha + \sum_{k=1}^\infty
+						(\alpha-k){\alpha \choose k} x^k
+						+ \sum_{k=1}^\infty
+						k{\alpha \choose k} x^k \\
+					& = & \alpha \left( 1 + \sum_{k=1}^\infty
+						{\alpha \choose k} x^k \right) \\
+					& = & \alpha f(x)
+				\end{IEEEeqnarray*}
+			Now, to see that $f(x) = (1+x)^\alpha$, let
+				\begin{displaymath}
+					g(x) = \frac{f(x)}{(1+x)^\alpha}
+				\end{displaymath}
+			Then
+				\begin{IEEEeqnarray*}{rCl}
+					g'(x) & = & \frac{f'(x)(1+x)^\alpha
+						- \alpha(1+x)^{\alpha-1} f(x)}
+						{(1+x)^{2\alpha}} \\
+					& = & \frac{f'(x)(1+x)^\alpha -
+						(1+x)^{\alpha-1}(1+x)f'(x)}
+						{(1+x)^{2\alpha}} \\
+					& = & 0
+				\end{IEEEeqnarray*}
+			So $g$ is a constant. But $g(0) = 1$ so the result
+			is proved.
+			
+		% Part iii).	
+		\item
+			If we can show that the series
+				\begin{displaymath}
+					\sum_{k=1}^\infty {\alpha \choose k}
+				\end{displaymath}
+			converges, then by Theorem \ref{thrm:Abel}, the
+			power series
+				\begin{displaymath}
+					1 + \sum_{k=1}^\infty {\alpha \choose k} x^k
+				\end{displaymath}
+			converges uniformly on $[0,1]$. We will divide 
+			the solution into three cases.
+				\begin{enumerate}[{Case} 1.]
+				
+					% \alpha >= 0 and \alpha is an integer
+					\item
+						If $0 \leq \isintgr[\alpha]$ then the sum
+						in the infinite series is just a finite
+						sum so it converges.
+						
+					% \alpha > 0 and \alpha is not an integer
+					\item
+						If $\alpha > 0$ and $\alpha \notin \intgr$,
+						then let $N = \ceil{\alpha}$. If $k > N$,
+						we have
+							\begin{IEEEeqnarray*}{rCl}
+								{\alpha \choose k} & = & \frac{\alpha}{k}
+									\frac{\alpha-1}{1}\frac{\alpha-2}{2}
+									\cdots \frac{\alpha-(k-2)}{k-2}
+									\frac{\alpha-(k-1)}{k-1} \\
+								& = & \frac{\alpha}{k}\left(\frac{\alpha}{1}-1\right)
+									\left(\frac{\alpha}{2}-1\right)\cdots
+									\left(\frac{\alpha}{k-1}-1\right) \\
+								& = & (-1)^{k-1} \frac{\alpha}{k} \prod_{j=1}^{k-1}
+									\left(1-\frac{\alpha}{j}\right) \\
+								& = & (-1)^{k-1} \beta \beta_k
+							\end{IEEEeqnarray*}
+						where
+							\begin{displaymath}
+								\beta =
+									\begin{cases}
+										\alpha \left(1-\frac{\alpha}{1}\right)
+											\left(1-\frac{\alpha}{2}\right) \cdots
+											\left(1-\frac{\alpha}{N-1}\right)
+											& \text{if } N > 1 \\
+										1 & \text{if } N = 1
+									\end{cases}
+							\end{displaymath}
+						and
+							\begin{displaymath}
+								\beta_k = \left(1-\frac{\alpha}{N}\right)
+									\left(1-\frac{\alpha}{N+1}\right) \cdots
+									\left(1-\frac{\alpha}{k-1}\right)
+							\end{displaymath}
+						for $k > N$. Now notice that for $k > N$,
+							\begin{IEEEeqnarray*}{rCl}
+								\modulus{{\alpha \choose k+1} / 
+									{\alpha \choose k}}
+									& = & \frac{\beta \beta_{k+1}}
+										{\beta \beta_k} \\
+								& = & \frac{k}{k+1}\left(1-
+									\frac{\alpha}{k}\right) \\
+								& < & 1
+							\end{IEEEeqnarray*}
+						This shows that the terms of the series
+							\begin{displaymath}
+								\sum_{k=N+1}^\infty {\alpha \choose k}
+							\end{displaymath}
+						are decreasing, and that
+							\begin{displaymath}
+								\log \left(1-\frac{\alpha}{k}\right) < 0
+							\end{displaymath}
+						Therefore,
+							\begin{displaymath}
+								\lim_{k \rightarrow \infty}
+									\log \modulus{{\alpha \choose k}} =
+									\log \alpha - \log k +
+									\sum_{j=1}^{k-1} \log \modulus{
+									1-\frac{\alpha}{j}}
+							\end{displaymath}
+						$\rightarrow -\infty$. So the terms of the given series
+						converge to zero. Recall Leibniz Theorem for infinite series
+						which states that if $\{a_k\}_{k=1}^\infty$ is a sequence of
+						positive reals decreasing to zero, then the series
+							\begin{displaymath}
+								\sum_{k=1}^\infty (-1)^k a_k
+							\end{displaymath}
+						converges. Therefore,
+							\begin{IEEEeqnarray*}{rCl}
+								\sum_{k=1}^\infty {\alpha \choose k} & = &
+									\sum_{k=1}^N {\alpha \choose k}
+									+ \sum_{k=N+1}^\infty {\alpha \choose k} \\
+								& = & \sum_{k=1}^N {\alpha \choose k}
+									+ \beta \sum_{k=N+1}^\infty (-1)^{k-1} \beta_k
+							\end{IEEEeqnarray*}
+						converges if $\alpha > 0$.
+						
+					% -1 < \alpha < 0
+					\item
+						If $-1 < \alpha < 0$ we will also show that ${\alpha
+						\choose k}$ is decreasing and, in fact, that these 
+						terms converge to zero. For all $k > 0$, we have
+							\begin{IEEEeqnarray*}{rCl}
+								\modulus{{\alpha \choose k+1} / 
+									{\alpha \choose k}}
+									& = & \frac{k}{k+1}\modulus{
+									1-\frac{\alpha}{k}} \\
+								& = & \frac{k}{k+1}\frac{k+\modulus{\alpha}}{k} \\
+								& = & \frac{k+\modulus{\alpha}}{k+1} \\
+								& < & 1
+							\end{IEEEeqnarray*}
+						since $\modulus{\alpha} < 1$. Now
+							\begin{IEEEeqnarray*}{rCl}
+								\log \modulus{{\alpha \choose k}} & = & 
+									\log \modulus{\alpha} - \log k + \sum_{j=1}^{k-1}
+									\log \frac{\modulus{\alpha-j}}{j} \\
+								& = & \log \modulus{\alpha} - \sum_{j=1}^{k-1} [\log (j+1)
+									- \log j] + \sum_{j=1}^{k-1} [\log (j+\modulus{\alpha})
+									- \log j] \\
+								& = & \log \modulus{\alpha} - \sum_{j=1}^{k-1} [\log (j+1)
+									- \log (j+\modulus{\alpha})] \\
+								& = & \log \modulus{\alpha} - \sum_{j=1}^{k-1} \frac{(j+1)-
+									(j+\modulus{\alpha})}{x_j}
+							\end{IEEEeqnarray*}
+						where $\{x_j\}_{j=1}^\infty$ is a real sequence satisfying $j+\modulus{\alpha}
+						< x_j < j+1$ (here we have used the Mean Value Theorem). Therefore,
+							\begin{IEEEeqnarray*}{rCl}
+								\log \modulus{{\alpha \choose k}} & = & \log \modulus{\alpha} - 
+									\sum_{j=1}^{k-1} \frac{1 - \modulus{\alpha}}{x_j} \\
+								& < & \log \modulus{\alpha} - \sum_{j=1}^{k-1} \frac{1 - \modulus{\alpha}}
+									{\ceil{x_j}} \\
+								& = & \log \modulus{\alpha} - \sum_{j=1}^{k-1} \frac{1 - \modulus{\alpha}}
+									{j+1}
+							\end{IEEEeqnarray*}
+						$\rightarrow -\infty$ as $k \rightarrow \infty$ since $1-\modulus{\alpha}
+						> 0$. This implies that ${\alpha \choose k} \rightarrow 0$ as $k \rightarrow
+						\infty$, as stated and so, by Leibniz Theorem again, the series
+							\begin{displaymath}
+								\sum_{k=1}^\infty {\alpha \choose k}
+							\end{displaymath}
+						converges in this case.
+				\end{enumerate}
+			
+		% Part iv).	
+		\item
+			From part iii), we know the power series
+				\begin{displaymath}
+					f(x) = 1 + \sum_{k=1}^\infty
+						{\alpha \choose k} x^k
+				\end{displaymath}
+			converges uniformly on $[0,1]$ to $(1+x)^\alpha$. 
+			Therefore, it must converge uniformly on $(-1,1]$
+			to $(1+x)^\alpha$ because the radius of
+			convergence is at least 1. Also, this series converges
+			at -1 because the terms decrease to zero and are alternating
+			in sign (here we are using Leibniz Theorem as in part iii)).
+			Thus, the series converges uniformly on $[-1,1]$. So given 
+			$\epsilon > 0$, choose $N > 0$ such that
+				\begin{displaymath}
+					\modulus{f(x) - \sum_{k=1}^N
+						{\frac{1}{2} \choose k} x^k}
+						< \epsilon
+				\end{displaymath}
+			If $-1 \leq x \leq 1$ then $-1 \leq x^2-1 \leq 0$ so
+				\begin{displaymath}
+					\modulus{x} = \sqrt{1+(x^2-1)}
+						= f(x^2-1)
+				\end{displaymath}
+			(if we let $\alpha=1/2$). Therefore,
+				\begin{IEEEeqnarray*}{rCl}
+					\modulus{f(x^2-1)-\sum_{k=0}^N 
+						{\frac{1}{2} \choose k} (x^2-1)^k}
+						& = & \modulus{\modulus{x}-\sum_{k=0}^N 
+						{\frac{1}{2} \choose k} (x^2-1)^k} \\
+					& = &  \modulus{\modulus{x}-\sum_{k=0}^n c_k x^k} \\
+					& < & \epsilon
+				\end{IEEEeqnarray*}
+			for some real scalars $c_0, c_1, \ldots, c_n$ (where
+			$n = 2N$).
+	\end{enumerate}
+\end{soln}
+
+\end{section}

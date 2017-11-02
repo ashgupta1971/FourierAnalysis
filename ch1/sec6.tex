@@ -1,0 +1,395 @@
+\begin{section}{Leibniz Rule}
+
+Leibniz Rule is concerned with differentiating
+under an integral. The proof depends on Fubini's
+Theorem discussed in the last section.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Version 1 of Leibniz Rule
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thrm}[Leibniz Rule. Version 1]\label{thrm:Leibniz1}
+	Suppose $F:[a,b] \times [c,d] \to \cmplx$ and
+	$\frac{\partial F}{\partial x}(x,y)$ is defined
+	and continuous on $[a,b] \times [c,d]$. Let
+		\begin{displaymath}
+			\varphi(x) = \myinta{c}{d}{F(x,y)}{y}
+		\end{displaymath}
+	Then $\varphi$ is continuously differentiable
+	on $[a,b]$ and
+		\begin{displaymath}
+			\varphi'(x) = \myinta{c}{d}
+				{\frac{\partial F}{\partial x}(x,y)}{y}
+		\end{displaymath}
+\end{thrm}
+
+\begin{proof}
+	Let
+		\begin{displaymath}
+			\rho(x) = \myinta{c}{d}
+				{\frac{\partial F}{\partial x}(x,y)}{y}
+		\end{displaymath}
+	Then by Theorem \ref{thrm:Fubini1} and the fact
+	that $\frac{\partial F}{\partial x}(x,y)$ is continuous,
+	$\rho$ is continuous on $[a,b]$.
+	
+	Now, for $x \in [a,b]$
+		\begin{IEEEeqnarray*}{rCl}
+			\myinta{a}{x}{\rho(s)}{s} & = &
+				\myinta{a}{x}
+				{\myinta{c}{d}{\frac{\partial F}{\partial s}(s,y)}{y}}{s} \\
+			& = & \myinta{c}{d}
+				{\myinta{a}{x}{\frac{\partial F}{\partial s}(s,y)}{s}}{y}
+				\; \; \text{(by Theorem } \ref{thrm:Fubini1} \text{)} \\
+			& = & \myinta{c}{d}{[F(x,y) - F(a,y)]}{y}
+				\; \; \text{(by Theorem } \ref{thrm:FTC} \text{)} \\
+			& = & \varphi(x) - \varphi(a)
+		\end{IEEEeqnarray*}
+		
+	Therefore,
+		\begin{displaymath}
+			\varphi(x) = \varphi(a)
+				+ \myinta{a}{x}{\rho(s)}{s}
+		\end{displaymath}
+	
+	and because $\rho$ is continuous on $[a,b]$, we have
+		\begin{displaymath}
+			\varphi'(x) = \rho(x)
+		\end{displaymath}
+	by the Fundamental Theorem of Calculus.
+\end{proof}		
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Example using Version 1 of Leibniz Rule
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{ex}
+	Suppose $a,b,c,d \in \real$, $K = [a,b] \times [c,d]$,
+	$f:K \rightarrow \cmplx$ is continuous, $U = \real^2 
+	\backslash K$, and for $(x,y) \in U$ we define
+		\begin{displaymath}
+			u(x,y) = \myinta{c}{d}{\left(\myinta{a}{b}
+				{f(s,t)\log[(x-s)^2+(y-t)^2]}{s}\right)}{t}
+		\end{displaymath}
+	Prove that $u$ is harmonic on $U$. That is, it is $\ctsdiff$
+	and
+		\begin{displaymath}
+			\frac{\partial^2 u}{\partial x^2}(x,y) 
+				+ \frac{\partial^2 u}{\partial y^2}(x,y) = 0
+		\end{displaymath}
+	for all $(x,y) \in U$.
+\end{ex}
+
+\begin{soln}
+	Since $\log[(x-s)^2+(y-t)^2]$ is $\ctsdiff$ with respect to $x$
+	and $y$, for $(x,y) \in U$, we have by Theorem \ref{thrm:Leibniz1}
+		\begin{displaymath}
+			\frac{\partial^k u}{\partial x^k}(x,y) =
+				\myinta{c}{d}{\left(\myinta{a}{b}
+				{f(s,t) \frac{\partial^k}{\partial x^k}
+				\log[(x-s)^2+(y-t)^2]}{s}\right)}{t}
+		\end{displaymath}
+	for $\isnatrl[k]$. Similarly, all partial derivatives of $u$ with respect
+	to $y$ exist as well. For the second assertion, note that
+		\begin{IEEEeqnarray*}{rCl}
+			\frac{\partial^2 u}{\partial x^2}(x,y) & = &
+				\myinta{c}{d}{\left(\myinta{a}{b}
+				{f(s,t) \frac{\partial^2}{\partial x^2}
+				\log[(x-s)^2+(y-t)^2]}{s}\right)}{t} \\
+			& = & \myinta{c}{d}{\left(\myinta{a}{b}
+				{f(s,t) \frac{\partial}{\partial x}\left[
+				\frac{2(x-s)}{(x-s)^2+(y-t)^2}\right]}{s}\right)}{t} \\
+			& = & \myinta{c}{d}{\left(\myinta{a}{b}
+				{f(s,t) \frac{2[(x-s)^2+(y-t)^2] - 4(x-s)^2}
+				{[(x-s)^2+(y-t)^2]^2}}{s}\right)}{t}
+		\end{IEEEeqnarray*}
+	Similarly,
+		\begin{displaymath}
+			\frac{\partial^2 u}{\partial y^2}(x,y)
+				= \myinta{c}{d}{\left(\myinta{a}{b}
+				{f(s,t) \frac{2[(x-s)^2+(y-t)^2] - 4(y-t)^2}
+				{[(x-s)^2+(y-t)^2]^2}}{s}\right)}{t}
+		\end{displaymath}
+	Therefore,
+		\begin{IEEEeqnarray*}{rCl}
+			\frac{\partial^2 u}{\partial x^2}(x,y) 
+				+ \frac{\partial^2 u}{\partial y^2}(x,y) & = &
+				\myinta{c}{d}{\left(\myinta{a}{b}
+				{f(s,t) \frac{2[(x-s)^2+(y-t)^2] - 4(x-s)^2}
+				{[(x-s)^2+(y-t)^2]^2}}{s}\right)}{t} \\
+			& & + \; \myinta{c}{d}{\left(\myinta{a}{b}
+				{f(s,t) \frac{2[(x-s)^2+(y-t)^2] - 4(y-t)^2}
+				{[(x-s)^2+(y-t)^2]^2}}{s}\right)}{t} \\
+			& = & \myinta{c}{d}{\left(\myinta{a}{b}
+				{f(s,t) \frac{4[(x-s)^2+(y-t)^2] - 4[(x-s)^2+(y-t)^2]}
+				{[(x-s)^2+(y-t)^2]^2}}{s}\right)}{t} \\
+			& = & 0
+		\end{IEEEeqnarray*}
+	as required.
+\end{soln}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Version 2 of Leibniz Rule
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thrm}[Liebniz Rule. Version 2]\label{thrm:Leibniz2}
+	Suppose $X \subset \real$ is open, $F:X
+	\times \real \to \cmplx$ and
+	$\frac{\partial F}{\partial x}(x,y)$ is defined
+	and continuous on $X \times \real$. Furthermore,
+	suppose there exists $h \in \absint$ such that
+		\begin{displaymath}
+			\modulus{\frac{\partial F}{\partial x}(x,y)}
+			\leq \modulus{h(y)}
+		\end{displaymath}
+	for all $y \in \real$. Let
+		\begin{displaymath}
+			\varphi(x) = \myintb{F(x,y)}{y}
+		\end{displaymath}
+	for $x \in X$. Then $\varphi$ is continuously differentiable
+	on its domain and
+		\begin{displaymath}
+			\varphi'(x) = \myintb{\frac
+				{\partial F}{\partial x}(x,y)}{y}
+		\end{displaymath}
+\end{thrm}
+
+\begin{proof}
+	The proof of this theorem is very similar to that
+	of Theorem \ref{thrm:Leibniz1}.
+	
+	Let
+		\begin{displaymath}
+			\rho(x) = \myintb
+				{\frac{\partial F}{\partial x}(x,y)}{y}
+		\end{displaymath}
+	Then by Theorem \ref{thrm:Fubini2} and the fact
+	that $\frac{\partial F}{\partial x}(x,y)$ is defined
+	and continuous, $\rho$ is continuous on $X$.
+
+	Now, for $x_0, x \in X$
+		\begin{IEEEeqnarray*}{rCl}
+			\myinta{x_0}{x}{\rho(s)}{s} & = &
+				\myinta{x_0}{x}
+				{\myintb{\frac{\partial F}{\partial s}(s,y)}{y}}{s} \\
+			& = & \myintb
+				{\myinta{x_0}{x}{\frac{\partial F}{\partial s}(s,y)}{s}}{y}
+				\; \; \text{(by Theorem } \ref{thrm:Fubini2} \text{)} \\
+			& = & \myintb{[F(x,y) - F(x_0,y)]}{y}
+				\; \; \text{(by Theorem } \ref{thrm:FTC} \text{)} \\
+			& = & \varphi(x) - \varphi(x_0)
+		\end{IEEEeqnarray*}
+	Therefore,
+		\begin{displaymath}
+			\varphi(x) = \varphi(x_0)
+				+ \myinta{x_0}{x}{\rho(s)}{s}
+		\end{displaymath}
+	and because $\rho$ is continuous on $X$, we have
+		\begin{displaymath}
+			\varphi'(x) = \rho(x)
+		\end{displaymath}
+	by the Fundamental Theorem of Calculus.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Example using Version 2 of Leibniz Rule
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{ex}\label{ex:Leibniz2}
+	Let
+		\begin{displaymath}
+			f(x) = \left(\myinta{0}{x}{e^{-t^2}}{t}\right)^2
+				+ \myinta{0}{1}{\frac{e^{-x^2(1+t^2)}}{1+t^2}}{t}
+		\end{displaymath}
+	Show that
+		\begin{enumerate}[i)]
+			\item
+				$f'(x) = 0$ for all $\isreal$.
+			\item
+				$f(x) = \pi/2$ for all $\isreal$.
+			\item
+				\begin{displaymath}
+					\myinta{0}{\infty}{e^{-x^2}}{x} = 
+						\sqrt{\frac{\pi}{2}}
+				\end{displaymath}
+		\end{enumerate}
+\end{ex}
+
+\begin{soln}
+	\begin{enumerate}[i)]
+	
+		\item
+			Since
+				\begin{displaymath}
+					\modulus{\frac{e^{-x^2(1+t^2)}}{1+t^2}}
+						\leq e^{-x^2}
+				\end{displaymath}
+			for $0 \leq t \leq 1$ and clearly $e^{-x^2} \in \absint$,
+			we can apply Theorem \ref{thrm:Leibniz2} to obtain
+				\begin{IEEEeqnarray*}{rCl}
+					f'(x) & = & 2e^{-x^2}\left(
+						\myinta{0}{x}{e^{-t^2}}{t}\right)
+						+ \myinta{0}{1}{\frac{\partial}{\partial x}
+						\left(\frac{e^{-x^2(1+t^2)}}{1+t^2}\right)}{t} \\
+					& = & 2e^{-x^2}\left(\myinta{0}{x}{e^{-t^2}}{t}\right)
+						- 2x e^{-x^2} \myinta{0}{1}{e^{-x^2 t^2}}{t} \\
+					& = & 2e^{-x^2}\left(
+						\myinta{0}{x}{e^{-t^2}}{t}\right)
+						- 2 e^{-x^2} \myinta{0}{x}{e^{-s^2}}{s}
+						\; \; (s = xt) \\
+					& = & 0
+				\end{IEEEeqnarray*}
+		
+		\item
+			\begin{IEEEeqnarray*}{rCl}
+				f(0) & = & \left(\myinta{0}{0}{e^{-t^2}}{t}\right)^2 + 
+					\myinta{0}{1}{\frac{1}{1+t^2}}{t} \\
+				& = & \arctan(1) - \arctan(0) \\
+				& = & \frac{\pi}{2}
+			\end{IEEEeqnarray*}
+			Hence $f(x) = \pi/2$ for all $\isreal$ since $f$ is
+			constant by part i).
+			
+		\item
+			From part ii) we obtain
+				\begin{displaymath}
+					\left(\myinta{0}{\infty}{e^{-t^2}}{t}\right)^2
+						= \frac{\pi}{2} - \lim_{x \rightarrow \infty}
+						\myinta{0}{1}{\frac{e^{-x^2(1+t^2)}}{1+t^2}}{t}
+				\end{displaymath}
+			But
+				\begin{displaymath}
+					\frac{e^{-x^2(1+t^2)}}{1+t^2} \rightarrow 0
+				\end{displaymath}
+			uniformly, as $x \rightarrow \infty$ for $0 \leq t \leq 1$.
+			Hence
+				\begin{displaymath}
+					\left(\myinta{0}{\infty}{e^{-t^2}}{t}\right)^2
+						= \frac{\pi}{2}
+				\end{displaymath}
+			from which the result follows.
+	
+	\end{enumerate}
+\end{soln}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Third example -- builds on previous one
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{ex}
+	\begin{enumerate}[i)]
+		\item
+			Prove that for all $\isreal$, the map $t \mapsto
+			e^{-t^2/2} \cos xt$ belongs to $\absint$.
+		\item
+			Let
+				\begin{displaymath}
+					g(x) = \myintb{e^{-t^2/2}\cos xt}{t}
+				\end{displaymath}
+			for $\isreal$. Prove that $g \in \ctsdiff[1](\real)$
+			and $g'(x) = -x g(x)$.
+		\item
+			Deduce that $g(x) = 2\sqrt{\pi} e^{-x^2/2}$ for all $\isreal$.
+	\end{enumerate}
+\end{ex}
+
+\begin{soln}
+	\begin{enumerate}[i)]
+	
+		\item
+			This follows immediately from the inequality
+				\begin{displaymath}
+					\modulus{e^{-t^2/2} \cos xt} \leq e^{-t^2/2}
+				\end{displaymath}
+			
+		\item
+			From part i), the expression under the integral sign belongs
+			to $\absint$ and hence by Theorem \ref{thrm:Leibniz2}, $g$
+			belongs to $\ctsdiff[1](\real)$ and
+				\begin{IEEEeqnarray*}{rCl}
+					g'(x) & = & \myintb{\frac{\partial}{\partial x}
+						\left[e^{-t^2/2} \cos xt \right]}{t} \\
+					& = & \myintb{-t e^{-t^2/2} \sin xt}{t} \\
+					& = & \myintb{\frac{d}{dt}(e^{-t^2/2}) \sin xt}{t} \\
+					& = & \evalat{e^{-t^2/2} \sin xt}{t}{-\infty}{\infty}
+						- x \myintb{e^{-t^2/2} \cos xt}{t} \\
+					& = & -x g(x)
+				\end{IEEEeqnarray*}
+			
+		\item
+			Let
+				\begin{displaymath}
+					h(x) = \frac{g(x)}{e^{-x^2/2}}
+				\end{displaymath}
+			Then by part ii) $h \in \ctsdiff[1](\real)$ and
+				\begin{IEEEeqnarray*}{rCl}
+					h'(x) & = & \frac{1}{e^{-x^2}}\left[
+						g'(x)e^{-x^2/2} + x g(x)e^{-x^2/2}
+						\right] \\
+					& = & \frac{1}{e^{-x^2}}\left[
+						- x g(x)e^{-x^2/2} + x g(x)e^{-x^2/2}
+						\right] \\
+					& = & 0
+				\end{IEEEeqnarray*}
+			Hence
+				\begin{displaymath}
+					g(x) = C e^{-x^2/2}
+				\end{displaymath}
+			But
+				\begin{IEEEeqnarray*}{rCl}
+					g(0) & = & \myintb{e^{-t^2/2} \cos 0}{t} \\
+					& = & \sqrt{2} \myintb{e^{-s^2}}{s} \; \; (t = \sqrt{2}s) \\
+					& = & 2 \sqrt{2} \myinta{0}{\infty}{e^{-s^2}}{s} \\
+					& = & 2 \sqrt{2} \sqrt{\frac{\pi}{2}}
+						\; \; \text{(by Example \ref{ex:Leibniz2})} \\
+					& = & 2 \sqrt{\pi}
+				\end{IEEEeqnarray*}
+			Therefore,
+				\begin{displaymath}
+					g(x) = 2 \sqrt{\pi} e^{-x^2/2}
+				\end{displaymath}
+	
+	\end{enumerate}
+\end{soln}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Version 3 of Leibniz Rule
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thrm}[Leibniz Rule. Version 3]
+	Suppose $X \subset \real^n$ is open, $F:X
+	\times \real \to \cmplx$ and
+		\begin{displaymath}
+			\frac{\partial F}{\partial x_k}
+				(x_1, x_2, \ldots, x_n, y)
+		\end{displaymath}
+	is defined and continuous for $1 \leq k \leq n$.
+	Furthermore, suppose there exist functions $h_k
+	\in \absint, 1 \leq k \leq n$ such that
+		\begin{displaymath}
+			\modulus{
+				\frac{\partial F}{\partial x_k}
+				(x_1, x_2, \ldots, x_n, y)}
+			\leq \modulus{h_k(y)}
+		\end{displaymath}
+	for $1 \leq k \leq n$.
+	Let
+		\begin{displaymath}
+			\varphi(x) = \myintb{F(x,y)}{y}
+		\end{displaymath}
+	for $x \in X$.
+	Then $\varphi$ is continuously differentiable
+	on its domain and
+		\begin{displaymath}
+			\frac{\partial \varphi}{\partial x_k}
+				(x_1, x_2, \ldots, x_n, y)
+				= \myintb{\frac{\partial F}
+				{\partial x_k}(x_1, x_2, \ldots, x_n, y)}{y}
+		\end{displaymath}
+\end{thrm}
+
+\begin{proof}
+	The proof follows directly from Theorem \ref{thrm:Leibniz2}.
+\end{proof}
+
+\end{section}

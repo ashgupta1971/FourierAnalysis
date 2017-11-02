@@ -1,0 +1,228 @@
+\begin{section}{The Fourier Integral Theorem}
+
+	In this section we present two versions of
+	the Fourier Integral Theorem.
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Preliminary Lemma
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{lemma}\label{lemma:FIT}
+	Suppose $f \in \absint$, $\isreal[a]$, $g(t)=f(t+a)$
+	and $h(t)=f(-t)$ for $\isreal[t]$. Then $g,h \in
+	\absint$,
+		\begin{displaymath}
+			\myintb{g(t)}{t}=\myintb{h(t)}{t}=\myintb{f(t)}{t}
+		\end{displaymath}
+	and $\norm[1]{g}=\norm[1]{h}=\norm[1]{f}$.
+\end{lemma}
+
+\begin{proof}
+	If $A > 0$ then
+		\begin{IEEEeqnarray*}{rCl}
+			\myintb[A]{\modulus{g(t)}}{t} & = &
+				\myintb[A]{\modulus{f(t+a)}}{t} \\
+			& = & \myinta{a-A}{a+A}{\modulus{f(s)}}{s}
+				\; \;(s=t+a) \\
+			& \rightarrow & \myintb{\modulus{f(t)}}{t} \\
+			& = & \norm[1]{f}
+		\end{IEEEeqnarray*}
+	Hence $g \in \absint$ and $\norm[1]{g}=\norm[1]{f}$. A
+	similar argument shows that
+		\begin{displaymath}
+			\myintb[A]{g(t)}{t} \rightarrow
+				\myintb{f(t)}{t}
+		\end{displaymath}
+	as $A \rightarrow \infty$ and also that $h \in \absint$,
+	$\norm[1]{h}=\norm[1]{f}$ and
+		\begin{displaymath}
+			\myintb{h(t)}{t} = \myintb{f(t)}{t}
+		\end{displaymath}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Fourier Integral Thrm (Preliminary Version)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thrm}[Fourier Integral Theorem. Preliminary Version]
+\label{thrm:FIT1}
+	Suppose $f \in \absint$ and for some $\isreal$ and $\delta
+	> 0$ the following all exist
+		\begin{enumerate}[i)]
+			\item
+				$f(x+)=\lim_{y \rightarrow x^+}f(y)$
+			\item
+				$f(x-)=\lim_{y \rightarrow x^-}f(y)$
+			\item
+				\begin{displaymath}
+					\myinta{0}{\delta}{\frac{f(x+t)-f(x+)}{t}}{t}
+				\end{displaymath}
+			\item
+				\begin{displaymath}
+					\myinta{0}{\delta}{\frac{f(x-t)-f(x-)}{t}}{t}
+				\end{displaymath}
+		\end{enumerate}
+	(These conditions can be met, for example, if $f$ has left and
+	right derivatives at $x$.) Then
+		\begin{displaymath}
+			\frac{f(x+)+f(x-)}{2}=\lim_{\lambda \rightarrow \infty}
+				\frac{1}{\pi}\myintb{f(u)\left(
+				\myinta{0}{\lambda}{\cos v(u-x)}{v}\right)}{u}
+		\end{displaymath}
+\end{thrm}
+
+\begin{proof}
+	By Theorem \ref{thrm:RLL},
+		\begin{displaymath}
+			\lim_{\lambda \rightarrow \infty}\myinta{-\infty}{-\delta}
+				{f(x+t)\frac{\sin \lambda t}{t}}{t}
+				= 0
+		\end{displaymath}
+	and
+		\begin{displaymath}
+			\lim_{\lambda \rightarrow \infty}\myinta{\delta}{\infty}
+				{f(x+t)\frac{\sin \lambda t}{t}}{t}
+				= 0
+		\end{displaymath}
+	Also, by Corollary \ref{cor:Dini3},
+		\begin{displaymath}
+			\lim_{\lambda \rightarrow \infty}\myinta{0}{\delta}
+				{f(x+t)\frac{\sin \lambda t}{t}}{t}
+				= \frac{\pi}{2}f(x+)
+		\end{displaymath}
+	and
+		\begin{displaymath}
+			\lim_{\lambda \rightarrow \infty}\myinta{-\delta}{0}
+				{f(x+t)\frac{\sin \lambda t}{t}}{t}
+				= \frac{\pi}{2}f(x-)
+		\end{displaymath}
+	Hence
+		\begin{IEEEeqnarray*}{rCl}
+			\lim_{\lambda \rightarrow \infty}\frac{1}{\pi}
+				\myintb{f(x+t)\frac{\sin \lambda t}{t}}{t}
+				& = & \lim_{\lambda \rightarrow \infty}\frac{1}{\pi}
+				\myinta{-\infty}{-\delta}{f(x+t)\frac{\sin \lambda t}{t}}{t} \\
+			& & + \; \lim_{\lambda \rightarrow \infty}\frac{1}{\pi}
+				\myinta{-\delta}{0}{f(x+t)\frac{\sin \lambda t}{t}}{t} \\
+			& & + \; \lim_{\lambda \rightarrow \infty}\frac{1}{\pi}
+				\myinta{0}{\delta}{f(x+t)\frac{\sin \lambda t}{t}}{t} \\
+			& & + \; \lim_{\lambda \rightarrow \infty}\frac{1}{\pi}
+				\myinta{\delta}{\infty}{f(x+t)\frac{\sin \lambda t}{t}}{t} \\
+			& = & \frac{f(x+)+f(x-)}{2}
+		\end{IEEEeqnarray*}
+	But using Lemma \ref{lemma:FIT}
+		\begin{IEEEeqnarray*}{rCl}
+			\myintb{f(x+t)\frac{\sin \lambda t}{t}}{t} & = &
+				\myintb{f(u)\frac{\sin \lambda(u-x)}{u-x}}{u}
+				\; \; (u=x+t) \\
+			& = & \myintb{f(u)\left(\myinta{0}{\lambda}{\cos v(u-x)}{v}
+				\right)}{u}
+		\end{IEEEeqnarray*}
+	and so
+		\begin{displaymath}
+			\frac{f(x+)+f(x-)}{2} = \lim_{\lambda \rightarrow \infty}
+				\frac{1}{\pi}\myintb{f(u)\left(
+				\myinta{0}{\lambda}{\cos v(u-x)}{v}\right)}{u}
+		\end{displaymath}
+	as required.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Fourier Integral Thrm (Utility Grade)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thrm}[Fourier Integral Theorem]\label{thrm:FIT2}
+	Suppose $f \in \absint$, $f$ is continuous, $\isreal$ and
+	for some $\delta > 0$ the following integrals exist.
+		\begin{displaymath}
+			\myinta{0}{\delta}{\frac{f(x+t)-f(x)}{t}}{t}
+		\end{displaymath}
+	and
+		\begin{displaymath}
+			\myinta{0}{\delta}{\frac{f(x-t)-f(x)}{t}}{t}
+		\end{displaymath}
+	(Again, these integrals exist if, for example, $f$ has left and
+	right derivatives at $x$.) Then
+		\begin{IEEEeqnarray*}{rCl}
+			f(x) & = & \lim_{\lambda \rightarrow \infty}
+				\myintb[\lambda]{\left(\myintb{f(u)e^{ivu}}{u}
+				\right)e^{-ixv}}{v} \\
+			& = & \lim_{\lambda \rightarrow \infty}
+				\myintb[\lambda]{\f(-v)e^{-ixv}}{v}
+		\end{IEEEeqnarray*}
+\end{thrm}
+
+\begin{proof}
+	Fix $\lambda > 0$. By Theorem \ref{thrm:Fubini2},
+		\begin{IEEEeqnarray*}{rCl}
+			\frac{1}{\pi}\myintb{f(u)\left(
+				\myinta{0}{\lambda}{\cos v(u-x)}{v}
+				\right)}{u} & = &
+				\frac{1}{\pi}\myinta{0}{\lambda}{\left(
+				\myintb{f(u)\cos v(u-x)}{u}\right)}{v} \\
+			& = & \frac{1}{2\pi}\myinta{0}{\lambda}{\left(
+				\myintb{f(u)(e^{iv(u-x)}+e^{-iv(u-x)})}{u}
+				\right)}{v} \\
+			& = & \frac{1}{2\pi}\myinta{0}{\lambda}{\left(
+				\myintb{f(u)e^{ivu}}{u}\right)e^{-ivx}}{v} \\
+			& & + \; \frac{1}{2\pi}\myinta{0}{\lambda}{\left(
+				\myintb{f(u)e^{-ivu}}{u}\right)e^{ivx}}{v} \\
+			& = & \frac{1}{2\pi}\myinta{0}{\lambda}{\f(-v)e^{-ivx}}{v} \\
+			& & + \; \frac{-1}{2\pi}\myinta{0}{-\lambda}{\left(
+				\myintb{f(u)e^{iwu}}{u}\right)e^{-iwx}}{w} \; \;
+				(w=-v) \\
+			& = & \frac{1}{2\pi}\myinta{0}{\lambda}{\f(-v)e^{-ivx}}{v} \\
+			& & + \; \frac{1}{2\pi}\myinta{-\lambda}{0}{\f(-w)e^{-iwx}}{w} \\
+			& = & \frac{1}{2\pi}\myintb[\lambda]{\f(-v)e^{-ivx}}{v}
+		\end{IEEEeqnarray*}
+	But from Theorem \ref{thrm:FIT1}
+		\begin{displaymath}
+			f(x) = \lim_{\lambda \rightarrow \infty}\frac{1}{\pi}
+				\myintb{f(u)\left(\myinta{0}{\lambda}{\cos v(u-x)}{v}
+				\right)}{u}
+		\end{displaymath}
+	and so
+		\begin{displaymath}
+			f(x) = \lim_{\lambda \rightarrow \infty}
+				\frac{1}{2\pi}\myintb[\lambda]{\f(-v)e^{-ivx}}{v}
+		\end{displaymath}
+\end{proof}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Defn and Cor. to Fourier Integral Thrm (Utility Grade)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{defn}
+	For $f \in \absint$ let $\check{f}(x)=\f(-x)$ for
+	all $\isreal$ and define $\fmtransform[]:\absint
+	\rightarrow \ctszeror$ by $\fmtransform = \check{f}$.
+\end{defn}
+
+\begin{cor}\label{cor:FIT2}
+	\begin{enumerate}[i)]
+		\item
+			$\fmtransform[]$ is a linear map from $\absint$ to
+			$\ctszeror$ and $\supnorm{\fmtransform} \leq 
+			\norm[1]{f}$ for all $f \in \absint$.
+		\item
+			If $f \in \absint \cap \ctszeror$ and $\f \in
+			\absint$ then
+				\begin{displaymath}
+					f = \frac{1}{2\pi}\ftransform[(\fmtransform)]
+						= \frac{1}{2\pi}\fmtransform[(\ftransform)]
+				\end{displaymath}
+	\end{enumerate}
+\end{cor}
+
+\begin{proof}
+	\begin{enumerate}[i)]
+		\item
+			Clearly $\fmtransform[]$ is linear and the second
+			assertion follows from Proposition \ref{prop:FTransform}.
+		\item
+			This result follows from Theorem \ref{thrm:FIT2}.
+	\end{enumerate}
+\end{proof}
+
+\end{section}

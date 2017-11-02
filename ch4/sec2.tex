@@ -1,0 +1,265 @@
+\begin{section}{Metric Spaces}
+
+	In this brief section we define metric spaces and
+	Banach spaces and prove some related results.
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Defn of metric and Banach space
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{defn}
+	A set $X$ together with a function $d(x,y):X \rightarrow
+	[0,\infty), x,y \in X$
+	is called a \emph{metric space} provided the function $d$
+	satisfies
+		\begin{enumerate}[i)]
+			\item
+				$d(x,x) = 0$
+			\item
+				$d(x,y) = d(y,x)$
+			\item
+				$d(x,y)+d(y,z) \geq d(x,z)$
+		\end{enumerate}
+	This function $d$ is called a \emph{metric} on $X$. If,
+	in addition, $X$ is complete with respect to $d$, then
+	$X$ is called a \emph{Banach space}.
+\end{defn}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Metric/Banach space example
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{ex}\label{ex:MetricInducedFromNorm}
+	Let $X$ be a normed space and define $d(x,y) = \norm[]{x-y}$
+	for $x,y \in X$. Show that $d$ is a metric on $X$ (it is called
+	the \emph{metric induced by the norm $\norm[]{\cdot}$}).
+	Furthermore, if $X$ is complete with respect to $d$ (ie. it is
+	a Banach space), and $\{x_k\}_{k=1}^\infty$ is a sequence in $X$
+	for which $\sum_{k=1}^\infty \norm[]{x_k}$ converges, then
+	$\sum_{k=1}^\infty x_k$ also converges.
+\end{ex}
+
+\begin{soln}
+	If $x \in X$ then $d(x,x) = \norm[]{x-x} = \norm[]{0} = 0$. Also,
+	if $x,y \in X$, then $d(x,y)=\norm[]{x-y}=\norm[]{y-x}=d(y,x)$.
+	Finally, by the Triangle Inequality, if $x,y,z \in X$,
+		\begin{IEEEeqnarray*}{rCl}
+			d(x,y)+d(y,z) & = & \norm[]{x-y}+\norm[]{y-z} \\
+			& \geq & \norm[]{(x-y)+(y-z)} \\
+			& = & \norm[]{x-z} \\
+			& = & d(x,z)
+		\end{IEEEeqnarray*}
+	Thus $d$ is indeed a metric. For the last part of the solution,
+	let
+		\begin{displaymath}
+			S_n = \sum_{k=1}^n x_k
+		\end{displaymath}
+	for $n \geq 1$. Now, given $\epsilon > 0$ choose $N > 0$ 
+	such that if $q > p > N$ we	have,
+		\begin{displaymath}
+			\sum_{k=p+1}^q \norm[]{x_k} < \epsilon
+		\end{displaymath}
+	This can be done since $\sum_{k=1}^\infty \norm[]{x_k}$ converges
+	and hence is Cauchy. Then, by the Triangle Inequality, 
+		\begin{displaymath}
+			d(S_q,S_p) = \norm[]{S_q-S_p}
+				= \norm[]{\sum_{k=p+1}^q x_k}
+				\leq \sum_{k=p+1}^q \norm[]{x_k} 
+				< \epsilon
+		\end{displaymath}
+	So the series $\sum_{k=1}^\infty x_k$ is Cauchy in $X$. Since $X$ is
+	complete, this implies this series converges.
+\end{soln}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Defn of bounded metric
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{defn}
+	A metric $d$ on a set $X$ is called a 
+	\emph{bounded metric} provided there exists $M > 0$ 
+	such that $d(x,y) < M$ for all $x,y \in X$.
+\end{defn}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Basic result of bounded metrics
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{prop}\label{prop:BoundedMetric}
+	Let $g$ be a metric on a set $X$ and define
+		\begin{displaymath}
+			d(x,y) = \frac{g(x,y)}{1+g(x,y)}
+		\end{displaymath}
+	for all $x,y \in X$. Then $d$ is a bounded metric on $X$.
+\end{prop}
+
+\begin{proof}
+	First we will show that $d$ is indeed a metric.
+		\begin{enumerate}[i)]
+			\item
+				For all $x \in X$,
+					\begin{displaymath}
+						d(x,x) = \frac{g(x,x)}{1+g(x,x)} = 0
+					\end{displaymath}
+			\item
+				For all $x,y \in X$,
+					\begin{displaymath}
+						d(x,y)=\frac{g(x,y)}{1+g(x,y)}
+							=\frac{g(y,x)}{1+g(y,x)}
+							=d(y,x)
+					\end{displaymath}
+			\item
+				For all $x,y,z \in X$,
+					\begin{IEEEeqnarray*}{rCl}
+						d(x,z) & = & \frac{g(x,z)}{1+g(x,z)} \\
+						& \leq & \frac{g(x,y)+g(y,z)}{1+g(x,y)+g(y,z)} \\
+						& = & \frac{g(x,y)}{1+g(x,y)+g(y,z)}
+							+ \frac{g(y,z)}{1+g(x,y)+g(y,z)} \\
+						& \leq & \frac{g(x,y)}{1+g(x,y)}
+							+ \frac{g(y,z)}{1+g(y,z)} \\
+						& = & d(x,y)+d(y,z)
+					\end{IEEEeqnarray*}
+		\end{enumerate}
+	Finally it is easily seen that $d$ is bounded above by 1.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Defn of equivalent metrics
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{defn}
+	Two metrics $d$ and $g$ on a set $X$ are called
+	\emph{equivalent} provided there exist positive constants
+	$C_1$ and $C_2$ such that $C_1 g(x,y) \leq d(x,y) \leq
+	C_2 g(x,y)$ for all $x,y \in X$.
+\end{defn}
+
+	Readers familiar with general topology will know that
+	equivalent metrics generate identical topologies on $X$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Basic theorem on equivalent metrics
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+\begin{prop}
+	Let $g$ be a metric on a set $X$ and define
+		\begin{displaymath}
+			d(x,y) = \frac{g(x,y)}{1+g(x,y)}
+		\end{displaymath}
+	for all $x,y \in X$. Then $d$ and $g$ are equivalent
+	metrics on $X$.
+\end{prop}
+
+\begin{proof}
+	It is clear that $d(x,y) \leq g(x,y)$ for all $x,y \in X$.
+	We will show that $g(x,y) \leq 2d(x,y)$ to complete the
+	proof. This will be done in steps.
+		\begin{enumerate}[{Step} 1]
+			
+			\item
+				For $\isreal, x \geq 0$, let
+					\begin{displaymath}
+						f(x)=\frac{x}{1+x}-2x
+					\end{displaymath}
+				Then
+					\begin{displaymath}
+						f'(x)=\frac{1}{(1+x)^2}-2
+					\end{displaymath}
+				and
+					\begin{displaymath}
+						f''(x)=-\frac{2}{(1-x)^3}
+					\end{displaymath}
+				Hence 
+					and
+					\begin{displaymath}
+						f'''(x)=\frac{6}{(1-x)^4}
+					\end{displaymath}
+		\end{enumerate}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Final theorem on bounded metrics
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thrm}\label{thrm:SumOfMetrics}
+	Let $X$ be a non-empty set and $\{d_k\}_{k=1}^\infty$ a
+	sequence of metrics on $X$. Define
+		\begin{displaymath}
+			d(x,y)=\sum_{k=1}^\infty \frac{1}{2^k} \frac
+				{d_k(x,y)}{1+d_k(x,y)}
+		\end{displaymath}
+	for all $x,y \in X$. Then
+		\begin{enumerate}[i)]
+			\item
+				$d$ is a metric on $X$.
+			\item
+				A sequence $\{x_n\}_{n=1}^\infty$ in $X$ converges
+				to some $x_0 \in X$ with respect to $d$ iff that 
+				sequence also converges to $x_0$ with respect to each $d_k$.
+			\item
+				$X$ is complete with respect to $d$ iff it is complete
+				with respect to each $d_k$.
+		\end{enumerate}
+\end{thrm}
+
+\begin{proof}
+	\begin{enumerate}[i)]
+		
+		\item
+			All the properties of a metric can be proven for $d$ in
+			a similar fashion as they were in Proposition
+			\ref{prop:BoundedMetric}.
+		
+		\item
+			Suppose $\{x_n\}_{n=1}^\infty$ does not converge to $x_0$
+			with respect to some $d_K$. This implies for some $\epsilon > 0$
+			there is a subsequence $\{x_{n_j}\}_{j=1}^\infty$ such that
+			$d_K(x_{n_j},x_0) > \epsilon$ for all $j \geq 1$. Hence
+				\begin{displaymath}
+					d(x_{n_j},x_0)=\sum_{k=1}^\infty \frac{1}{2^k} \frac
+						{d_k(x_{n_j},x_0)}{1+d_k(x_{n_j},x_0)}
+						\geq \frac{1}{2^K} d_K(x_{n_j},x_0)
+						> \frac{\epsilon}{2^K}
+				\end{displaymath}
+			which means $\{x_n\}_{n=1}^\infty$ doesn't converge to $x_0$ with
+			respect to $d$.
+			
+			Conversely, suppose $\{x_n\}_{n=1}^\infty$ converges to $x_0$ with
+			respect to each $d_k$. Given $\epsilon > 0$ choose $N' > 0$ such
+			that
+				\begin{displaymath}
+					\sum_{k=N'+1}^\infty \frac{1}{2^k} < \epsilon/2
+				\end{displaymath}
+			Next choose $N > 0$ such that for all $1 \leq k \leq N'$,
+				\begin{displaymath}
+					d_k(x_n,x_0) < \frac{\epsilon 2^{k-1}}{N'}
+				\end{displaymath}
+			if $n > N$. This can be done because $\{x_n\}_{n=1}^\infty$ converges
+			to $x_0$ with respect to each $d_k$. Then if $n > N$,
+				\begin{IEEEeqnarray*}{rCl}
+					d(x_n,x_0) & = & \sum_{k=1}^\infty \frac{1}{2^k} \frac
+						{d_k(x_n,x_0)}{1+d_k(x_n,x_0)} \\
+					& = & \sum_{k=1}^{N'} \frac{1}{2^k} \frac{d_k(x_n,x_0)}
+						{1+d_k(x_n,x_0)}
+						+ \sum_{k=N'+1}^\infty \frac{1}{2^k} \frac
+						{d_k(x_n,x_0)}{1+d_k(x_n,x_0)} \\
+					& < & \sum_{k=1}^{N'} \frac{1}{2^k} \frac{\epsilon 2^{k-1}}{N'}
+						+ \sum_{k=N'+1}^\infty \frac{1}{2^k} \\
+					& < & \frac{\epsilon}{2}+\frac{\epsilon}{2} \\
+					& = & \epsilon
+				\end{IEEEeqnarray*}
+			Hence $\{x_n\}_{n=1}^\infty$ converges to $x_0$ with respect to $x_0$.
+			
+		\item
+			An argument similar to that in ii) can be used to show that sequences
+			are Cauchy with respect to $d$ iff they are Cauchy with respect to each
+			$d_k$. Therefore if $d$ is complete and $\{x_n\}_{n=1}^\infty$ is
+			Cauchy with respect to $d$ then this sequence converges to some $x_0 \in
+			X$ with respect to $d$. But by part ii), this implies it converges to
+			$x_0$ with respect to each $d_k$.
+	%%%%%%%%%%%%%%%%%%%%%%%%%% INCOMPLETE!!!
+	
+	\end{enumerate}
+\end{proof}
+
+\end{section}
